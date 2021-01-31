@@ -1,0 +1,25 @@
+!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<footer th:fragment="footer(tel,mail)">
+    <h2 >Skontaktuj się z nami</h2>
+    <th :block th:each="tel : ${tel}">
+        <p class="green-color" th:inline="text" ><i class="bi bi-telephone"></i>[[${tel}]]</p>
+    </th>
+    <th :block th:each="mail : ${mail}">
+        <p class="yellow-color" th:inline="text" ><i class="bi bi-envelope"></i>[[${mail}]]</p>
+    </th>
+    <!--
+    <p class="green-color"><i class="bi bi-telephone"></i> tel. 342 054 253</p>
+    <p class="yellow-color"><i class="bi bi-envelope"></i> email szkola@spszkola.pl</p>
+    -->
+</footer>
+
+
+</body>
+</html>

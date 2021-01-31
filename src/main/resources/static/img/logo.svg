@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="148.498mm"
+   height="27.679001mm"
+   viewBox="0 0 148.498 27.679001"
+   version="1.1"
+   id="svg946"
+   inkscape:version="1.0.1 (3bc2e813f5, 2020-09-07)"
+   sodipodi:docname="logo.svg">
+  <defs
+     id="defs940">
+    <rect
+       x="43.609276"
+       y="25.584108"
+       width="168.9702"
+       height="22.819675"
+       id="rect888" />
+    <rect
+       x="43.609276"
+       y="25.584108"
+       width="168.9702"
+       height="22.819675"
+       id="rect926" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.35"
+     inkscape:cx="-111.42857"
+     inkscape:cy="560"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     inkscape:document-rotation="0"
+     showgrid="false"
+     inkscape:window-width="1850"
+     inkscape:window-height="1030"
+     inkscape:window-x="32"
+     inkscape:window-y="0"
+     inkscape:window-maximized="0" />
+  <metadata
+     id="metadata943">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Warstwa 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <g
+       id="g1005"
+       transform="translate(-17.97719,-9.5950235)">
+      <g
+         id="g911"
+         transform="translate(-2.2267102,-29.824207)">
+        <g
+           id="g902">
+          <path
+             id="rect10-7-7"
+             style="fill:#d40000;fill-rule:evenodd;stroke-width:0.149717"
+             d="m 142.02936,56.738001 h -22.44767 v 10.360465 h 22.44767 L 133.06934,61.8649 Z"
+             sodipodi:nodetypes="cccccc" />
+          <path
+             style="fill:#800000;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+             d="m 119.64283,63.382154 9.86298,0.162028 -9.92412,3.554283 z"
+             id="path43-6" />
+        </g>
+        <g
+           id="g898">
+          <path
+             id="rect10-7"
+             style="fill:#d40000;fill-rule:evenodd;stroke-width:0.149717"
+             d="M 46.876443,56.738001 H 69.324117 V 67.098466 H 46.876443 L 55.836464,61.8649 Z"
+             sodipodi:nodetypes="cccccc" />
+          <path
+             style="fill:#800000;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+             d="m 69.262973,63.382154 -9.862976,0.162028 9.924119,3.554283 z"
+             id="path43" />
+        </g>
+        <rect
+           style="fill:#ff0000;fill-rule:evenodd;stroke-width:0.264583"
+           id="rect10"
+           width="70.105812"
+           height="10.360464"
+           x="59.399998"
+           y="53.18372" />
+      </g>
+      <text
+         xml:space="preserve"
+         id="text886"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:14.1111px;line-height:1.25;font-family:'Nachlieli CLM';-inkscape-font-specification:'Nachlieli CLM';white-space:pre;shape-inside:url(#rect888);fill:#000000;fill-opacity:1;stroke:none;"
+         transform="translate(-26.253394,-18.754916)"><tspan
+           x="43.609375"
+           y="38.636752"><tspan
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:14.1111px;font-family:'Nachlieli CLM';-inkscape-font-specification:'Nachlieli CLM'">SZKO</tspan><tspan
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:14.1111px;font-family:'Nachlieli CLM';-inkscape-font-specification:'Nachlieli CLM'">Ł</tspan><tspan
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:14.1111px;font-family:'Nachlieli CLM';-inkscape-font-specification:'Nachlieli CLM'">A PODSTAWOWA</tspan></tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-size:7.05556px;line-height:1.25;font-family:sans-serif;fill:#ffffff;stroke-width:0.264583"
+         x="69.803795"
+         y="31.108068"
+         id="text915"><tspan
+           sodipodi:role="line"
+           id="tspan913"
+           x="69.803795"
+           y="31.108068"
+           style="font-size:7.05556px;fill:#ffffff;stroke-width:0.264583">W LASKOWEJ</tspan></text>
+    </g>
+  </g>
+</svg>

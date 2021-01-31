@@ -1,0 +1,149 @@
+:root{
+  --red: #A8301E;
+  --purple: #A750A3;
+  --blue: #00C9C7;
+  --pink: #FF85A5;
+  --green: #007451;
+  --light-green:#459B3E;
+  --brown: #BE7D6E;
+  --light-brown:#FFE6D9;
+  --yellow: #FFCA5D;
+}
+
+p>i, h3>i{
+  margin-right: 10px;
+}
+
+div.FlexContainer{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+}
+
+div.boxContainer{
+  width: 100%;
+  display: flex;
+  justify-content:center;
+  align-items: stretch;
+  align-content: stretch;
+  flex-direction: row;
+  flex-wrap: nowrap;
+}
+
+section>div.boxContainer{
+  min-height: 80vh;
+}
+
+div.boxContainer>.box.imgBox{
+  padding-top: 30px;
+  padding-left: 30px;
+  padding-bottom: 30px;
+  padding-right: 0;
+  padding-left: 0;
+}
+
+div.boxContainer .imgBox>img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+div.boxContainer .textBox{
+  padding: 5vw;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+div.boxContainer .textBox.light-brown-background{
+  color: black;
+}
+
+div.boxContainer .iconBox i{
+  font-size: 3em;
+}
+
+div.boxContainer .textImageBox{
+    color: white;
+    margin: 0 40px;
+    padding: 10px;
+}
+
+div.boxContainer .textImageBox:nth-of-type(2){
+  transform: translateY(30px);
+}
+
+div.boxContainer .textImageBox i{
+  font-size: 2em;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+div.boxContainer .textImageBox h4{
+  margin-top: 10px;
+}
+
+div.boxContainer .textImageBox img{
+  width: 120%;
+  height: 200px;
+  object-fit: cover;
+  margin-right: -20%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+div.boxContainer .textImageBox + .textBox{
+  margin-left: auto;
+}
+
+div.slide{
+  width: 100%;
+  height: 85vh;
+  padding: 20px;
+  overflow: hidden;
+}
+
+div.slide > .box {
+  padding: 0;
+}
+
+div.slide1{
+  background: var(--brown);
+}
+
+div.slide1 img{
+  width: 100%;
+}
+
+div.slide1 .textBox{
+  background-color: var(--purple);
+  padding: 30px;
+  border-radius: 10px;
+  margin-left: -30px;
+}
+
+div.slide1 .textBox i{
+  margin-right: 5px;
+}
+
+
+div.slide2{
+  background: var(--pink);
+}
+
+
+div.slide3 .FlexContainer>div{
+  width: 80%;
+  background-color: white;
+  border-radius: 10px;
+  padding: 20px;
+  text-align: center;
+}
+
+div.slide3 .FlexContainer>div img{
+  width: 80%;
+  height: 200px;
+  object-fit: cover;
+  margin-bottom: 30px;
+}

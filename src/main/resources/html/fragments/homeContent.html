@@ -1,0 +1,136 @@
+!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<section th:fragment="slider">
+    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+        <ol class="carousel-indicators">
+            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+        </ol>
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <div class="slide boxContainer slide1">
+                    <div class="box col-6">
+                        <h1>Każde dziecko ma <span class="blue-color"> wielkie </span> <span class="yellow-color"> marzenia</span></h1>
+                        <img src="./../img/Art-Therapy_GettyImages-866028730.jpg" alt="">
+                    </div>
+                    <div class="box col-6">
+                        <div class="textBox">
+                            <div class="boxContainer">
+                                <div class="green-color col-2 iconBox">
+                                    <i class="bi bi-puzzle"></i>
+                                </div>
+                                <div class="col-10">
+                                    <h3 class="green-color">Rozwijamy kreatywność</h3>
+                                    <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                                </div>
+                            </div>
+                            <div class="boxContainer">
+                                <div class="blue-color col-2 iconBox">
+                                    <i class="bi bi-brush"></i>
+                                </div>
+                                <div class="col-10">
+                                    <h3 class="blue-color"> Stymulujemy wyobraźnię </h3>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat</p>
+                                </div>
+                            </div>
+                            <div class="boxContainer">
+                                <div class="yellow-color col-2 iconBox">
+                                    <i class="bi bi-star"></i>
+                                </div>
+                                <div class="col-10">
+                                    <h3 class="yellow-color">Umacniamy pewność siebie </h3>
+                                    <p>Suspendisse quis libero vehicula, gravida nulla posuere, egestas felis. Vivamus cursus, mauris non imperdiet lobortis, ipsum elit ultricies diam, et finibus lectus nunc in elit.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <div class="slide slide2">
+                    <div class="boxContainer">
+                        <div class="col-3 textImageBox blue-background">
+                            <i class="bi bi-lightbulb"></i>
+                            <h4>Program rozwoju artystycznego</h4>
+                            <p>Suspendisse in consequat metus. Integer eget lacus ut nunc pretium malesuada. Fusce nec dictum arcu.</p>
+                            <img src="./../img/programs_kids_art-classes.jpg" alt="">
+                            <p>Integer auctor efficitur tellus sit amet bibendum</p>
+                        </div>
+                        <div class="col-3 textImageBox purple-background">
+                            <i class="bi bi-graph-up"></i>
+                            <h4>Program rozbudowy placówki</h4>
+                            <p>Pellentesque nec tincidunt tellus, sed tempor est. Sed consectetur scelerisque lobortis. Nunc rutrum ornare turpis eget feugiat</p>
+                            <img src="./../img/ICT.jpg" alt="">
+                            <p>Aenean lacinia, nisi sit amet volutpat imperdiet, nisi metus consequat eros</p>
+                        </div>
+                        <div class="col-4 textBox">
+                            <h1><span class="purple-color">2021</span> Programy</h1>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <div class="slide slide3 purple-background boxContainer">
+                    <div class="FlexContainer">
+                        <div class="">
+                            <h1>Najlepsze miejsce do <span class="blue-color">nauki</span><span class="yellow-color"> i zabawy</span> </h1>
+                            <img src="./../img/school.jpg" alt="">
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
+</section>
+
+
+<section th:fragment="ImageTextSection" >
+    <div class="boxContainer 2boxContainer">
+        <div class="box col-6 imgBox">
+            <img src="./../img/kids.jpg" alt="">
+        </div>
+        <div class="box col-6 textBox green-background ">
+            <h1>Baw się, <span class="blue-color">ucz</span> <span class="yellow-color">i rośnij!</span></h1>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        </div>
+    </div>
+</section>
+
+
+<section th:fragment="InformationSection" >
+    <div class="boxContainer 2boxContainer">
+        <div class="box col-6 textBox light-brown-background">
+            <h1>Godziny otwarcia</h1>
+            <h3 class="blue-color">Pn-Wt</h3>
+            <p><i class="bi bi-clock"></i>8:00-17:00 </p>
+            <p><i class="bi bi-bell"></i>Przerwa objadowa 14:00-15:00</p>
+            <h3 class="yellow-color">Śr-Pt</h3>
+            <p><i class="bi bi-clock"></i>8:00-17:00</p>
+            <p><i class="bi bi-bell"></i>Przerwa objadowa 14:00-15:00</p>
+            <h3 class="red-color"><i class="bi bi-x-circle"></i> So-Nd Przepraszamy zamknięte </h3>
+        </div>
+        <div class="box col-6 imgBox">
+            <img src="./../img/international-childrens-book-day-fun.jpg" alt="">
+        </div>
+    </div>
+</section>
+
+</body>
+</html>

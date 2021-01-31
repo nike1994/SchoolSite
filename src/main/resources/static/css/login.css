@@ -1,0 +1,31 @@
+:root{
+  --red: #A8301E;
+  --purple: #A750A3;
+  --blue: #00C9C7;
+  --pink: #FF85A5;
+  --green: #007451;
+  --light-green:#459B3E;
+  --brown: #BE7D6E;
+  --light-brown:#FFE6D9;
+  --yellow: #FFCA5D;
+}
+
+
+div.login{
+  margin-top: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+
+  padding: 30px;
+}
+
+div.login form{
+  width: 50vw;
+}
+
+button.login{
+  background-color: var(--light-green);
+  color: white;
+}

@@ -1,0 +1,22 @@
+div.table-content{
+  padding: 30px;
+}
+
+div.table-content div.nav{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  align-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+
+#school_register > div.tabulator-header{
+  margin-left: 0 !important;
+}
+
+#school_register{
+  display: inline-block;
+  max-height: 70vh;
+  width: 100%;
+}
