@@ -1,9 +1,7 @@
 package pl.edu.wszib.school.website.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Set;
 
 @Entity(name="Classes")
 public class SchoolClass {
@@ -16,7 +14,30 @@ public class SchoolClass {
     private int year;
     private String name;
 
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Set<Pupil> pupils;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Set<SchoolSubjects> subjects;
+
+
     public SchoolClass() {
+    }
+
+    public Set<Pupil> getPupils() {
+        return pupils;
+    }
+
+    public void setPupils(Set<Pupil> pupils) {
+        this.pupils = pupils;
+    }
+
+    public Set<SchoolSubjects> getSubjects() {
+        return subjects;
+    }
+
+    public void setSubjects(Set<SchoolSubjects> subjects) {
+        this.subjects = subjects;
     }
 
     public int getId() {

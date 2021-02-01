@@ -1,21 +1,22 @@
 package pl.edu.wszib.school.website.model;
 
 import javax.persistence.*;
+import java.util.Set;
 
-@Entity()
-public class Login {
+@Entity(name="Parents")
+public class Parent {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
-    private String login;
-    private String password;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 
-    public Login() {
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Set<Pupil> kids;
+
+    public Parent() {
     }
 
     public int getId() {
@@ -26,27 +27,19 @@ public class Login {
         this.id = id;
     }
 
-    public String getLogin() {
-        return login;
-    }
-
-    public void setLogin(String login) {
-        this.login = login;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     public User getUser() {
         return user;
     }
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Set<Pupil> getKids() {
+        return kids;
+    }
+
+    public void setKids(Set<Pupil> kids) {
+        this.kids = kids;
     }
 }

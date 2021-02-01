@@ -11,9 +11,13 @@ public class Post {
     @ManyToOne(fetch = FetchType.EAGER)
     private Page page;
 
-    private int author; //id autora
+    @ManyToOne(fetch = FetchType.EAGER)
+    private User author;
+
     private String date; //data utworzenia
     private String title;
+
+    @Column(columnDefinition="TEXT")
     private String content; //zawartość strony
 
     public Post() {
@@ -35,11 +39,11 @@ public class Post {
         this.page = page;
     }
 
-    public int getAuthor() {
+    public User getAuthor() {
         return author;
     }
 
-    public void setAuthor(int author) {
+    public void setAuthor(User author) {
         this.author = author;
     }
 

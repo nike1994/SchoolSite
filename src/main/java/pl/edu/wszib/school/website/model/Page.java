@@ -10,7 +10,9 @@ public class Page {
     private int id;
 
     private String title;
-    private int parent; //rodzic w menu
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Page parent;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Post> posts;
@@ -34,11 +36,19 @@ public class Page {
         this.title = title;
     }
 
-    public int getParent() {
+    public Page getParent() {
         return parent;
     }
 
-    public void setParent(int parent) {
+    public void setParent(Page parent) {
         this.parent = parent;
+    }
+
+    public Set<Post> getPosts() {
+        return posts;
+    }
+
+    public void setPosts(Set<Post> posts) {
+        this.posts = posts;
     }
 }

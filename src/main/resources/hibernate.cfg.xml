@@ -15,7 +15,7 @@
         <!-- Assume test is the database name -->
 
         <property name = "hibernate.connection.url">
-            jdbc:mysql://localhost/SchoolSite
+            jdbc:mysql://localhost/school
         </property>
 
         <property name = "hibernate.connection.username">
@@ -24,11 +24,18 @@
 
         <property name="show_sql">true</property>
         <property name="hbm2ddl.auto">create</property>
-        <!-- tylko tryp create i create-drop pozwala na użycie import.sql do wypełnienia bazy danych -->
 
-        <!-- List of XML mapping files
-        <mapping class = "pl.edu.wszib.magazyn.model.User"/>
-        <mapping class = "pl.edu.wszib.magazyn.model.ProductInstance"/>
- -->
+
+        <!-- List of XML mapping files -->
+        <mapping class = "pl.edu.wszib.school.website.model.User"/>
+        <mapping class = "pl.edu.wszib.school.website.model.Grade"/>
+        <mapping class = "pl.edu.wszib.school.website.model.Login"/>
+        <mapping class = "pl.edu.wszib.school.website.model.Page"/>
+        <mapping class = "pl.edu.wszib.school.website.model.Post"/>
+        <mapping class = "pl.edu.wszib.school.website.model.Pupil"/>
+        <mapping class = "pl.edu.wszib.school.website.model.Parent"/>
+        <mapping class = "pl.edu.wszib.school.website.model.SchoolClass"/>
+        <mapping class = "pl.edu.wszib.school.website.model.SchoolSubjects"/>
+
     </session-factory>
 </hibernate-configuration>

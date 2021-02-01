@@ -10,9 +10,15 @@ public class Pupil {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
     private User user;
+
+    @ManyToOne(fetch = FetchType.EAGER)
     private SchoolClass sClass;
-    private User parent;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Parent parent;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Grade> grades;
@@ -44,11 +50,19 @@ public class Pupil {
         this.sClass = sClass;
     }
 
-    public User getParent() {
+    public Parent getParent() {
         return parent;
     }
 
-    public void setParent(User parent) {
+    public void setParent(Parent parent) {
         this.parent = parent;
+    }
+
+    public Set<Grade> getGrades() {
+        return grades;
+    }
+
+    public void setGrades(Set<Grade> grades) {
+        this.grades = grades;
     }
 }
