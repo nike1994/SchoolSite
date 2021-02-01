@@ -1,0 +1,29 @@
+!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+    <div class="form-box" th:fragment="form(sites)">
+        <form>
+            <div class="form-group">
+                <label for="Title">Tytuł</label>
+                <input type="text" class="form-control" id="Title" placeholder="Tytuł postu" aria-label="Wpisz tytuł postu">
+            </div>
+            <div class="form-group">
+                <label for="position">Wybierz rodzica</label>
+                <select class="form-select form-select-lg mb-3" id="position" aria-label="Wybierz rodzica w menu">
+                    <option selected>Menu</option>
+                    <th:block th:each="site : ${sites}" >
+                        <option th:value="${site.key}" th:text="${site.key}"></option>
+                    </th:block>
+                </select>
+            </div>
+            <button type="submit" class="btn save">Zapisz</button>
+        </form>
+    </div>
+
+</body>
+</html>
