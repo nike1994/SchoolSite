@@ -6,7 +6,7 @@ import pl.edu.wszib.school.website.model.Pupil;
 import javax.security.auth.Subject;
 import java.util.List;
 
-public interface IGrade {
+public interface IGradeDao {
     void insertGrade(Grade grade);
     void updateGrade(Grade grade);
     void removeGrade(Grade grade);

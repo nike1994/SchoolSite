@@ -12,8 +12,7 @@ public class SchoolSubjects {
     @ManyToOne(fetch = FetchType.EAGER)
     private User teacher;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "classes_id")
+    @ManyToOne(fetch = FetchType.EAGER)
     private  SchoolClass sClass;
 
     private String name;

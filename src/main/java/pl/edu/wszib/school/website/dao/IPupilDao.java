@@ -7,12 +7,13 @@ import pl.edu.wszib.school.website.model.User;
 
 import java.util.List;
 
-public interface IPupil {
-    void addPupil(Pupil pupil);
+public interface IPupilDao {
+    void insertPupil(Pupil pupil);
     void removePupil(Pupil pupil);
     void updatePupil(Pupil pupil);
 
     Pupil getPupilByID(int id);
+    List<Pupil> getAllPupil();
     List<Pupil> getPupilsByClass(SchoolClass sClass);
     List<Pupil> getPupilsByParent(Parent parent);
 }

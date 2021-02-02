@@ -6,12 +6,12 @@ import pl.edu.wszib.school.website.model.User;
 
 import java.util.List;
 
-public interface IUser {
+public interface IUserDao {
     void insertUser(User user);
-    void removeUser(int id);
+    void removeUser(User user);
     void updateUser(User user);
 
     List<User> getAll();
     User getUserByID(int id);
-    List<User> getUserByRole(User.Role role);
+    List<User> getUserByRole(String role);
 }

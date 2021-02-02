@@ -4,16 +4,15 @@ import pl.edu.wszib.school.website.model.SchoolClass;
 import pl.edu.wszib.school.website.model.SchoolSubjects;
 import pl.edu.wszib.school.website.model.User;
 
-import javax.security.auth.Subject;
 import java.util.List;
 
-public interface ISubject {
+public interface ISubjectDao {
     void insertSubject(SchoolSubjects subjects);
     void removeSubject(SchoolSubjects subjects);
     void updateSubject(SchoolSubjects subjects);
 
-    Subject getSubjectByID(int id);
-    List<Subject> getAllSubjects();
-    List<Subject> getSubjectsByTeacher(User user);
-    List<Subject> getSubjectsByClass(SchoolClass sClass);
+    SchoolSubjects getSubjectByID(int id);
+    List<SchoolSubjects> getAllSubjects();
+    List<SchoolSubjects> getSubjectsByTeacher(User user);
+    List<SchoolSubjects> getSubjectsByClass(SchoolClass sClass);
 }

@@ -4,7 +4,7 @@ import pl.edu.wszib.school.website.model.Parent;
 
 import java.util.List;
 
-public interface IParent {
+public interface IParentDao {
     void insertParent(Parent parent);
     void removeParent(Parent parent);
     void updateParent(Parent parent);

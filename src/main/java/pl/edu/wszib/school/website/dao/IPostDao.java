@@ -6,7 +6,7 @@ import pl.edu.wszib.school.website.model.User;
 
 import java.util.List;
 
-public interface IPost {
+public interface IPostDao {
     void insertPost(Post post);
     void removePost(Post post);
     void updatePost(Post post);

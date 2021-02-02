@@ -5,7 +5,7 @@ import pl.edu.wszib.school.website.model.User;
 
 import java.util.List;
 
-public interface IClass {
+public interface IClassDao {
     void insertClass(SchoolClass sClass);
     void updateClass(SchoolClass sClass);
     void removeClass(SchoolClass sClass);
