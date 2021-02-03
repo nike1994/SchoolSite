@@ -7,7 +7,7 @@ import pl.edu.wszib.school.website.model.User;
 import java.util.List;
 
 public interface IUserDao {
-    void insertUser(User user);
+    Integer insertUser(User user);
     void removeUser(User user);
     void updateUser(User user);
 

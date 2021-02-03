@@ -5,12 +5,14 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 import pl.edu.wszib.school.website.dao.IUserDao;
 import pl.edu.wszib.school.website.model.User;
 
 import javax.persistence.NoResultException;
 import java.util.List;
 
+@Repository
 public class UserDao implements IUserDao {
 
     @Autowired
@@ -19,20 +21,25 @@ public class UserDao implements IUserDao {
     private  String model = "pl.edu.wszib.school.website.model.User";
 
     @Override
-    public void insertUser(User user) {
+    public Integer insertUser(User user) {
+        System.out.println("usuchomiono dodawanie urzytkownika");
         Session session = this.sessionFactory.openSession();
         Transaction tx= null;
+        Integer id = null;
         try {
             tx=session.beginTransaction();
-            session.save(user);
+            id = (Integer)session.save(user);
+            System.out.println("dodano urzytkownika");
             tx.commit();
         }catch (Exception e){
+            System.out.println(e.getMessage());
             if(tx != null){
                 tx.rollback();
             }
         }finally {
             session.close();
         }
+        return id;
     }
 
     @Override
@@ -45,6 +52,7 @@ public class UserDao implements IUserDao {
                 session.delete(user);
                 tx.commit();
             }catch (Exception e){
+                System.out.println(e.getMessage());
                 if(tx != null){
                     tx.rollback();
                 }
@@ -65,6 +73,7 @@ public class UserDao implements IUserDao {
                 session.update(user);
                 tx.commit();
             } catch (Exception e) {
+                System.out.println(e.getMessage());
                 if (tx != null) {
                     tx.rollback();
                 }

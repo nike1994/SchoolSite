@@ -5,6 +5,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 import pl.edu.wszib.school.website.dao.IGradeDao;
 import pl.edu.wszib.school.website.model.Grade;
 import pl.edu.wszib.school.website.model.Pupil;
@@ -14,6 +15,7 @@ import javax.persistence.NoResultException;
 import javax.security.auth.Subject;
 import java.util.List;
 
+@Repository
 public class GradeDao implements IGradeDao {
     @Autowired
     SessionFactory sessionFactory;
@@ -23,12 +25,13 @@ public class GradeDao implements IGradeDao {
 
 
     @Override
-    public void insertGrade(Grade grade) {
+    public Integer insertGrade(Grade grade) {
         Session session = this.sessionFactory.openSession();
         Transaction tx= null;
+        Integer id = null;
         try {
             tx=session.beginTransaction();
-            session.save(grade);
+            id = (Integer)session.save(grade);
             tx.commit();
         }catch (Exception e){
             if(tx != null){
@@ -37,6 +40,7 @@ public class GradeDao implements IGradeDao {
         }finally {
             session.close();
         }
+        return id;
     }
 
     @Override

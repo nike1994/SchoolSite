@@ -7,7 +7,7 @@ import pl.edu.wszib.school.website.model.User;
 import java.util.List;
 
 public interface IPostDao {
-    void insertPost(Post post);
+    Integer insertPost(Post post);
     void removePost(Post post);
     void updatePost(Post post);
 

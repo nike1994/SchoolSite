@@ -9,6 +9,7 @@ import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 
 @Configuration
 @ComponentScan("pl.edu.wszib.school.website")
+
 public class AppConfiguration {
 
     @Bean

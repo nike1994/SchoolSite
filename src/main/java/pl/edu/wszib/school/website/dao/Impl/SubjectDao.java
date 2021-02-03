@@ -5,6 +5,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 import pl.edu.wszib.school.website.dao.ISubjectDao;
 import pl.edu.wszib.school.website.model.SchoolClass;
 import pl.edu.wszib.school.website.model.SchoolSubjects;
@@ -13,6 +14,7 @@ import pl.edu.wszib.school.website.model.User;
 import javax.persistence.NoResultException;
 import java.util.List;
 
+@Repository
 public class SubjectDao implements ISubjectDao {
 
     @Autowired
@@ -22,12 +24,13 @@ public class SubjectDao implements ISubjectDao {
 
 
     @Override
-    public void insertSubject(SchoolSubjects subjects) {
+    public Integer insertSubject(SchoolSubjects subjects) {
         Session session = this.sessionFactory.openSession();
         Transaction tx= null;
+        Integer id = null;
         try {
             tx=session.beginTransaction();
-            session.save(subjects);
+            id = (Integer)session.save(subjects);
             tx.commit();
         }catch (Exception e){
             if(tx != null){
@@ -36,6 +39,7 @@ public class SubjectDao implements ISubjectDao {
         }finally {
             session.close();
         }
+        return id;
     }
 
     @Override

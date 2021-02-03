@@ -5,6 +5,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 import pl.edu.wszib.school.website.dao.IPageDao;
 import pl.edu.wszib.school.website.model.Page;
 import pl.edu.wszib.school.website.model.SchoolSubjects;
@@ -12,6 +13,7 @@ import pl.edu.wszib.school.website.model.SchoolSubjects;
 import javax.persistence.NoResultException;
 import java.util.List;
 
+@Repository
 public class PageDao implements IPageDao {
 
     @Autowired
@@ -21,12 +23,13 @@ public class PageDao implements IPageDao {
 
 
     @Override
-    public void insertPage(Page page) {
+    public Integer insertPage(Page page) {
         Session session = this.sessionFactory.openSession();
         Transaction tx= null;
+        Integer id=null;
         try {
             tx=session.beginTransaction();
-            session.save(page);
+            id = (Integer)session.save(page);
             tx.commit();
         }catch (Exception e){
             if(tx != null){
@@ -35,6 +38,7 @@ public class PageDao implements IPageDao {
         }finally {
             session.close();
         }
+        return id;
     }
 
     @Override

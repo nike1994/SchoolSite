@@ -1,6 +1,8 @@
 package pl.edu.wszib.school.website.model;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity(name="Pupils")
@@ -10,14 +12,15 @@ public class Pupil {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, optional = false)
     @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     private SchoolClass sClass;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.PERSIST,fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name="parent_id")
     private Parent parent;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
@@ -65,4 +68,6 @@ public class Pupil {
     public void setGrades(Set<Grade> grades) {
         this.grades = grades;
     }
+
+
 }

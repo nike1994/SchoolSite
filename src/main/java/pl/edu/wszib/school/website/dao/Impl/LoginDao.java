@@ -5,6 +5,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 import pl.edu.wszib.school.website.dao.ILoginDao;
 import pl.edu.wszib.school.website.model.Login;
 import pl.edu.wszib.school.website.model.Page;
@@ -14,6 +15,7 @@ import pl.edu.wszib.school.website.model.User;
 import javax.persistence.NoResultException;
 import java.util.List;
 
+@Repository
 public class LoginDao implements ILoginDao {
 
     @Autowired
@@ -22,22 +24,24 @@ public class LoginDao implements ILoginDao {
     private  String model = "pl.edu.wszib.school.website.model.Login";
 
 
-    @Override
-    public void insertLogin(Login login) {
-        Session session = this.sessionFactory.openSession();
-        Transaction tx= null;
-        try {
-            tx=session.beginTransaction();
-            session.save(login);
-            tx.commit();
-        }catch (Exception e){
-            if(tx != null){
-                tx.rollback();
-            }
-        }finally {
-            session.close();
-        }
-    }
+//    @Override
+//    public void insertLogin(Login login) {
+//        Session session = this.sessionFactory.openSession();
+//        Transaction tx= null;
+//        try {
+//            tx=session.beginTransaction();
+//            session.save(login);
+//            tx.commit();
+//        }catch (Exception e){
+//
+//            System.out.println(e.getMessage());
+//            if(tx != null){
+//                tx.rollback();
+//            }
+//        }finally {
+//            session.close();
+//        }
+//    }
 
     @Override
     public void updateLogin(Login login) {
@@ -45,10 +49,13 @@ public class LoginDao implements ILoginDao {
         Transaction tx = null;
         if(login != null) {
             try {
+
                 tx = session.beginTransaction();
                 session.update(login);
                 tx.commit();
             } catch (Exception e) {
+
+                System.out.println(e.getMessage());
                 if (tx != null) {
                     tx.rollback();
                 }
@@ -58,25 +65,27 @@ public class LoginDao implements ILoginDao {
         }
     }
 
-    @Override
-    public void removeLogin(Login login) {
-        Session session = this.sessionFactory.openSession();
-        Transaction tx = null;
-        if(login != null){
-            try{
-                tx = session.beginTransaction();
-                session.delete(login);
-                tx.commit();
-            }catch (Exception e){
-                if(tx != null){
-                    tx.rollback();
-                }
-            }finally {
-                session.close();
-            }
-
-        }
-    }
+//    @Override
+//    public void removeLogin(Login login) {
+//        Session session = this.sessionFactory.openSession();
+//        Transaction tx = null;
+//        if(login != null){
+//            try{
+//                tx = session.beginTransaction();
+//                session.delete(login);
+//                tx.commit();
+//            }catch (Exception e){
+//
+//                System.out.println(e.getMessage());
+//                if(tx != null){
+//                    tx.rollback();
+//                }
+//            }finally {
+//                session.close();
+//            }
+//
+//        }
+//    }
 
     @Override
     public Login getByID(int id) {

@@ -5,6 +5,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 import pl.edu.wszib.school.website.dao.IPostDao;
 import pl.edu.wszib.school.website.model.Page;
 import pl.edu.wszib.school.website.model.Post;
@@ -14,6 +15,7 @@ import pl.edu.wszib.school.website.model.User;
 import javax.persistence.NoResultException;
 import java.util.List;
 
+@Repository
 public class PostDao implements IPostDao {
 
     @Autowired
@@ -24,12 +26,13 @@ public class PostDao implements IPostDao {
 
 
     @Override
-    public void insertPost(Post post) {
+    public Integer insertPost(Post post) {
         Session session = this.sessionFactory.openSession();
         Transaction tx= null;
+        Integer id = null;
         try {
             tx=session.beginTransaction();
-            session.save(post);
+            id = (Integer)session.save(post);
             tx.commit();
         }catch (Exception e){
             if(tx != null){
@@ -38,6 +41,7 @@ public class PostDao implements IPostDao {
         }finally {
             session.close();
         }
+        return id;
     }
 
     @Override

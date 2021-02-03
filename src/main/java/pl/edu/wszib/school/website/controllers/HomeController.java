@@ -1,21 +1,62 @@
 package pl.edu.wszib.school.website.controllers;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import pl.edu.wszib.school.website.model.SchoolClass;
+import pl.edu.wszib.school.website.model.View.CreationPupilModel;
+import pl.edu.wszib.school.website.model.View.CreationTeacherParentModel;
+import pl.edu.wszib.school.website.services.IClassService;
+import pl.edu.wszib.school.website.services.IUserServices;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+
+import java.util.*;
 
 
 @Controller
 public class HomeController {
+
+    @Autowired
+    IUserServices userServices;
+
+    @Autowired
+    IClassService classService;
+
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String landingPage() {
+
+
         return "redirect:/main";
     }
+
+    @RequestMapping(value = "/remove", method = RequestMethod.GET)
+    public String addPage() {
+        userServices.deleteParentandPupils(1);
+
+
+        return "redirect:/main";
+    }
+
+    @RequestMapping(value = "/addPupil", method = RequestMethod.GET)
+    public String addPupil() {
+        CreationTeacherParentModel parentModel = new CreationTeacherParentModel("login","haslo","imie","nazwisko",new ArrayList<Integer>());
+        int id = userServices.createParent(parentModel);
+
+        SchoolClass clas = new SchoolClass();
+        clas.setYear(2020);
+        clas.setName("IIA");
+
+        int idClass = classService.createClass(clas);
+
+        CreationPupilModel pupilModel = new CreationPupilModel("loginu","haslou","imieu","nazwiskou", id, idClass);
+
+        userServices.createPupil(pupilModel);
+
+        return "redirect:/main";
+    }
+
 
     @RequestMapping(value = "/main", method = RequestMethod.GET)
     public String main(Model model){

@@ -11,7 +11,7 @@ public class Login {
     private String login;
     private String password;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, optional = false, orphanRemoval = true)
     @JoinColumn(name = "user_id")
     private User user;
 

@@ -5,14 +5,17 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 import pl.edu.wszib.school.website.dao.IPupilDao;
 import pl.edu.wszib.school.website.model.Parent;
 import pl.edu.wszib.school.website.model.Pupil;
 import pl.edu.wszib.school.website.model.SchoolClass;
+import pl.edu.wszib.school.website.model.User;
 
 import javax.persistence.NoResultException;
 import java.util.List;
 
+@Repository
 public class PupilDao implements IPupilDao {
 
 
@@ -22,12 +25,13 @@ public class PupilDao implements IPupilDao {
     private  String model = "pl.edu.wszib.school.website.model.Pupil";
 
     @Override
-    public void insertPupil(Pupil pupil) {
+    public Integer insertPupil(Pupil pupil) {
         Session session = this.sessionFactory.openSession();
         Transaction tx= null;
+        Integer id = null;
         try {
             tx=session.beginTransaction();
-            session.save(pupil);
+            id = (Integer)session.save(pupil);
             tx.commit();
         }catch (Exception e){
             if(tx != null){
@@ -36,6 +40,7 @@ public class PupilDao implements IPupilDao {
         }finally {
             session.close();
         }
+        return id;
     }
 
     @Override
@@ -119,5 +124,22 @@ public class PupilDao implements IPupilDao {
         List<Pupil> pupils = query.getResultList();
         session.close();
         return pupils;
+    }
+
+    @Override
+    public Pupil getPupilByUser(int userId) {
+        Session session = this.sessionFactory.openSession();
+        Query<Pupil> query = session.createQuery("FROM "+this.model+" WHERE user_id = :id")
+                .setParameter("id", userId);
+        Pupil pupil = null;
+        try{
+            pupil= query.getSingleResult();
+        }catch (NoResultException e){
+            System.out.println("nie znaleziono użytkownika");
+            return null;
+        }finally {
+            session.close();
+        }
+        return pupil;
     }
 }

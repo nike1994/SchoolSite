@@ -1,6 +1,8 @@
 package pl.edu.wszib.school.website.model;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity(name="Parents")
@@ -9,12 +11,12 @@ public class Parent {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL,optional = false)
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Set<Pupil> kids;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "parent")
+    private Set<Pupil> childrens;
 
     public Parent() {
     }
@@ -35,11 +37,11 @@ public class Parent {
         this.user = user;
     }
 
-    public Set<Pupil> getKids() {
-        return kids;
+    public Set<Pupil> getChildrens() {
+        return childrens;
     }
 
-    public void setKids(Set<Pupil> kids) {
-        this.kids = kids;
+    public void setChildrens(Set<Pupil> childrens) {
+        this.childrens = childrens;
     }
 }
