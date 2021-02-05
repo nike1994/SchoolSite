@@ -35,7 +35,7 @@ public class LoginControler {
     public String login(@ModelAttribute Login login) {
         this.userService.authenticate(login);
         if(this.sessionObject.isLogged()) {
-            return "redirect:/main";
+            return "redirect:/Home";
         }
         return "redirect:/login";
     }

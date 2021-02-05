@@ -6,10 +6,10 @@
 </head>
 <body>
 
-<header th:fragment="menu(sites,active,name,img,isLogged)">
+<header th:fragment="menu(sites,active,name,img,isLogged,buttonList)">
     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#" th:inline="text">
+            <a class="navbar-brand" href="/" th:inline="text">
                 <img th:src="${img}" alt="" max-width="100" height="24" class="d-inline-block align-top">
                 [[${name}]]
             </a>
@@ -21,7 +21,7 @@
                     <th:block th:each="site : ${sites}">
                         <th:block th:if="${site.value.class.name  == 'java.lang.String'}">
                             <li class="nav-item">
-                                    <a class="nav-link" href="${site.value}" th:text="${site.key}" ></a>
+                                    <a class="nav-link" th:href="@{${site.value}}" th:text="${site.key}" ></a>
                             </li>
 
                         </th:block>
@@ -33,7 +33,7 @@
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                     <th:block th:each="subsite : ${site.value}">
                                         <li>
-                                            <a class="dropdown-item" th:href="${subsite.value}" th:text="${subsite.key}">Action</a>
+                                            <a class="dropdown-item" th:href="@{${subsite.value}}" th:text="${subsite.key}">Action</a>
                                         </li>
                                     </th:block>
 
@@ -42,40 +42,47 @@
                         </th:block>
                     </th:block>
                 </ul>
-                <button type="button" name="button" class="btn login btn-lg float-right"><a href="/login"><i class="bi bi-box-arrow-in-right"></i> Zaloguj</a></button>
+                <th:block th:if="${isLogged}">
+                    <a type="button" name="button" class="btn logout btn-lg float-right" href="/logout"><i class="bi bi-box-arrow-left"></i> Wyloguj</a>
+                </th:block>
+                <th:block th:unless="${isLogged}">
+                    <a type="button" name="button" class="btn login btn-lg float-right" href="/login"><i class="bi bi-box-arrow-in-right"></i> Zaloguj</a>
+                </th:block>
             </div>
         </div>
     </nav>
-    <nav th:if="${isLogged}" class="navbar navbar-expand-lg navbar-dark loginNav">
+
+
+    <nav th:if="${buttonList}" class="navbar navbar-expand-lg navbar-dark loginNav">
         <div class="container-fluid">
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarAdminContent" aria-controls="navbarAdminContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarAdminContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0"
-                    th:with="buttonList = ${{
-                        {btn:'Strona',subBtn: 'stronę', href:'page'},
-                        {btn:'Posty',subBtn: 'post', href:'post'},
-                        {btn:'Klasa',subBtn: 'klasę', href:'class'},
-                        {btn:'Rodzic',subBtn: 'rodzica', href:'parent'},
-                        {btn:'Uczeń',subBtn: 'ucznia', href:'pupil'},
-                        {btn:'Nauczyciel',subBtn: 'nauczela', href:'teacher'},
-                        {btn:'Przedmit',subBtn: 'przedmito', href:'subject'}}">
-
                     <th:block th:each="button : ${buttonList}">
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" th:text="${button.btn}">Strona</a>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" href="@{/create/{page}(page=${button.href})}" th:inline="text">stwórz [[${button.subBtn}}]]</a>
-                                <a class="dropdown-item" href="@{/delete/{page}(page=${button.href})}" th:inline="text">usuń [[${button.subBtn}}]]</a>
-                                <a class="dropdown-item" href="@{/update/{page}(page=${button.href})}" th:inline="text">aktualizuj [[${button.subBtn}}]]</a>
-                            </div>
-                        </li>
+                        <th:block th:if="${button.subBtnName}">
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" th:text="${button.btnName}">Strona</a>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" th:href="@{/{page}/create(page=${button.href})}" th:inline="text">stwórz [[${button.subBtnName}]]</a>
+                                    <a class="dropdown-item" th:href="@{/{page}/delete(page=${button.href})}" th:inline="text">usuń [[${button.subBtnName}]]</a>
+                                    <a class="dropdown-item" th:href="@{/{page}/update(page=${button.href})}" th:inline="text">aktualizuj [[${button.subBtnName}]]</a>
+                                </div>
+                            </li>
+                        </th:block>
+                        <th:block th:unless="${button.subBtnName}">
+                            <li class="nav-item">
+                                <a class="nav-link"  th:href="@{${button.href}}" role="button"  aria-expanded="false" th:text="${button.btnName}">Strona</a>
+                            </li>
+                        </th:block>
                     </th:block>
                 </ul>
             </div>
         </div>
     </nav>
+
+
 </header>
 
 </body>

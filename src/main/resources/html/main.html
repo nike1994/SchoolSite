@@ -18,7 +18,7 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
     </head>
     <body>
-        <nav th:replace="fragments/navigationMenu.html :: menu(sites=${webInfo.Allsites},active='home',name=${webInfo.siteName},img=${webInfo.siteLogo},isLogged=false)"></nav>
+        <nav th:replace="fragments/navigationMenu.html :: menu(sites=${webInfo.Allsites},active='home',name=${webInfo.siteName},img=${webInfo.siteLogo},isLogged=${isLogged},buttonList=${navLogged})"></nav>
         <div class="content">
 
             <div th:replace="fragments/homeContent.html :: slider"></div>

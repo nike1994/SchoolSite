@@ -7,14 +7,19 @@ import pl.edu.wszib.school.website.dao.IPostDao;
 import pl.edu.wszib.school.website.model.Page;
 import pl.edu.wszib.school.website.model.Post;
 import pl.edu.wszib.school.website.model.User;
+import pl.edu.wszib.school.website.model.View.PostModel;
 import pl.edu.wszib.school.website.services.IPostServices;
 
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Service
 public class PostServices implements IPostServices {
     @Autowired
     IPostDao postDao;
+
+    @Autowired
+    IPageDao pageDao;
 
     @Override
     public int insertPost(Post post) {
@@ -29,6 +34,21 @@ public class PostServices implements IPostServices {
     @Override
     public void updatePost(Post post) {
         postDao.updatePost(post);
+    }
+
+    @Override
+    public void createPost(PostModel model) {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
+
+
+        Post post = new Post();
+        post.setTitle(model.getTitle());
+        post.setAuthor(model.getAuthor());
+        post.setPage(pageDao.getByID(model.getPage_id()));
+        post.setContent(model.getContent());
+        post.setDate(dtf.format(model.getDate()));
+
+        postDao.insertPost(post);
     }
 
     @Override

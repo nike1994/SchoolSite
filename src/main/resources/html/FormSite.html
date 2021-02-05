@@ -11,8 +11,8 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="./../css/common.css">
-    <link rel="stylesheet" href="./../css/create.css">
+    <link rel="stylesheet" href="/css/common.css">
+    <link rel="stylesheet" href="/css/create.css">
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous"></script>
     <script>window.jQuery || document.write('<script src="js/vendor/jquery-3.5.1.min.js"><\/script>')</script>
@@ -20,14 +20,13 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" charset="utf-8"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
-    <script src="./../js/TextEditor.js" charset="utf-8"></script>
 
 </head>
 <body>
-    <nav th:replace="fragments/navigationMenu.html :: menu(sites=${sites},active='home',name=${siteName},img=${siteLogo})"></nav>
+    <nav th:replace="fragments/navigationMenu.html :: menu(sites=${webInfo.Allsites},active='home',name=${webInfo.siteName},img=${webInfo.siteLogo},isLogged=${isLogged},buttonList=${buttonList})"></nav>
 
     <div class="content">
-        <div th:replace="fragments/postForm.html :: form(sites=${sites})"></div>
+        <div th:replace="__${formFragment}__"></div>
     </div>
 
     <footer th:replace="fragments/footer.html :: footer(tel=${telephons}, mail=${emails})"></footer>

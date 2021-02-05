@@ -109,14 +109,14 @@ header>nav.navbar.loginNav{
 
 }
 
-header>nav.navbar button.login{
+header>nav.navbar a.login{
   background-color: var(--light-green);
   color: white;
   margin-left: auto;
   margin-right: 0;
 }
 
-header>nav.navbar button.logout{
+header>nav.navbar a.logout{
   background-color: var(--brown);
   color: white;
   margin-left: auto;

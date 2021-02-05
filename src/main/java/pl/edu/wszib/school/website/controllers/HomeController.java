@@ -5,8 +5,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import pl.edu.wszib.school.website.dao.IUserDao;
+import pl.edu.wszib.school.website.model.Login;
 import pl.edu.wszib.school.website.model.Page;
 import pl.edu.wszib.school.website.model.SchoolClass;
+import pl.edu.wszib.school.website.model.User;
 import pl.edu.wszib.school.website.model.View.AllWebsiteInformationsModel;
 import pl.edu.wszib.school.website.model.View.CreationPupilModel;
 import pl.edu.wszib.school.website.model.View.CreationTeacherParentModel;
@@ -22,8 +25,11 @@ import java.util.*;
 @Controller
 public class HomeController {
 
-    //@Autowired
-    //IUserServices userServices;
+    @Autowired
+    IUserServices userServices;
+
+    @Autowired
+    IUserDao dao;
 
 //    @Autowired
 //    IClassService classService;
@@ -38,7 +44,7 @@ public class HomeController {
     public String landingPage() {
 
 
-        return "redirect:/main";
+        return "redirect:/Home";
     }
 
 //    @RequestMapping(value = "/remove", method = RequestMethod.GET)
@@ -68,29 +74,37 @@ public class HomeController {
 //    }
 
 
-    @RequestMapping(value = "/main", method = RequestMethod.GET)
+    @RequestMapping(value = "/Home", method = RequestMethod.GET)
     public String main(Model model) {
 
 
 // TODO: 31.01.2021 trzeba stworzyć możliwość edycji tekstowej zawartości strony
 // TODO: 01.02.2021 stworzenie strony dla administratora/ dodanie usuwanie edycja stron / dodanie usuwanie edycja uczniów, nauczycieli, rodziców
-// TODO: 01.02.2021 stworzenie strony dla nauczyciela edycja postu/ dodanie usuwanie stron z postami/
-
-
-
-//        model.addAttribute("sites",sites);
-//        model.addAttribute("telephons",telephon);
-//        model.addAttribute("emails",emails);
-//        model.addAttribute("siteName","Nazwa Szkoły");
-//        model.addAttribute("siteLogo","./img/logo.svg");
-//        model.addAttribute("active", "home");
 
         return "main";
     }
 
 
+    @RequestMapping(value = "/addUser", method = RequestMethod.GET)
+    public String adduser(Model model) {
+        Login login = new Login();
+        login.setLogin("admin");
+        login.setPassword("admin");
+        User user = new User();
+        user.setRole(User.Role.ADMIN);
+        user.setName("Wiki");
+        user.setSurName("Kozak");
+        user.setLogin(login);
+        login.setUser(user);
+
+        dao.insertUser(user);
+
+        return "redirect:/Home";
+    }
+
+
     @RequestMapping(value = "/addPage", method = RequestMethod.GET)
-    public String main() {
+    public String addpage() {
         Page parent = new Page();
         parent.setTitle("aktualności");
 
@@ -115,7 +129,9 @@ public class HomeController {
             System.out.println(page.getTitle());
         }
 
-        return "redirect:/main";
+        websiteInformationsService.updatePages();
+
+        return "redirect:/Home";
     }
 
 

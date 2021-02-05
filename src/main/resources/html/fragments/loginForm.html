@@ -7,14 +7,14 @@
 <body>
 
 <div class="login" th:fragment="loginForm(loginModel)">
-    <form id="login-form" method="post">
+    <form id="login-form" method="post" th:object="${loginModel}">
         <div class="form-group">
             <label for="inputLogin">Login</label>
-            <input type="text" class="form-control" id="inputLogin"  placeholder="login"  th:field="*{__${loginModel}__}">
+            <input type="text" class="form-control" id="inputLogin"  placeholder="login"  th:field="*{login}">
         </div>
         <div class="form-group">
             <label for="inputPassword1">Password</label>
-            <input type="password" class="form-control" id="inputPassword1" placeholder="hasło"  th:field="*{__${loginModel}__}">
+            <input type="password" class="form-control" id="inputPassword1" placeholder="hasło"  th:field="*{password}">
         </div>
         <button type="submit" class="btn login">Zaloguj</button>
     </form>

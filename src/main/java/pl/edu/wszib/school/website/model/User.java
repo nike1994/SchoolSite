@@ -17,7 +17,7 @@ public class User {
     private Role role;
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL,
-            fetch = FetchType.LAZY, optional = false)
+            fetch = FetchType.EAGER, optional = false)
     private Login login;
 
     public int getId() {

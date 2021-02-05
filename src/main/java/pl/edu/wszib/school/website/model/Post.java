@@ -17,7 +17,8 @@ public class Post {
     private String date; //data utworzenia
     private String title;
 
-    @Column(columnDefinition="TEXT")
+    @Column()
+    @Lob
     private String content; //zawartość strony
 
     public Post() {

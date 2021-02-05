@@ -6,26 +6,30 @@
 </head>
 <body>
 
-    <div class="form-box" th:fragment="form(sites)">
-        <form>
+    <div class="form-box" th:fragment="createForm(sites,model)">
+        <form id="createPostForm" method="post" th:object="${model}">
             <div class="form-group">
                 <label for="Title">Tytuł</label>
-                <input type="text" class="form-control" id="Title" placeholder="Tytuł postu" aria-label="Wpisz tytuł postu">
+                <input th:field="*{title}" type="text" class="form-control" id="Title" placeholder="Tytuł postu" aria-label="Wpisz tytuł postu">
             </div>
             <div class="form-group">
                 <label for="page">Wybierz stronę</label>
-                <select class="form-select form-select-lg mb-3" id="page" aria-label="Wybierz stronę postu">
+                <select th:field="*{page_id}" class="form-select form-select-lg mb-3" id="page" aria-label="Wybierz stronę postu">
                     <th:block th:each="site : ${sites}" >
-                        <option th:value="${site.key}" th:text="${site.key}"></option>
+                        <th:block th:if="${#lists.isEmpty(site.children)}">
+                            <option  th:value="${site.id}" th:text="${site.title}"></option>
+                        </th:block>
                     </th:block>
                 </select>
             </div>
             <div class="mb-3">
                 <label for="textPost" class="form-label">Zawartość Postu</label>
-                <textarea class="form-control" id="textPost"></textarea>
+                <textarea class="form-control" id="textPost" th:field="*{content}"></textarea>
             </div>
             <button type="submit" class="btn save">Zapisz</button>
         </form>
+
+        <script src="/js/TextEditor.js" charset="utf-8"></script>
     </div>
 
 </body>
