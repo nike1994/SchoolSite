@@ -103,6 +103,12 @@ header>nav.navbar{
   background-color: var(--red);
 }
 
+header>nav.navbar.loginNav{
+  background-color: var(--green);
+  box-shadow: 5px 6px 18px -10px #333 inset;
+
+}
+
 header>nav.navbar button.login{
   background-color: var(--light-green);
   color: white;

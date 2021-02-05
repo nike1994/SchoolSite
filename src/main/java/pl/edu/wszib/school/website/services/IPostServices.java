@@ -7,7 +7,7 @@ import pl.edu.wszib.school.website.model.User;
 import java.util.List;
 
 public interface IPostServices {
-    void insertPost(Post post);
+    int insertPost(Post post);
     void deletePost(Post post);
     void updatePost(Post post);
 

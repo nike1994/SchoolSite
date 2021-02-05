@@ -36,6 +36,7 @@
         <mapping class = "pl.edu.wszib.school.website.model.Parent"/>
         <mapping class = "pl.edu.wszib.school.website.model.SchoolClass"/>
         <mapping class = "pl.edu.wszib.school.website.model.SchoolSubjects"/>
+        <mapping class = "pl.edu.wszib.school.website.model.WebsiteInformations"/>
 
     </session-factory>
 </hibernate-configuration>

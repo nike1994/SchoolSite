@@ -18,9 +18,9 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 </head>
 <body>
-    <nav th:replace="fragments/navigationMenu.html :: menu(sites=${sites},active='home',name=${siteName},img=${siteLogo})"></nav>
+    <nav th:replace="fragments/navigationMenu.html :: menu(sites=${webInfo.Allsites},active='home',name=${webInfo.siteName},img=${webInfo.siteLogo},isLogged=false)"></nav>
     <div class="content">
-        <div th:replace="fragments/loginForm.html :: loginForm"></div>
+        <div th:replace="fragments/loginForm.html :: loginForm(loginModel=*{loginModel})"></div>
     </div>
     <footer th:replace="fragments/footer.html :: footer(tel=${telephons}, mail=${emails})"></footer>
 </body>

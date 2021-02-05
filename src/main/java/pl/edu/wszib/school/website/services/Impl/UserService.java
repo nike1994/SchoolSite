@@ -7,11 +7,13 @@ import pl.edu.wszib.school.website.model.*;
 import pl.edu.wszib.school.website.model.View.CreationPupilModel;
 import pl.edu.wszib.school.website.model.View.CreationTeacherParentModel;
 import pl.edu.wszib.school.website.services.IUserServices;
+import pl.edu.wszib.school.website.session.SessionObject;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 @Service
-public class UserServices implements IUserServices {
+public class UserService implements IUserServices {
 
     @Autowired
     IUserDao userDao;
@@ -27,6 +29,9 @@ public class UserServices implements IUserServices {
 
     @Autowired
     IClassDao classDao;
+
+    @Resource
+    SessionObject sessionObject;
 
     @Override
     public int createPupil(CreationPupilModel model) {
@@ -138,11 +143,17 @@ public class UserServices implements IUserServices {
 
     @Override
     public void authenticate(Login login) {
-
+        Login loginFromDb = this.loginDao.getByLogin(login.getLogin());
+        if(loginFromDb == null){
+            return;
+        }
+        if (loginFromDb.getPassword().equals(loginFromDb.getPassword())){
+            this.sessionObject.setLoggedUser(loginFromDb.getUser());
+        }
     }
 
     @Override
     public void logout() {
-
+        this.sessionObject.setLoggedUser(null);
     }
 }

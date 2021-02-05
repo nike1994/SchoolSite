@@ -16,4 +16,9 @@ public class ClassService implements IClassService {
     public int createClass(SchoolClass schoolClass) {
         return classDao.insertClass(schoolClass);
     }
+
+    @Override
+    public void deleteClass(int id) {
+        classDao.removeClass(classDao.getClassByID(id));
+    }
 }

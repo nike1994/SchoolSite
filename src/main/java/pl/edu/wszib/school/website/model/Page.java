@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 
 @Entity(name="Pages")
 public class Page {
@@ -15,6 +16,9 @@ public class Page {
 
     @ManyToOne(fetch = FetchType.EAGER)
     private Page parent;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "parent")
+    private Set<Page> children;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Post> posts;
@@ -38,19 +42,27 @@ public class Page {
         this.title = title;
     }
 
-    public Page getParent() {
-        return parent;
-    }
-
-    public void setParent(Page parent) {
-        this.parent = parent;
-    }
-
     public Set<Post> getPosts() {
         return posts;
     }
 
     public void setPosts(Set<Post> posts) {
         this.posts = posts;
+    }
+
+    public Set<Page> getChildren() {
+        return children;
+    }
+
+    public void setChildren(Set<Page> children) {
+        this.children = children;
+    }
+
+    public Page getParent() {
+        return parent;
+    }
+
+    public void setParent(Page parent) {
+        this.parent = parent;
     }
 }

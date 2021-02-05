@@ -14,6 +14,5 @@ public interface IPupilService {
     List<Pupil> getClassPupils(SchoolClass sClass);
     List<Pupil> getParentPupils(Parent parent);
     List<Grade> getPupilGrades(Pupil pupil);
-    SchoolClass getPupilClass(Pupil pupil);
 
 }

@@ -5,7 +5,7 @@ import pl.edu.wszib.school.website.model.Page;
 import java.util.List;
 
 public interface IPageServices {
-    void createPage(Page page);
+    int createPage(Page page);
     void updatePage(Page page);
     void deletePage(Page page);
 

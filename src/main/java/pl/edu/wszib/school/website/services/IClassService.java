@@ -4,4 +4,5 @@ import pl.edu.wszib.school.website.model.SchoolClass;
 
 public interface IClassService {
     public int createClass(SchoolClass schoolClass);
+    public void deleteClass(int id);
 }
