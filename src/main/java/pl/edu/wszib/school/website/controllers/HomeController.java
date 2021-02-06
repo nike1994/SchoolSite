@@ -80,7 +80,8 @@ public class HomeController {
 
 // TODO: 31.01.2021 trzeba stworzyć możliwość edycji tekstowej zawartości strony
 // TODO: 01.02.2021 stworzenie strony dla administratora/ dodanie usuwanie edycja stron / dodanie usuwanie edycja uczniów, nauczycieli, rodziców
-
+// TODO: 06.02.2021 nie można wejść do trybu edycji nie będąc zalogowanym
+        // TODO: 06.02.2021 nie można dać dwóch stron o takich samych tytułach
         return "main";
     }
 

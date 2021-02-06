@@ -5,6 +5,7 @@ import pl.edu.wszib.school.website.model.User;
 import java.time.LocalDateTime;
 
 public class PostModel {
+    private int post_id;
     private int page_id;
     private String title;
     private String content;
@@ -52,5 +53,13 @@ public class PostModel {
 
     public void setDate(LocalDateTime date) {
         this.date = date;
+    }
+
+    public int getPost_id() {
+        return post_id;
+    }
+
+    public void setPost_id(int post_id) {
+        this.post_id = post_id;
     }
 }

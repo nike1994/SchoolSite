@@ -110,7 +110,8 @@ public class SubjectDao implements ISubjectDao {
     @Override
     public List<SchoolSubjects> getSubjectsByTeacher(User user) {
         Session session = this.sessionFactory.openSession();
-        Query<SchoolSubjects> query = session.createQuery("FROM "+model+" WHERE "+model+".teacher = "+user);
+        Query<SchoolSubjects> query = session.createQuery("FROM "+model+" WHERE teacher_id =:user")
+                                            .setParameter("user",user.getId());
         List<SchoolSubjects> subjects = query.getResultList();
         session.close();
         return subjects;
@@ -119,7 +120,8 @@ public class SubjectDao implements ISubjectDao {
     @Override
     public List<SchoolSubjects> getSubjectsByClass(SchoolClass sClass) {
         Session session = this.sessionFactory.openSession();
-        Query<SchoolSubjects> query = session.createQuery("FROM "+model+" WHERE "+model+".sClass = "+sClass);
+        Query<SchoolSubjects> query = session.createQuery("FROM "+model+" WHERE sClass_id = :class")
+                                        .setParameter("class",sClass.getId());
         List<SchoolSubjects> subjects = query.getResultList();
         session.close();
         return subjects;

@@ -103,7 +103,8 @@ public class ClassDao implements IClassDao {
     @Override
     public SchoolClass getClassByUser(User user) {
         Session session = this.sessionFactory.openSession();
-        Query<SchoolClass> query = session.createQuery("FROM "+model+"JOIN "+model+".user user WHERE  user.id = "+user.getId());
+        Query<SchoolClass> query = session.createQuery("FROM "+model+"JOIN user_id WHERE  user.id = :user")
+                                        .setParameter("user", user.getId());
         SchoolClass sClass = null;
         try{
             sClass= query.getSingleResult();

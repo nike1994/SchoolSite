@@ -112,7 +112,8 @@ public class PostDao implements IPostDao {
     @Override
     public List<Post> getPostsByPage(Page page) {
         Session session = this.sessionFactory.openSession();
-        Query<Post> query = session.createQuery("FROM "+model+" WHERE "+model+".page = "+page);
+        Query<Post> query = session.createQuery("FROM "+model+" WHERE page_id = :page")
+                                    .setParameter("page",page.getId());
         List<Post> posts = query.getResultList();
         session.close();
         return posts;
@@ -121,7 +122,8 @@ public class PostDao implements IPostDao {
     @Override
     public List<Post> getPostsByAuthor(User user) {
         Session session = this.sessionFactory.openSession();
-        Query<Post> query = session.createQuery("FROM "+model+" WHERE "+model+".author = "+user);
+        Query<Post> query = session.createQuery("FROM "+model+" WHERE author_id = :author")
+                                    .setParameter("author", user.getId());
         List<Post> posts = query.getResultList();
         session.close();
         return posts;

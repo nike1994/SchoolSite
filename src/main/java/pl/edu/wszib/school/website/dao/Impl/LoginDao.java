@@ -107,7 +107,8 @@ public class LoginDao implements ILoginDao {
     @Override
     public Login getByUser(User user) {
         Session session = this.sessionFactory.openSession();
-        Query<Login> query = session.createQuery("FROM "+model+" WHERE "+model+".user = "+user);
+        Query<Login> query = session.createQuery("FROM "+model+" WHERE user_id = :user")
+                                    .setParameter("user",user.getId());
         Login login = null;
         try{
             login= query.getSingleResult();

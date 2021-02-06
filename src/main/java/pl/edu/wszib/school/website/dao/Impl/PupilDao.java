@@ -102,7 +102,8 @@ public class PupilDao implements IPupilDao {
     @Override
     public List<Pupil> getPupilsByClass(SchoolClass sClass) {
         Session session = this.sessionFactory.openSession();
-        Query<Pupil> query = session.createQuery("FROM "+model+" WHERE "+model+".sClass = "+sClass);
+        Query<Pupil> query = session.createQuery("FROM "+model+" WHERE sClass_id = :class")
+                                    .setParameter("class", sClass.getId());
         List<Pupil> pupils = query.getResultList();
         session.close();
         return pupils;
@@ -111,7 +112,8 @@ public class PupilDao implements IPupilDao {
     @Override
     public List<Pupil> getPupilsByParent(Parent parent) {
         Session session = this.sessionFactory.openSession();
-        Query<Pupil> query = session.createQuery("FROM "+model+" WHERE "+model+".parent = "+parent);
+        Query<Pupil> query = session.createQuery("FROM "+model+" WHERE parent_id = :parent")
+                                    .setParameter("parent", parent.getId());
         List<Pupil> pupils = query.getResultList();
         session.close();
         return pupils;

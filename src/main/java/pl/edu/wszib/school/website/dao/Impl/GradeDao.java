@@ -110,9 +110,10 @@ public class GradeDao implements IGradeDao {
     }
 
     @Override
-    public List<Grade> getBySubject(Subject subject) {
+    public List<Grade> getBySubject(SchoolSubjects subject) {
         Session session = this.sessionFactory.openSession();
-        Query<Grade> query = session.createQuery("FROM "+model+" WHERE "+model+".subject = "+subject);
+        Query<Grade> query = session.createQuery("FROM "+model+" WHERE subject_id = :subject")
+                                    .setParameter("subject",subject.getId());
         List<Grade> grades = query.getResultList();
         session.close();
         return grades;
@@ -121,7 +122,8 @@ public class GradeDao implements IGradeDao {
     @Override
     public List<Grade> getByPupil(Pupil pupil) {
         Session session = this.sessionFactory.openSession();
-        Query<Grade> query = session.createQuery("FROM "+model+" WHERE "+model+".pupil = "+pupil);
+        Query<Grade> query = session.createQuery("FROM "+model+" WHERE pupil_id = :pupil")
+                                    .setParameter("pupil",pupil.getId());
         List<Grade> grades = query.getResultList();
         session.close();
         return grades;

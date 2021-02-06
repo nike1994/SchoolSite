@@ -2,6 +2,7 @@ package pl.edu.wszib.school.website.dao;
 
 import pl.edu.wszib.school.website.model.Grade;
 import pl.edu.wszib.school.website.model.Pupil;
+import pl.edu.wszib.school.website.model.SchoolSubjects;
 
 import javax.security.auth.Subject;
 import java.util.List;
@@ -13,6 +14,6 @@ public interface IGradeDao {
 
     Grade getByID(int id);
     List<Grade> getAll();
-    List<Grade> getBySubject(Subject subject);
+    List<Grade> getBySubject(SchoolSubjects subject);
     List<Grade> getByPupil(Pupil pupil);
 }

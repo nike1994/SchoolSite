@@ -46,8 +46,37 @@ public class PostController {
         model.setDate(LocalDateTime.now());
         postServices.createPost(model);
         return "redirect:/Home";
-
-        // TODO: 05.02.2021 po dodaniu zdjęcia kolumna jest za mała by to pomieścić trzeba zmienić na inny typ 
     }
+
+    @RequestMapping(value = "update", method = RequestMethod.GET)
+    public String updatePostSite(Model model){
+        model.addAttribute("formFragment","fragments/postForm.html :: updateForm(model=${model},sites=${sites})");
+        model.addAttribute("sites",pageServices.getAllPages());
+        model.addAttribute("model", new PostModel());
+        return "FormSite";
+    }
+
+    @RequestMapping(value = "update", method = RequestMethod.POST)
+    public String updatePost(@ModelAttribute PostModel model){
+        // TODO: 06.02.2021 sprawdzenie czy model nie jest pusty
+        postServices.updatePost(model);
+        return "redirect:/Home";
+    }
+
+    @RequestMapping(value = "delete", method = RequestMethod.GET)
+    public String deletePostSite(Model model){
+        model.addAttribute("formFragment","fragments/postForm.html :: deleteForm(model=${model},sites=${sites})");
+        model.addAttribute("sites",pageServices.getAllPages());
+        model.addAttribute("model", new PostModel());
+        return "FormSite";
+    }
+
+    @RequestMapping(value = "delete", method = RequestMethod.POST)
+    public String deletePost(@ModelAttribute PostModel model){
+        // TODO: 06.02.2021 sprawdzenie czy jest takie id
+        postServices.deletePost(postServices.getByID(model.getPost_id()));
+        return "redirect:/Home";
+    }
+
 
 }

@@ -32,5 +32,63 @@
         <script src="/js/TextEditor.js" charset="utf-8"></script>
     </div>
 
+    <div class="form-box" th:fragment="updateForm(model,sites)">
+        <form id="updatePostForm" method="post" th:object="${model}">
+            <div class="form-group">
+                <label for="page">Wybierz stronę</label>
+                <select th:field="*{page_id}" class="form-select form-select-lg mb-3" id="page" aria-label="Wybierz stronę postu">
+                    <option  value="0" > wybierz </option>
+                    <th:block th:each="site : ${sites}" >
+                        <th:block th:if="${#lists.isEmpty(site.children)}">
+                            <option  th:value="${site.id}" th:text="${site.title}"></option>
+                        </th:block>
+                    </th:block>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="post">Wybierz post</label>
+                <select th:field="*{post_id}" class="form-select form-select-lg mb-3" id="post" aria-label="Wybierz post do edycji">
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="Title">Tytuł</label>
+                <input th:field="*{title}" type="text" class="form-control" id="Title" placeholder="Tytuł postu" aria-label="Wpisz tytuł postu">
+            </div>
+            <div class="mb-3">
+                <label for="textPost" class="form-label">Zawartość Postu</label>
+                <textarea class="form-control" id="textPost" th:field="*{content}"></textarea>
+            </div>
+            <button type="submit" class="btn save">Zapisz zmiany</button>
+        </form>
+
+        <script src="/js/TextEditor.js" charset="utf-8"></script>
+        <script src="/js/postForm.js" charset="utf-8"></script>
+    </div>
+
+    <div class="form-box" th:fragment="deleteForm(model,sites)">
+        <form id="deletePostForm" method="post" th:object="${model}">
+            <div class="form-group">
+                <label for="page">Wybierz stronę</label>
+                <select th:field="*{page_id}" class="form-select form-select-lg mb-3" id="page" aria-label="Wybierz stronę postu">
+                    <option  value="0" > wybierz </option>
+                    <th:block th:each="site : ${sites}" >
+                        <th:block th:if="${#lists.isEmpty(site.children)}">
+                            <option  th:value="${site.id}" th:text="${site.title}"></option>
+                        </th:block>
+                    </th:block>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="post">Wybierz post</label>
+                <select th:field="*{post_id}" class="form-select form-select-lg mb-3" id="post" aria-label="Wybierz post do edycji">
+                </select>
+            </div>
+            <button type="submit" class="btn save">Zapisz zmiany</button>
+        </form>
+
+        <script src="/js/TextEditor.js" charset="utf-8"></script>
+        <script src="/js/postForm.js" charset="utf-8"></script>
+    </div>
+
 </body>
 </html>

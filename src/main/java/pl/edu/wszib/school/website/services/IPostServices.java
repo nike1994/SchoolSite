@@ -12,9 +12,11 @@ public interface IPostServices {
     void deletePost(Post post);
     void updatePost(Post post);
     void createPost(PostModel model);
+    void updatePost(PostModel model);
 
     Post getByID(int id);
     List<Post> getAllPosts();
     List<Post> getPagePosts(Page page);
     List<Post> getAuthorPosts(User user);
+    String getJSONPagePosts(Page page, User user);
 }
