@@ -1,0 +1,94 @@
+!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div class="form-box" th:fragment="createForm(model,classes,teachers)">
+    <form id="createForm" method="post" th:object="${model}">
+        <div class="form-group">
+            <label for="name">Nazwa</label>
+            <input th:field="*{name}" type="text" class="form-control" id="name" placeholder="Wpisz nazwę przedmiotu" aria-label="Wpisz nazwę">
+        </div>
+        <div class="form-group">
+            <label for="teacher">Wybierz nauczyciela tego przedmiotu</label>
+            <select th:field="*{teacher_id}" class="form-select form-select-lg mb-3" id="teacher" aria-label="Wybierz nauczyciela">
+                <option  value="0"> wybierz nauczyciela </option>
+                <th:block th:each="teacher : ${teachers}" >
+                    <option  th:value="${teacher.id}" th:text="${teacher.Name+' '+teacher.SurName}"></option>
+                </th:block>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="clas">Wybierz klasę</label>
+            <select th:field="*{class_id}" class="form-select form-select-lg mb-3" id="clas" aria-label="Wybierz klasę dla tego przedmiotu">
+                <option  value="0"> wybierz klasę </option>
+                <th:block th:each="clas : ${classes}" >
+                    <option  th:value="${clas.id}" th:text="${clas.Name+' rocznik:'+clas.year}"></option>
+                </th:block>
+            </select>
+        </div>
+
+        <button type="submit" class="btn save">Zapisz</button>
+    </form>
+</div>
+
+<div class="form-box" th:fragment="updateForm(model,teachers,classes,subjects)">
+    <form id="updateTeacherForm" method="post" th:object="${model}">
+        <div class="form-group">
+            <label for="subject">Wybierz przedmiot do edycji</label>
+            <select th:field="*{id}" class="form-select form-select-lg mb-3" id="subject" aria-label="Wybierz przedmiot">
+                <option  value="0"> wybierz przedmiot </option>
+                <th:block th:each="subject : ${subjects}" >
+                    <option  th:value="${subject.id}" th:text="${subject.name+' '+subject.getsClass().name+':'+subject.getsClass().year}"></option>
+                </th:block>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="name">Imie</label>
+            <input th:field="*{name}" type="text" class="form-control" id="name" placeholder="Wpisz imie" aria-label="Wpisz imie">
+        </div>
+        <div class="form-group">
+            <label for="teacher">Wybierz nauczyciela tego przedmiotu</label>
+            <select th:field="*{teacher_id}" class="form-select form-select-lg mb-3" id="teacher" aria-label="Wybierz nauczyciela">
+                <option  value="0"> wybierz nauczyciela </option>
+                <th:block th:each="teacher : ${teachers}" >
+                    <option  th:value="${teacher.id}" th:text="${teacher.Name+' '+teacher.SurName}"></option>
+                </th:block>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="clas">Wybierz klasę</label>
+            <select th:field="*{class_id}" class="form-select form-select-lg mb-3" id="clas" aria-label="Wybierz klasę dla tego przedmiotu">
+                <option  value="0"> wybierz klasę </option>
+                <th:block th:each="clas : ${classes}" >
+                    <option  th:value="${clas.id}" th:text="${clas.Name+' rocznik:'+clas.year}"></option>
+                </th:block>
+            </select>
+        </div>
+
+        <button type="submit" class="btn save">Zapisz</button>
+    </form>
+    <script src="/js/subjectForm.js" charset="utf-8"></script>
+</div>
+
+<div class="form-box" th:fragment="deleteForm(model,subjects)">
+    <form id="deletePostForm" method="post" th:object="${model}">
+        <div class="form-group">
+            <label for="subject">Wybierz przedmiot do usunięcia</label>
+            <select th:field="*{id}" class="form-select form-select-lg mb-3" id="subject" aria-label="Wybierz przedmiot">
+                <option  value="0"> wybierz przedmiot </option>
+                <th:block th:each="subject : ${subjects}" >
+                    <option  th:value="${subject.id}" th:text="${subject.name+' '+subject.getsClass().name+':'+subject.getsClass().year}"></option>
+                </th:block>
+            </select>
+        </div>
+
+        <button type="submit" class="btn save">Usuń</button>
+    </form>
+</div>
+
+</body>
+</html>
