@@ -48,7 +48,7 @@ public class DataLoader implements ApplicationRunner {
 
         WebsiteInformations info = new WebsiteInformations(
                 "Sp Laskowa",
-                "./img/logo.svg",
+                "/img/logo.svg",
                 new ArrayList<String>(Arrays.asList("szkola@sp.pl")),
                 new ArrayList<String>(Arrays.asList("234-432-233","429-432-134")),
                 new ArrayList<String>(Arrays.asList("Home,Dziennik")));

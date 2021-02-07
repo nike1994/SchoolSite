@@ -1,9 +1,11 @@
 package pl.edu.wszib.school.website.model.View;
 
+import org.springframework.web.multipart.MultipartFile;
 import pl.edu.wszib.school.website.helper.StringListConverter;
 
 import javax.persistence.Column;
 import javax.persistence.Convert;
+import java.beans.Transient;
 import java.util.List;
 import java.util.Map;
 
@@ -19,6 +21,7 @@ public class AllWebsiteInformationsModel {
 
     public AllWebsiteInformationsModel() {
     }
+
 
     public String getSiteName() {
         return siteName;

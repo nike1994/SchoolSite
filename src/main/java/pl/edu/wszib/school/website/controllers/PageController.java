@@ -4,10 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import pl.edu.wszib.school.website.model.Page;
 import pl.edu.wszib.school.website.model.View.PageModel;
 import pl.edu.wszib.school.website.services.IPageServices;
+import pl.edu.wszib.school.website.services.IPostServices;
 
 
 @Controller
@@ -16,6 +19,21 @@ public class PageController {
 
     @Autowired
     IPageServices pageServices;
+    @Autowired
+    IPostServices postServices;
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public String createPostSite(@PathVariable int id, Model model){
+        Page page = pageServices.getByID(id);
+        if(page!=null){
+            System.out.println(postServices.getPagePosts(page).size());
+            model.addAttribute("posts",postServices.getPagePosts(page));
+            return "postSite";
+        }else{
+            return "redirect:/Home";
+        }
+
+    }
 
     @RequestMapping(value = "/create", method = RequestMethod.GET)
     public String createPostSite(Model model){

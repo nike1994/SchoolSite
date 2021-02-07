@@ -13,6 +13,8 @@ public class WebsiteInformations {
 
     private String siteName;
 
+    @Column()
+    @Lob
     private String siteLogo;
 
     @Column

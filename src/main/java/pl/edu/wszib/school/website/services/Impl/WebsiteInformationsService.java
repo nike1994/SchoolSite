@@ -2,15 +2,16 @@ package pl.edu.wszib.school.website.services.Impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import pl.edu.wszib.school.website.dao.IPageDao;
 import pl.edu.wszib.school.website.dao.IWebsiteInformationsDao;
-import pl.edu.wszib.school.website.dao.Impl.WebsiteInformationsDao;
 import pl.edu.wszib.school.website.model.Page;
 import pl.edu.wszib.school.website.model.User;
 import pl.edu.wszib.school.website.model.View.AllWebsiteInformationsModel;
 import pl.edu.wszib.school.website.model.WebsiteInformations;
 import pl.edu.wszib.school.website.services.IWebsiteInformationsService;
 
+import java.io.IOException;
 import java.util.*;
 
 
@@ -27,6 +28,36 @@ public class WebsiteInformationsService implements IWebsiteInformationsService {
     @Override
     public void updateInformations(WebsiteInformations informations) {
         infoDao.updateInfomations(informations);
+    }
+
+    @Override
+    public void updateInformations(AllWebsiteInformationsModel model, MultipartFile file) {
+        WebsiteInformations websiteInformations = infoDao.getInformations();
+
+        websiteInformations.setTelephons(model.getTelephons());
+
+        websiteInformations.setEmails(model.getEmails());
+
+        StringBuilder sb = new StringBuilder();
+        if(!file.isEmpty()){
+            sb.append("data:image/png;base64,");
+            try {
+                sb.append(Base64.getEncoder().encodeToString(file.getBytes()));
+                websiteInformations.setSiteLogo(sb.toString());
+                allWbInfModel.setSiteLogo(sb.toString());
+            } catch (IOException e) {
+                e.printStackTrace();
+
+            }
+        }
+        websiteInformations.setSiteName(model.getSiteName());
+
+        infoDao.updateInfomations(websiteInformations);
+
+        allWbInfModel.setTelephons(model.getTelephons());
+        allWbInfModel.setEmails(model.getEmails());
+        allWbInfModel.setSiteName(model.getSiteName());
+
     }
 
     @Override
@@ -55,7 +86,6 @@ public class WebsiteInformationsService implements IWebsiteInformationsService {
 
     @Override
     public void updatePages(){
-
         this.allWbInfModel.setAllsites(getSites());
     }
 
@@ -126,7 +156,7 @@ public class WebsiteInformationsService implements IWebsiteInformationsService {
     }
 
 
-    private  Map<String, Object> getSites(){
+    private Map<String, Object> getSites(){
         WebsiteInformations informationsFromDB = infoDao.getInformations();
         List<String> staticPages = informationsFromDB.getStaticPages();
 
