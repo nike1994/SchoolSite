@@ -5,11 +5,11 @@ import java.util.List;
 
 public class TeacherModel {
     private int id;
+    private int user_id;
     private String login;
     private String pass;
     private String name;
     private String surname;
-    private List<Integer> subjects_id;
 
 
     public TeacherModel(String login, String pass, String name, String surname, List<Integer> subjects_id) {
@@ -17,7 +17,6 @@ public class TeacherModel {
         this.pass = pass;
         this.name = name;
         this.surname = surname;
-        this.subjects_id = subjects_id;
     }
 
     public TeacherModel() {
@@ -55,19 +54,19 @@ public class TeacherModel {
         this.surname = surname;
     }
 
-    public List<Integer> getSubjects_id() {
-        return subjects_id;
-    }
-
-    public void setSubjects_id(List<Integer> subjects_id) {
-        this.subjects_id = subjects_id;
-    }
-
     public int getId() {
         return id;
     }
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
     }
 }

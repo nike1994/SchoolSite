@@ -138,6 +138,20 @@ public class UserService implements IUserServices {
     }
 
     @Override
+    public void updateTeacher(TeacherModel model) {
+        User user = userDao.getUserByID(model.getUser_id());
+        user.setName(model.getName());
+        user.setSurName(model.getSurname());
+
+        Login login = user.getLogin();
+        login.setLogin(model.getLogin());
+        login.setPassword(model.getPass());
+
+        userDao.updateUser(user);
+        loginDao.updateLogin(login);
+    }
+
+    @Override
     public void updateLogin(Login login) {
         loginDao.updateLogin(login);
     }

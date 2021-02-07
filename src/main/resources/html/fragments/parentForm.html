@@ -7,7 +7,7 @@
 <body>
 
     <div class="form-box" th:fragment="createForm(model)">
-        <form id="createPostForm" method="post" th:object="${model}">
+        <form id="createParentForm" method="post" th:object="${model}">
             <div class="form-group">
                 <label for="name">Imie</label>
                 <input th:field="*{name}" type="text" class="form-control" id="name" placeholder="Wpisz imie" aria-label="Wpisz imie">

@@ -17,6 +17,7 @@ public interface IUserServices {
     void updateUser(User user);
     void updateParent(ParentModel model);
     void updatePupil(PupilModel model);
+    void updateTeacher(TeacherModel model);
     void updateLogin(Login login);
     void deleteTeacher(int user_id);
     void deletePupil(int user_id);
