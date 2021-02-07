@@ -1,14 +1,16 @@
 package pl.edu.wszib.school.website.helper;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
-import pl.edu.wszib.school.website.dao.IUserDao;
-import pl.edu.wszib.school.website.dao.IWebsiteInformationsDao;
+import pl.edu.wszib.school.website.dao.*;
 import pl.edu.wszib.school.website.model.*;
+import pl.edu.wszib.school.website.services.IClassService;
 import pl.edu.wszib.school.website.services.IPageServices;
 import pl.edu.wszib.school.website.services.IPostServices;
+import pl.edu.wszib.school.website.services.IUserServices;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -27,6 +29,18 @@ public class DataLoader implements ApplicationRunner {
 
     @Autowired
     IPostServices postServices;
+
+    @Autowired
+    IClassService classService;
+
+    @Autowired
+    IParentDao parentDao;
+
+    @Autowired
+    IClassDao classDao;
+
+    @Autowired
+    IPupilDao pupilDao;
 
 
     @Override
@@ -76,5 +90,54 @@ public class DataLoader implements ApplicationRunner {
         post.setContent("tekst");
 
         postServices.insertPost(post);
+
+        SchoolClass clas = new SchoolClass();
+        clas.setName("A");
+        clas.setYear(2020);
+
+        classService.createClass(clas);
+
+
+        User user1 = new User();
+        user1.setName("Anna");
+        user1.setSurName("Kowalska");
+        user1.setRole(User.Role.PARENT);
+
+        Login login1 = new Login();
+        login1.setLogin("AKowalska");
+        login1.setPassword("AKowalska");
+        login1.setUser(user1);
+
+        user1.setLogin(login1);
+
+        Parent parent1 = new Parent();
+        parent1.setUser(user1);
+
+        parentDao.insertParent(parent1);
+
+        User user2 = new User();
+        user2.setName("Tomasz");
+        user2.setSurName("Kowalski");
+        user2.setRole(User.Role.PUPIL);
+
+        Login login2 = new Login();
+        login2.setLogin("TKowalski");
+        login2.setPassword("123");
+        login2.setUser(user2);
+
+        user2.setLogin(login2);
+
+        SchoolClass clas2 = classDao.getClassByID(1);
+
+        Parent parent2 = parentDao.getByUserId(2);
+
+
+        Pupil pupil = new Pupil();
+        pupil.setsClass(clas2);
+        pupil.setUser(user2);
+        pupil.setParent(parent2);
+
+        pupilDao.insertPupil(pupil);
+
     }
 }

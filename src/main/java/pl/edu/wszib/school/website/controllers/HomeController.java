@@ -8,12 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import pl.edu.wszib.school.website.dao.IUserDao;
 import pl.edu.wszib.school.website.model.Login;
 import pl.edu.wszib.school.website.model.Page;
-import pl.edu.wszib.school.website.model.SchoolClass;
 import pl.edu.wszib.school.website.model.User;
-import pl.edu.wszib.school.website.model.View.AllWebsiteInformationsModel;
-import pl.edu.wszib.school.website.model.View.CreationPupilModel;
-import pl.edu.wszib.school.website.model.View.CreationTeacherParentModel;
-import pl.edu.wszib.school.website.services.IClassService;
 import pl.edu.wszib.school.website.services.IPageServices;
 import pl.edu.wszib.school.website.services.IUserServices;
 import pl.edu.wszib.school.website.services.IWebsiteInformationsService;
@@ -82,6 +77,7 @@ public class HomeController {
 // TODO: 01.02.2021 stworzenie strony dla administratora/ dodanie usuwanie edycja stron / dodanie usuwanie edycja uczniów, nauczycieli, rodziców
 // TODO: 06.02.2021 nie można wejść do trybu edycji nie będąc zalogowanym
         // TODO: 06.02.2021 nie można dać dwóch stron o takich samych tytułach
+        // TODO: 07.02.2021 trzeba zrobić okna dialogowe z informacjami o błędach dla urzytkownika
         return "main";
     }
 

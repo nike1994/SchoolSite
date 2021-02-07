@@ -144,4 +144,21 @@ public class PupilDao implements IPupilDao {
         }
         return pupil;
     }
+
+    @Override
+    public Pupil getPupilByUserID(int id) {
+        Session session = this.sessionFactory.openSession();
+        Query<Pupil> query = session.createQuery("FROM "+this.model+" WHERE user_id = :id")
+                .setParameter("id", id);
+        Pupil pupil = null;
+        try{
+            pupil= query.getSingleResult();
+        }catch (NoResultException e){
+            System.out.println("nie znaleziono ucznia");
+            return null;
+        }finally {
+            session.close();
+        }
+        return pupil;
+    }
 }

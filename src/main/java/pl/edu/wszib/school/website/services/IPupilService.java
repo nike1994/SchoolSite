@@ -15,4 +15,5 @@ public interface IPupilService {
     List<Pupil> getParentPupils(Parent parent);
     List<Grade> getPupilGrades(Pupil pupil);
 
+    public String getPupilJSON(int id);
 }

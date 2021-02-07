@@ -116,4 +116,13 @@ public class ClassDao implements IClassDao {
         }
         return sClass;
     }
+
+    @Override
+    public List<SchoolClass> getAll() {
+        Session session = this.sessionFactory.openSession();
+        Query<SchoolClass> query = session.createQuery("FROM "+model);
+        List<SchoolClass> classes = query.getResultList();
+        session.close();
+        return classes;
+    }
 }

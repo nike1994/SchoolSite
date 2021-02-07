@@ -1,23 +1,26 @@
 package pl.edu.wszib.school.website.model.View;
 
-public class CreationPupilModel {
+
+import java.util.List;
+
+public class TeacherModel {
+    private int id;
     private String login;
     private String pass;
     private String name;
     private String surname;
-    private int parent_id;
-    private int schoolClass_id;
+    private List<Integer> subjects_id;
 
-    public CreationPupilModel(String login, String pass, String name, String surname, int parent_id, int schoolClass) {
+
+    public TeacherModel(String login, String pass, String name, String surname, List<Integer> subjects_id) {
         this.login = login;
         this.pass = pass;
         this.name = name;
         this.surname = surname;
-        this.parent_id = parent_id;
-        this.schoolClass_id = schoolClass;
+        this.subjects_id = subjects_id;
     }
 
-    public CreationPupilModel() {
+    public TeacherModel() {
     }
 
     public String getLogin() {
@@ -52,19 +55,19 @@ public class CreationPupilModel {
         this.surname = surname;
     }
 
-    public int getParent_id() {
-        return parent_id;
+    public List<Integer> getSubjects_id() {
+        return subjects_id;
     }
 
-    public void setParent_id(int parent_id) {
-        this.parent_id = parent_id;
+    public void setSubjects_id(List<Integer> subjects_id) {
+        this.subjects_id = subjects_id;
     }
 
-    public int getSchoolClass_id() {
-        return schoolClass_id;
+    public int getId() {
+        return id;
     }
 
-    public void setSchoolClass_id(int schoolClass_id) {
-        this.schoolClass_id = schoolClass_id;
+    public void setId(int id) {
+        this.id = id;
     }
 }

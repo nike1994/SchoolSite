@@ -1,11 +1,15 @@
 package pl.edu.wszib.school.website.services.Impl;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.edu.wszib.school.website.dao.*;
 import pl.edu.wszib.school.website.model.*;
-import pl.edu.wszib.school.website.model.View.CreationPupilModel;
-import pl.edu.wszib.school.website.model.View.CreationTeacherParentModel;
+import pl.edu.wszib.school.website.model.View.PageModel;
+import pl.edu.wszib.school.website.model.View.ParentModel;
+import pl.edu.wszib.school.website.model.View.PupilModel;
+import pl.edu.wszib.school.website.model.View.TeacherModel;
 import pl.edu.wszib.school.website.services.IUserServices;
 import pl.edu.wszib.school.website.session.SessionObject;
 
@@ -34,7 +38,7 @@ public class UserService implements IUserServices {
     SessionObject sessionObject;
 
     @Override
-    public int createPupil(CreationPupilModel model) {
+    public int createPupil(PupilModel model) {
         User user = new User();
         user.setName(model.getName());
         user.setSurName(model.getSurname());
@@ -48,7 +52,12 @@ public class UserService implements IUserServices {
         user.setLogin(login);
 
         SchoolClass clas = classDao.getClassByID(model.getSchoolClass_id());
-        Parent parent = parentDao.getByID(model.getParent_id());
+
+        System.out.println();
+        System.out.println(model.getParent_id());
+        System.out.println();
+        Parent parent = parentDao.getByUserId(model.getParent_id());
+        System.out.println(parent);
 
         Pupil pupil = new Pupil();
         pupil.setsClass(clas);
@@ -59,7 +68,7 @@ public class UserService implements IUserServices {
     }
 
     @Override
-    public int createTeacher(CreationTeacherParentModel model) {
+    public int createTeacher(TeacherModel model) {
         User user = new User();
         user.setName(model.getName());
         user.setSurName(model.getSurname());
@@ -76,7 +85,7 @@ public class UserService implements IUserServices {
     }
 
     @Override
-    public int createParent(CreationTeacherParentModel model) {
+    public int createParent(ParentModel model) {
         User user = new User();
         user.setName(model.getName());
         user.setSurName(model.getSurname());
@@ -101,27 +110,55 @@ public class UserService implements IUserServices {
     }
 
     @Override
+    public void updateParent(ParentModel model) {
+        // TODO: 06.02.2021 sprawdzić dane i czy istnieje user
+        User user = userDao.getUserByID(model.getUser_id());
+        user.setName(model.getName());
+        user.setSurName(model.getSurname());
+
+        Login login = user.getLogin();
+        login.setLogin(model.getLogin());
+        login.setPassword(model.getPass());
+
+        userDao.updateUser(user);
+        loginDao.updateLogin(login);
+    }
+
+    @Override
+    public void updatePupil(PupilModel model) {
+        User user = userDao.getUserByID(model.getUser_id());
+        user.setName(model.getName());
+        user.setSurName(model.getSurname());
+        Login login = user.getLogin();
+        login.setLogin(model.getLogin());
+        login.setPassword(model.getPass());
+
+        userDao.updateUser(user);
+        loginDao.updateLogin(login);
+    }
+
+    @Override
     public void updateLogin(Login login) {
         loginDao.updateLogin(login);
     }
 
     @Override
-    public void deleteTeacher(int id) {
-        User user = userDao.getUserByID(id);
+    public void deleteTeacher(int user_id) {
+        User user = userDao.getUserByID(user_id);
 
         userDao.removeUser(user);
     }
 
     @Override
-    public void deletePupil(int id) {
-        Pupil pupil = pupilDao.getPupilByUser(id);
+    public void deletePupil(int user_id) {
+        Pupil pupil = pupilDao.getPupilByUser(user_id);
 
         pupilDao.removePupil(pupil);
     }
 
     @Override
-    public void deleteParentandPupils(int id) {
-        Parent parent = parentDao.getByUserId(id);
+    public void deleteParentandPupils(int user_id) {
+        Parent parent = parentDao.getByUserId(user_id);
 
         parentDao.removeParent(parent);
     }
@@ -137,8 +174,34 @@ public class UserService implements IUserServices {
     }
 
     @Override
-    public List<User> getUsersByRole(String role) {
+    public List<User> getUsersByRole(User.Role role) {
         return userDao.getUserByRole(role);
+    }
+
+    @Override
+    public String getUserJSON(int id) {
+        User user = userDao.getUserByID(id);
+        if(user != null){
+            Login login = user.getLogin();
+            ParentModel model = new ParentModel();
+            model.setLogin(login.getLogin());
+            model.setPass(login.getPassword());
+            model.setName(user.getName());
+            model.setSurname(user.getSurName());
+
+            ObjectMapper mapper = new ObjectMapper();
+            String response = null;
+
+            try {
+                response = mapper.writeValueAsString(model);
+            } catch (JsonProcessingException e) {
+                e.printStackTrace();
+            }
+
+            return response;
+
+        }
+        return null;
     }
 
     @Override

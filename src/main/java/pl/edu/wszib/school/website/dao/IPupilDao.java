@@ -13,6 +13,7 @@ public interface IPupilDao {
     void updatePupil(Pupil pupil);
 
     Pupil getPupilByID(int id);
+    Pupil getPupilByUserID(int id);
     Pupil getPupilByUser(int userId);
     List<Pupil> getAllPupil();
     List<Pupil> getPupilsByClass(SchoolClass sClass);

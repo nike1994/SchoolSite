@@ -1,9 +1,10 @@
 package pl.edu.wszib.school.website.model.View;
 
-
 import java.util.List;
 
-public class CreationTeacherParentModel {
+public class ParentModel {
+    private int id;
+    private int user_id;
     private String login;
     private String pass;
     private String name;
@@ -11,15 +12,7 @@ public class CreationTeacherParentModel {
     private List<Integer> subjects_id;
 
 
-    public CreationTeacherParentModel(String login, String pass, String name, String surname, List<Integer> subjects_id) {
-        this.login = login;
-        this.pass = pass;
-        this.name = name;
-        this.surname = surname;
-        this.subjects_id = subjects_id;
-    }
-
-    public CreationTeacherParentModel() {
+    public ParentModel() {
     }
 
     public String getLogin() {
@@ -60,5 +53,21 @@ public class CreationTeacherParentModel {
 
     public void setSubjects_id(List<Integer> subjects_id) {
         this.subjects_id = subjects_id;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
     }
 }

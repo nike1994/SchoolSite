@@ -1,26 +1,31 @@
 package pl.edu.wszib.school.website.services;
 
 import pl.edu.wszib.school.website.model.Login;
+import pl.edu.wszib.school.website.model.Parent;
 import pl.edu.wszib.school.website.model.User;
-import pl.edu.wszib.school.website.model.View.CreationPupilModel;
-import pl.edu.wszib.school.website.model.View.CreationTeacherParentModel;
+import pl.edu.wszib.school.website.model.View.ParentModel;
+import pl.edu.wszib.school.website.model.View.PupilModel;
+import pl.edu.wszib.school.website.model.View.TeacherModel;
 
 import java.util.List;
 
 
 public interface IUserServices {
-    int createPupil(CreationPupilModel model);
-    int createTeacher(CreationTeacherParentModel model);
-    int createParent(CreationTeacherParentModel model);
+    int createPupil(PupilModel model);
+    int createTeacher(TeacherModel model);
+    int createParent(ParentModel model);
     void updateUser(User user);
+    void updateParent(ParentModel model);
+    void updatePupil(PupilModel model);
     void updateLogin(Login login);
-    void deleteTeacher(int id);
-    void deletePupil(int id);
-    void deleteParentandPupils(int id);
+    void deleteTeacher(int user_id);
+    void deletePupil(int user_id);
+    void deleteParentandPupils(int user_id);
 
     List<User> getAllUsers();
     User getUserByID(int id);
-    List<User> getUsersByRole(String role);
+    List<User> getUsersByRole(User.Role role);
+    String getUserJSON(int id);
 
     void authenticate(Login login);
     void logout();

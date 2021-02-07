@@ -13,5 +13,5 @@ public interface IUserDao {
 
     List<User> getAll();
     User getUserByID(int id);
-    List<User> getUserByRole(String role);
+    List<User> getUserByRole(User.Role role);
 }

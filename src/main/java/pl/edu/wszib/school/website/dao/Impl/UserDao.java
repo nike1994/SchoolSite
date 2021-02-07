@@ -110,9 +110,9 @@ public class UserDao implements IUserDao {
     }
 
     @Override
-    public List<User> getUserByRole(String role) {
+    public List<User> getUserByRole(User.Role role) {
         Session session = this.sessionFactory.openSession();
-        Query<User> query = session.createQuery("FROM "+model+" WHERE role LIKE :role")
+        Query<User> query = session.createQuery("FROM "+model+" WHERE role = :role")
                             .setParameter("role",role);
         List<User> users = query.getResultList();
         session.close();

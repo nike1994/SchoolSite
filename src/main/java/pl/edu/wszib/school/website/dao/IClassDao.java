@@ -12,4 +12,5 @@ public interface IClassDao {
 
     SchoolClass getClassByID(int id);
     SchoolClass getClassByUser(User user);
+    List<SchoolClass> getAll();
 }

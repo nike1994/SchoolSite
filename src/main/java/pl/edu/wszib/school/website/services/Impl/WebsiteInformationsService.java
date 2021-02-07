@@ -11,10 +11,7 @@ import pl.edu.wszib.school.website.model.View.AllWebsiteInformationsModel;
 import pl.edu.wszib.school.website.model.WebsiteInformations;
 import pl.edu.wszib.school.website.services.IWebsiteInformationsService;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 @Service
@@ -50,67 +47,17 @@ public class WebsiteInformationsService implements IWebsiteInformationsService {
         info.setEmails(informationsFromDB.getEmails());
         info.setTelephons(informationsFromDB.getTelephons());
 
-        List<Page> pages = pageDao.getAllPages();
 
-        Map<String,Object> sites= new HashMap<String,Object>();
-
-        for (Page page: pages) {
-            if(page.getParent()==null){
-                if(page.getChildren().isEmpty()){
-                    sites.put(page.getTitle(),"/page/"+page.getId());
-                }else{
-                    HashMap<String, Object> subPages = new HashMap<>();
-
-                    for (Page subPage: page.getChildren()) {
-                        subPages.put(subPage.getTitle(),"/page/"+subPage.getId());
-                    }
-
-                    sites.put(page.getTitle(),subPages);
-                }
-            }
-        }
-
-        for (String page:informationsFromDB.getStaticPages()) {
-            sites.put(page,page);
-        }
-
-
-        info.setAllsites(sites);
+        info.setAllsites(getSites());
         return info;
     }
 
+
     @Override
     public void updatePages(){
-        WebsiteInformations informationsFromDB = infoDao.getInformations();
 
-        List<Page> pages = pageDao.getAllPages();
-
-        Map<String,Object> sites= new HashMap<String,Object>();
-
-        for (Page page: pages) {
-            if(page.getParent()==null){
-                if(page.getChildren().isEmpty()){
-                    sites.put(page.getTitle(),"/page/"+page.getId());
-                }else{
-                    HashMap<String, Object> subPages = new HashMap<>();
-
-                    for (Page subPage: page.getChildren()) {
-                        subPages.put(subPage.getTitle(),"/page/"+subPage.getId());
-                    }
-
-                    sites.put(page.getTitle(),subPages);
-                }
-            }
-        }
-
-        for (String page:informationsFromDB.getStaticPages()) {
-            sites.put(page,page);
-        }
-
-
-        this.allWbInfModel.setAllsites(sites);
+        this.allWbInfModel.setAllsites(getSites());
     }
-
 
     @Override
     public List<Object> getButtonNavLogin(User.Role role) {
@@ -177,4 +124,53 @@ public class WebsiteInformationsService implements IWebsiteInformationsService {
             this.href = href;
         }
     }
+
+
+    private  Map<String, Object> getSites(){
+        WebsiteInformations informationsFromDB = infoDao.getInformations();
+        List<String> staticPages = informationsFromDB.getStaticPages();
+
+        List<Page> pages = pageDao.getAllPages();
+
+        //home zawsze na 1 miejscu
+        Comparator<String> customComparator = new Comparator<String>() {
+            @Override public int compare(String s1, String s2) {
+                if(s1.equals(staticPages.get(0))){
+                    return -1;
+                }else if(s2.equals(staticPages.get(0))) {
+                    return 1;
+                }
+
+                return s1.compareTo(s2);
+            }
+        };
+
+        Map<String,Object> sites= new TreeMap<>(customComparator);
+
+        for (Page page: pages) {
+            if(page.getParent()==null){
+                if(page.getChildren().isEmpty()){
+                    sites.put(page.getTitle(),"/page/"+page.getId());
+                }else{
+                    HashMap<String, Object> subPages = new HashMap<>();
+
+                    for (Page subPage: page.getChildren()) {
+                        subPages.put(subPage.getTitle(),"/page/"+subPage.getId());
+                    }
+
+                    sites.put(page.getTitle(),subPages);
+                }
+            }
+        }
+
+
+
+        for (String page:staticPages) {
+            sites.put(page,page);
+        }
+
+
+        return sites;
+    }
+
 }

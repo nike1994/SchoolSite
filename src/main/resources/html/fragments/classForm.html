@@ -1,0 +1,66 @@
+!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+    <div class="form-box" th:fragment="createForm(model)">
+        <form id="createForm" method="post" th:object="${model}">
+            <div class="form-group">
+                <label for="name">Nazwa</label>
+                <input th:field="*{name}" type="text" class="form-control" id="name" placeholder="Nazwa klasy" aria-label="Wpisz nazwę klasy">
+            </div>
+            <div class="form-group">
+                <label for="year">Rok</label>
+                <input th:field="*{year}" type="text" class="form-control" id="year" placeholder="Rok" aria-label="Wpisz rocznik">
+            </div>
+            <button type="submit" class="btn save">Zapisz</button>
+        </form>
+        <script src="/js/classForm.js" charset="utf-8"></script>
+    </div>
+
+
+
+    <div class="form-box" th:fragment="updateForm(classes,model)">
+        <form id="updateForm" method="post" th:object="${model}">
+            <div class="form-group">
+                <label for="classEdit">Wybierz klasę do edycji</label>
+                <select th:field="*{id}" class="form-select form-select-lg mb-3" id="classEdit" aria-label="Wybierz klasę">
+                    <option  value="0"> wybierz klasę </option>
+                    <th:block th:each="class : ${classes}" >
+                        <option  th:value="${class.id}" th:text="${class.name}"></option>
+                    </th:block>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="name">Nazwa</label>
+                <input th:field="*{name}" type="nazwa" class="form-control" id="name" placeholder="Nazwa klasy" aria-label="Wpisz nazwę klasy">
+            </div>
+            <div class="form-group">
+                <label for="year">Rok</label>
+                <input th:field="*{year}" type="text" class="form-control" id="year" placeholder="Rok" aria-label="Wpisz rocznik">
+            </div>
+            <button type="submit" class="btn save">Zapisz zmiany</button>
+        </form>
+        <script src="/js/classForm.js" charset="utf-8"></script>
+    </div>
+
+    <div class="form-box" th:fragment="deleteForm(classes,model)">
+        <form id="deleteForm" method="post" th:object="${model}">
+            <div class="form-group">
+                <label for="class">Wybierz klasę do usunięcia</label>
+                <select th:field="*{id}" class="form-select form-select-lg mb-3" id="class" aria-label="Wybierz klasę">
+                    <option  value="0"> wybierz kasę </option>
+                    <th:block th:each="class : ${classes}" >
+                        <option  th:value="${class.id}" th:text="${class.name}"></option>
+                    </th:block>
+                </select>
+            </div>
+            <button type="submit" class="btn save">Zapisz zmiany</button>
+        </form>
+        <script src="/js/classForm.js" charset="utf-8"></script>
+    </div>
+</body>
+</html>

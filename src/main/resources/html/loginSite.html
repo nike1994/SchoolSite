@@ -22,6 +22,6 @@
     <div class="content">
         <div th:replace="fragments/loginForm.html :: loginForm(loginModel=${loginModel})"></div>
     </div>
-    <footer th:replace="fragments/footer.html :: footer(tel=${telephons}, mail=${emails})"></footer>
+    <footer th:replace="fragments/footer.html :: footer(tel=${webInfo.telephons}, mail=${webInfo.emails})"></footer>
 </body>
 </html>

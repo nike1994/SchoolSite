@@ -8,7 +8,7 @@ import pl.edu.wszib.school.website.dao.ISubjectDao;
 import pl.edu.wszib.school.website.model.Grade;
 import pl.edu.wszib.school.website.model.Pupil;
 import pl.edu.wszib.school.website.model.SchoolSubjects;
-import pl.edu.wszib.school.website.model.View.CreationGradeModel;
+import pl.edu.wszib.school.website.model.View.GradeModel;
 import pl.edu.wszib.school.website.services.IGradeService;
 
 @Service
@@ -25,7 +25,7 @@ public class GradeService implements IGradeService {
 
 
     @Override
-    public int createGrade(CreationGradeModel model) {
+    public int createGrade(GradeModel model) {
         SchoolSubjects subject = subjectDao.getSubjectByID(model.getId_subject());
         Pupil pupil = pupilDao.getPupilByID(model.getId_pupil());
 

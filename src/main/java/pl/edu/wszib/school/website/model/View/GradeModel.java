@@ -1,19 +1,19 @@
 package pl.edu.wszib.school.website.model.View;
 
-public class CreationGradeModel {
+public class GradeModel {
     private int grade;
     private int id_subject;
     private int id_pupil;
     private String description;
 
-    public CreationGradeModel(int grade, int id_subject, int id_pupil, String description) {
+    public GradeModel(int grade, int id_subject, int id_pupil, String description) {
         this.grade = grade;
         this.id_subject = id_subject;
         this.id_pupil = id_pupil;
         this.description = description;
     }
 
-    public CreationGradeModel() {
+    public GradeModel() {
     }
 
     public int getGrade() {
