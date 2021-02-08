@@ -4,6 +4,7 @@ import pl.edu.wszib.school.website.model.Login;
 import pl.edu.wszib.school.website.model.Parent;
 import pl.edu.wszib.school.website.model.User;
 import pl.edu.wszib.school.website.model.View.ParentModel;
+import pl.edu.wszib.school.website.model.View.PasswordUpdateModel;
 import pl.edu.wszib.school.website.model.View.PupilModel;
 import pl.edu.wszib.school.website.model.View.TeacherModel;
 
@@ -22,6 +23,7 @@ public interface IUserServices {
     void deleteTeacher(int user_id);
     void deletePupil(int user_id);
     void deleteParentandPupils(int user_id);
+    void passwordUpdate(PasswordUpdateModel model);
 
     List<User> getAllUsers();
     User getUserByID(int id);

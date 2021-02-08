@@ -6,10 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.edu.wszib.school.website.dao.*;
 import pl.edu.wszib.school.website.model.*;
-import pl.edu.wszib.school.website.model.View.PageModel;
-import pl.edu.wszib.school.website.model.View.ParentModel;
-import pl.edu.wszib.school.website.model.View.PupilModel;
-import pl.edu.wszib.school.website.model.View.TeacherModel;
+import pl.edu.wszib.school.website.model.View.*;
 import pl.edu.wszib.school.website.services.IUserServices;
 import pl.edu.wszib.school.website.session.SessionObject;
 
@@ -178,6 +175,22 @@ public class UserService implements IUserServices {
     }
 
     @Override
+    public void passwordUpdate(PasswordUpdateModel model) {
+        if(model.getPass1().equals(model.getPass2())){
+            User user = model.getUser();
+            Login login = user.getLogin();
+            if (!model.getPass1().equals(login.getPassword())){
+                login.setPassword(model.getPass1());
+                loginDao.updateLogin(login);
+            }else{
+                System.out.println("hasło jest takie samo jak stare");
+            }
+        }else{
+            System.out.println("hasła są różne");
+        }
+    }
+
+    @Override
     public List<User> getAllUsers() {
         return userDao.getAll();
     }
@@ -224,7 +237,7 @@ public class UserService implements IUserServices {
         if(loginFromDb == null){
             return;
         }
-        if (loginFromDb.getPassword().equals(loginFromDb.getPassword())){
+        if (loginFromDb.getPassword().equals(login.getPassword())){
             this.sessionObject.setLoggedUser(loginFromDb.getUser());
         }
     }

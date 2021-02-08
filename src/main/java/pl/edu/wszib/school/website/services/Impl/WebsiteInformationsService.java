@@ -102,11 +102,13 @@ public class WebsiteInformationsService implements IWebsiteInformationsService {
             listbutton.add(new ButtonObj("Nauczyciel","nauczyciela","teacher"));
             listbutton.add(new ButtonObj("Przedmiot","przedmiot","subject"));
             listbutton.add(new ButtonObj("Ustawienia strony","webPageSettings"));
+            listbutton.add(new ButtonObj("Zmień swoje hasło","passwordUpdate"));
 
         }else if(role.equals(User.Role.TEACHER)){
             listbutton.add(new ButtonObj("Posty","post","post"));
+            listbutton.add(new ButtonObj("Zmień swoje hasło","passwordUpdate"));
         }else{
-            listbutton =null;
+            listbutton.add(new ButtonObj("Zmień swoje hasło","passwordUpdate"));
         }
 
         return listbutton;
