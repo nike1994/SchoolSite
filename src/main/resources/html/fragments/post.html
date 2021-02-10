@@ -6,9 +6,9 @@
 </head>
 <body>
 
-<th:block th:fragment="post(post)">
+<th:block th:fragment="post(post,isLogged)">
 
-    <section class="post">
+    <section class="post" th:id="${post.id}">
         <div class="post-box">
             <h1 th:text="${post.title}">Tytuł</h1>
             <h3 th:text="${post.author.Name+' '+post.author.surName}">autor postu</h3>
@@ -19,10 +19,55 @@
                 <p>tekst 2</p>
             </div>
         </div>
+        <th:block th:if="${isLogged}">
+            <div class="comments-frame">
+                <button type="button" name="button" class="btn blue-background comment-create">Stwórz komentarz</button>
+                <th:block th:unless="${post.comments.isEmpty()}">
+                    <button type="button" name="button" class="btn yellow-background" data-toggle="collapse" data-target="#comments" aria-expanded="false" aria-controls="comments">
+                        Zobacz wszystkie komentarze
+                    </button>
+                </th:block>
+                <div class="comments-box collapse" id="comments">
+                    <th:block th:unless="${post.comments.isEmpty()}">
+                        <th:block th:each="comment:${post.comments}">
+                            <div class="comment">
+                                <div class="comment-body">
+                                    <h3 th:text="${comment.author.Name+' '+comment.author.SurName}">Barbara Nowak</h3>
+                                    <h6 th:text="${comment.date}">20/12/21 17:30</h6>
+                                    <p th:text="${comment.content}">tekst</p>
+                                </div>
+                            </div>
+                        </th:block>
+                    </th:block>
+                </div>
+            </div>
+        </th:block>
     </section>
 
 
 </th:block>
+
+<div class="" th:fragment="modalBoxComment()">
+    <div class="modal" id="modalBoxComment" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalBoxCommentTitle">Twój komentarz</h5>
+                    <button type="button" class="close closeModal" data-dismiss="modal" aria-label="Close" data-target="#modalBoxComment">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="modalBoxCommentBody">
+                    <textarea name="comment" id="comment" cols="30" rows="10"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary closeModal" data-dismiss="modal" data-target="#modalBoxComment">Close</button>
+                    <button type="button" class="btn btn-primary saveModalBoxComment" data-dismiss="modal" data-target="#modalBoxComment">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 </body>
 </html>

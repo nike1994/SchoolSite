@@ -52,4 +52,15 @@ public class PostRESTController {
         throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE);
     }
 
+    @RequestMapping(value = "/createComment", method = RequestMethod.POST,
+            consumes = "application/json")
+    @ResponseBody public String createComment(@RequestBody LinkedHashMap JSON){
+        if(postServices.createComment(JSON,sessionObject.getLoggedUser()) == 0){
+            return "error";
+        }else{
+            return "ok";
+        }
+
+    }
+
 }

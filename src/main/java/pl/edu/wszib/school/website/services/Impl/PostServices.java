@@ -4,16 +4,22 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pl.edu.wszib.school.website.dao.ICommentDao;
 import pl.edu.wszib.school.website.dao.IPageDao;
 import pl.edu.wszib.school.website.dao.IPostDao;
+import pl.edu.wszib.school.website.model.Comment;
 import pl.edu.wszib.school.website.model.Page;
 import pl.edu.wszib.school.website.model.Post;
 import pl.edu.wszib.school.website.model.User;
 import pl.edu.wszib.school.website.model.View.PostModel;
 import pl.edu.wszib.school.website.services.IPostServices;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 @Service
@@ -23,6 +29,9 @@ public class PostServices implements IPostServices {
 
     @Autowired
     IPageDao pageDao;
+
+    @Autowired
+    ICommentDao commentDao;
 
     @Override
     public int insertPost(Post post) {
@@ -60,6 +69,27 @@ public class PostServices implements IPostServices {
         post.setDate(dtf.format(model.getDate()));
 
         postDao.insertPost(post);
+    }
+
+    @Override
+    public int createComment(LinkedHashMap JSON, User user) {
+        if(JSON != null){
+            if(JSON.isEmpty()){
+                return 0;
+            }else {
+                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
+                LocalDateTime date = LocalDateTime.now();
+
+                Comment comment = new Comment();
+                comment.setPost(postDao.getByID(Integer.parseInt((String) JSON.get("id"))));
+                comment.setContent((String) JSON.get("content"));
+
+                comment.setDate(dtf.format(date));
+                comment.setAuthor(user);
+                return commentDao.createComment(comment);
+            }
+        }
+        return 0;
     }
 
     @Override

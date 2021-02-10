@@ -1,0 +1,68 @@
+
+
+
+
+section.post{
+  margin: 30px;
+  padding: 30px;
+  background-image: repeating-linear-gradient(0deg, #333333, #333333 30px, transparent 30px, transparent 59px, #333333 59px), repeating-linear-gradient(90deg, #333333, #333333 30px, transparent 30px, transparent 59px, #333333 59px), repeating-linear-gradient(180deg, #333333, #333333 30px, transparent 30px, transparent 59px, #333333 59px), repeating-linear-gradient(270deg, #333333, #333333 30px, transparent 30px, transparent 59px, #333333 59px);
+  background-size: 4px 100%, 100% 4px, 4px 100% , 100% 4px;
+  background-position: 0 0, 0 0, 100% 0, 0 100%;
+  background-repeat: no-repeat;
+}
+
+section.post .post-box>h1{
+  margin-bottom: 0.5em;
+}
+
+section.post .post-box>h3,section.post .post-box>h5{
+  text-align: right;
+  color: rgb(120, 120, 120);
+}
+
+section.post .post-box>h3{
+  font-size: 1.3em;
+}
+section.post .post-box>h5{
+  font-size: 1em;
+}
+
+.post-box .content-post{
+  margin-top: 20px;
+}
+
+section.post .comments-frame{
+  border-top: solid black 2px;
+  padding-top: 30px;
+  margin-top: 30px;
+}
+
+section.post .comments-box{
+  border-top: solid black 2px;
+  padding-top: 30px;
+  margin-top: 30px;
+}
+
+.comments-box .comment{
+  margin: 10px auto;
+  background: var(--light-brown);
+  padding: 30px;
+}
+
+.comment .comment-body h6{
+  text-align: right;
+  color: grey;
+}
+
+.comment .comment-body p{
+ word-break: break-all;
+ }
+
+#modalBoxComment{
+    margin-top: 50px;
+    z-index:999999;
+}
+
+#modalBoxComment textarea{
+    width:100%;
+}

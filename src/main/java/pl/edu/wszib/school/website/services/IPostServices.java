@@ -5,6 +5,7 @@ import pl.edu.wszib.school.website.model.Post;
 import pl.edu.wszib.school.website.model.User;
 import pl.edu.wszib.school.website.model.View.PostModel;
 
+import java.util.LinkedHashMap;
 import java.util.List;
 
 public interface IPostServices {
@@ -13,6 +14,7 @@ public interface IPostServices {
     void updatePost(Post post);
     void createPost(PostModel model);
     void updatePost(PostModel model);
+    int createComment(LinkedHashMap JSON, User user);
 
     Post getByID(int id);
     List<Post> getAllPosts();

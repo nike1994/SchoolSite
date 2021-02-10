@@ -44,6 +44,7 @@ public class PageController {
         return "FormSite";
     }
 
+
     @RequestMapping(value="/create",method = RequestMethod.POST)
     public String createPost(@ModelAttribute PageModel model){
         pageServices.createPage(model);

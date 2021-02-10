@@ -1,33 +1,24 @@
 package pl.edu.wszib.school.website.model;
 
 import javax.persistence.*;
-import java.util.SortedSet;
 
-@Entity(name="Posts")
-public class Post {
+@Entity(name="Comments")
+public class Comment implements Comparable<Comment>{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    private Page page;
+    @JoinColumn(name="post_id", referencedColumnName = "id")
+    private Post post;
 
     @ManyToOne(fetch = FetchType.EAGER)
     private User author;
 
     private String date; //data utworzenia
-    private String title;
+    private String content;
 
-    @Column()
-    @Lob
-    private String content; //zawartość strony
-
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name="post_id", referencedColumnName = "id")
-    @OrderBy("id ASC")
-    private SortedSet<Comment> comments;
-
-    public Post() {
+    public Comment() {
     }
 
     public int getId() {
@@ -38,12 +29,12 @@ public class Post {
         this.id = id;
     }
 
-    public Page getPage() {
-        return page;
+    public Post getPost() {
+        return post;
     }
 
-    public void setPage(Page page) {
-        this.page = page;
+    public void setPost(Post post) {
+        this.post = post;
     }
 
     public User getAuthor() {
@@ -62,14 +53,6 @@ public class Post {
         this.date = date;
     }
 
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
     public String getContent() {
         return content;
     }
@@ -78,11 +61,9 @@ public class Post {
         this.content = content;
     }
 
-    public SortedSet<Comment> getComments() {
-        return comments;
-    }
 
-    public void setComments(SortedSet<Comment> comments) {
-        this.comments = comments;
+    @Override
+    public int compareTo(Comment o) {
+        return  ((Integer)this.id).compareTo(o.id);
     }
 }
