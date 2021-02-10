@@ -30,6 +30,9 @@ public class LoginControler {
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String loginForm(Model model) {
+        if(this.sessionObject.isLogged()) {
+            return "redirect:/Home";
+        }
         model.addAttribute("loginModel", new Login());
         return "loginSite";
     }

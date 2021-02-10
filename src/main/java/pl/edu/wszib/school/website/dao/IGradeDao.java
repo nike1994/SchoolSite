@@ -4,7 +4,6 @@ import pl.edu.wszib.school.website.model.Grade;
 import pl.edu.wszib.school.website.model.Pupil;
 import pl.edu.wszib.school.website.model.SchoolSubjects;
 
-import javax.security.auth.Subject;
 import java.util.List;
 
 public interface IGradeDao {
@@ -16,4 +15,5 @@ public interface IGradeDao {
     List<Grade> getAll();
     List<Grade> getBySubject(SchoolSubjects subject);
     List<Grade> getByPupil(Pupil pupil);
+    List<Grade> getByPupilAndSubject(Pupil pupil, SchoolSubjects subject);
 }

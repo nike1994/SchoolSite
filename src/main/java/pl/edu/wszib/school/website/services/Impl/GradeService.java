@@ -25,7 +25,7 @@ public class GradeService implements IGradeService {
 
 
     @Override
-    public int createGrade(GradeModel model) {
+    public int createGrade(GradeModel model, int subject_id) {
         SchoolSubjects subject = subjectDao.getSubjectByID(model.getId_subject());
         Pupil pupil = pupilDao.getPupilByID(model.getId_pupil());
 

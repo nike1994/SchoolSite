@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Szkolna strona</title>
+        <title th:text="${webInfo.siteName}">Szkolna strona</title>
 
         <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=Caveat+Brush&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=The+Girl+Next+Door&display=swap" rel="stylesheet">
@@ -19,6 +19,7 @@
     </head>
     <body>
         <nav th:replace="fragments/navigationMenu.html :: menu(sites=${webInfo.Allsites},active='home',name=${webInfo.siteName},img=${webInfo.siteLogo},isLogged=${isLogged},buttonList=${navLogged})"></nav>
+        <div th:replace="fragments/modalBox.html :: modalBox()"></div>
         <div class="content">
 
             <div th:replace="fragments/homeContent.html :: slider"></div>

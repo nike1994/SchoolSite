@@ -13,10 +13,11 @@ public class Pupil {
     private int id;
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, optional = false)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id",referencedColumnName = "id")
     private User user;
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @ManyToOne(targetEntity = SchoolClass.class,cascade = CascadeType.MERGE,fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name="class_id", referencedColumnName = "id")
     private SchoolClass sClass;
 
     @ManyToOne(cascade = CascadeType.PERSIST,fetch = FetchType.EAGER, optional = false)

@@ -1,66 +1,145 @@
+function randomString(length) {
+   var result           = '';
+   var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+   var charactersLength = characters.length;
+   for ( var i = 0; i < length; i++ ) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+   }
+   return result;
+}
+
+function ajax(url,type,object,callback){
+    console.log(object);
+   var xmlhttp = new XMLHttpRequest();
+    xmlhttp.open(type, url);
+    xmlhttp.setRequestHeader("Content-Type", "application/json");
+    xmlhttp.onreadystatechange = function () {
+        try {
+            if (xmlhttp.readyState === 4) {
+                  console.log(xmlhttp.responseText);
+                  callback(xmlhttp.responseText);
+            }
+        } catch (e) {
+            alert(e.toString());
+        }
+    }
+    xmlhttp.send(JSON.stringify(object));
+
+}
+
+
 var table;
+var activeDropmenuLink;
 
 $( document ).ready(function() {
-  //define some sample data
-   var tabledata = [
-   	{id:1, name:"Oli Bob", age:"12", col:"red", dob:""},
-   	{id:2, name:"Mary May", age:"1", col:"blue", dob:"14/05/1982"},
-   	{id:3, name:"Christine Lobowski", age:"42", col:"green", dob:"22/05/1982"},
-   	{id:4, name:"Brendon Philips", age:"125", col:"orange", dob:"01/08/1980"},
-   	{id:5, name:"Margret Marmajuke", age:"16", col:"yellow", dob:"31/01/1999"},
-   ];
 
-  //create Tabulator on DOM element with id "example-table"
   table = new Tabulator("#school_register", {
-   	data:tabledata, //assign data to table
+   	data:tableDB.tableData, // z serwera dane do tabeli
     layout:"fitDataFill", //fit columns to width of table (optional)
-    movableColumns:true,
-   	columns:[ //Define Table Columns
-  	 	{title:"Name", field:"name", width:150},
-  	 	{title:"Age", field:"age", hozAlign:"left", formatter:"progress"},
-  	 	{title:"Favourite Color", field:"col"},
-  	 	{title:"Date Of Birth", field:"dob", sorter:"date", hozAlign:"center"},
-   	],
-    rowFormatter:function(row){
-        if(row.getData().age < 20){
-            row.getElement().classList.add("table-primary"); //mark rows with age greater than or equal to 18 as successful;
-        }
-    },
-   	rowClick:function(e, row){ //trigger an alert message when the row is clicked
-   		alert("Row " + row.getData().id + " Clicked!!!!");
-   	},
+    reactiveData:true,
+    dataTree:true,
+    dataTreeStartExpanded:true,
+    columns:tableDB.tableConfiguration // z serwera definicja kolumn
   });
 
   var columns=[];
 
   $( "#addColumn" ).click(function() {
-    table.addColumn({title:"Ocena", field:"Ocena", editableTitle:true, editor:"number", editorParams:{
+    table.addColumn({title:"wpisz opis", field:"Ocena"+randomString(5), editableTitle:true, editor:"number", editorParams:{
       min:0,
       max:6,
       step:1,
       elementAttributes:{
-        maxlength:"1", //set the maximum character length of the input element to 10 characters
+        maxlength:"1",
       },
       mask:"9",
 
     },validator:"max:6"}, false, "ocena")
       .then(function(column){
-          //column - the component for the newly created column
-
-          //run code after column has been added
           columns.push(column);
       })
       .catch(function(error){
-          //handle error adding column
           console.log(error);
       });
   });
 
   $( "#deleteColumn" ).click(function() {
-      columns[0].delete();
-      columns.shift();
+      table.deleteColumn(columns[columns.length-1].getField());
+      columns[columns.length-1].delete();
+      columns.pop();
   });
 
+  $('#saveColumn').click(function(){
+    var data =[];
+    var subject = $("div.dropdown-menu a.dropdown-item.active").attr("id"); //aktywny przedmiot
+    console.log(columns.length);
+    for(let i=0; i<columns.length;i++){
+        console.log(columns[i].getField());
+        var cells = columns[i].getCells();
+        console.log(cells.length);
+        for(let j=0; j<cells.length;j++){
+            data.push({
+                    grade:cells[j].getValue(),
+                    pupil_id: cells[j].getRow().getData().id,
+                    description: columns[i].getDefinition().title,
+                    subject_id: subject
+                    });
+        }
+    }
+    console.log("tabela");
+    console.log(data);
+
+    var callback = function(responseText){
+        if(responseText == "ok"){
+            console.log("ok");
+            //uniemożliwienie edycji zapisanych kolumn
+            for(let i=0; i<columns.length;i++){
+                columns[i].updateDefinition({editableTitle:false, editor:null, editorParams:null});
+            }
+            columns=[];
+        }else{
+            $('#modalBoxTitle').html("Błąd !!");
+            $('#modalBoxBody').html("Wystąpił błąd podczas zapisu");
+            $('#modalBox').modal('show');
+        }
+    };
+    ajax("/register/saveGrade","POST",data,callback)
+  });
+
+
+   $('div.dropdown-menu .dropdown-item').click(function(){
+        if(!$(this).hasClass('active')){
+            activeDropmenuLink=this;
+
+            var callback = function(responseText){
+                if(responseText == "error"){
+
+                    $('#modalBoxTitle').html("Błąd !!");
+                    $('#modalBoxBody').html("Wystąpił błąd podczas wczytywania danych z bazy");
+                    $('#modalBox').modal('show');
+
+                }else{
+
+                    $('div.dropdown-menu .dropdown-item.active').removeClass('active');
+                    $(activeDropmenuLink).addClass('active');
+                    $('.table-content>h2').html($(activeDropmenuLink).text());
+
+                    var tableFromServer = JSON.parse(responseText);
+
+                    columns=[];
+                    table = new Tabulator("#school_register", {
+                        data:tableFromServer.tableData,
+                        layout:"fitDataFill",
+                        reactiveData:true,
+                        dataTree:true,
+                        dataTreeStartExpanded:true,
+                        columns:tableFromServer.tableConfiguration
+                    });
+                }
+            }
+            ajax("/register/getTableByID","POST",{id:$(this).attr("id")},callback)
+        }
+   });
 
 
 });

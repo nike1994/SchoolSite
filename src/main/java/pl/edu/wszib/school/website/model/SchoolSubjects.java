@@ -12,7 +12,8 @@ public class SchoolSubjects {
     @ManyToOne(fetch = FetchType.EAGER)
     private User teacher;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(targetEntity = SchoolClass.class, cascade = CascadeType.MERGE,fetch = FetchType.EAGER)
+    @JoinColumn(name="class_id", referencedColumnName = "id")
     private  SchoolClass sClass;
 
     private String name;

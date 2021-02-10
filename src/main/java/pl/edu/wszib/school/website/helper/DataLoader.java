@@ -42,6 +42,9 @@ public class DataLoader implements ApplicationRunner {
     @Autowired
     IPupilDao pupilDao;
 
+    @Autowired
+    ISubjectDao subjectDao;
+
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
@@ -97,7 +100,6 @@ public class DataLoader implements ApplicationRunner {
 
         classService.createClass(clas);
 
-
         User user1 = new User();
         user1.setName("Anna");
         user1.setSurName("Kowalska");
@@ -139,5 +141,34 @@ public class DataLoader implements ApplicationRunner {
 
         pupilDao.insertPupil(pupil);
 
+        User teacher = new User();
+        teacher.setSurName("Nowak");
+        teacher.setName("Barbara");
+        teacher.setRole(User.Role.TEACHER);
+
+        Login teacherLogin = new Login();
+        teacherLogin.setPassword("123");
+        teacherLogin.setLogin("BNowak");
+        teacherLogin.setUser(teacher);
+        teacher.setLogin(teacherLogin);
+
+        int idTeacher =userDao.insertUser(teacher);
+        teacher.setId(idTeacher);
+
+        SchoolSubjects subject = new SchoolSubjects();
+        subject.setTeacher(teacher);
+        subject.setsClass(classDao.getClassByID(1));
+        subject.setName("przyroda");
+
+        subjectDao.insertSubject(subject);
+
+
+        subject.setName("matematyka");
+
+        subjectDao.insertSubject(subject);
+
+        subject.setName("j. polski");
+
+        subjectDao.insertSubject(subject);
     }
 }

@@ -16,10 +16,12 @@ public class SchoolClass {
     private int year;
     private String name;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(targetEntity =Pupil.class ,cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name="class_id", referencedColumnName = "id")
     private Set<Pupil> pupils;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(targetEntity =SchoolSubjects.class ,cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name="class_id", referencedColumnName = "id")
     private Set<SchoolSubjects> subjects;
 
 

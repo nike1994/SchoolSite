@@ -6,9 +6,8 @@ public class GradeModel {
     private int id_pupil;
     private String description;
 
-    public GradeModel(int grade, int id_subject, int id_pupil, String description) {
+    public GradeModel(int grade, int id_pupil, String description) {
         this.grade = grade;
-        this.id_subject = id_subject;
         this.id_pupil = id_pupil;
         this.description = description;
     }

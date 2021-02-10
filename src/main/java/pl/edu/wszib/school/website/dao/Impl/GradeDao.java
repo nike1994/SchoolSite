@@ -128,4 +128,15 @@ public class GradeDao implements IGradeDao {
         session.close();
         return grades;
     }
+
+    @Override
+    public List<Grade> getByPupilAndSubject(Pupil pupil, SchoolSubjects subject) {
+        Session session = this.sessionFactory.openSession();
+        Query<Grade> query = session.createQuery("FROM "+model+" WHERE pupil_id = :pupil AND subject_id = :subject ")
+                .setParameter("subject",subject.getId())
+                .setParameter("pupil",pupil.getId());
+        List<Grade> grades = query.getResultList();
+        session.close();
+        return grades;
+    }
 }

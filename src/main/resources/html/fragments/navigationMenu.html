@@ -21,7 +21,7 @@
                     <th:block th:each="site : ${sites}">
                         <th:block th:if="${site.value.class.name  == 'java.lang.String'}">
                             <li class="nav-item">
-                                    <a class="nav-link" th:href="@{${site.value}}" th:text="${site.key}" ></a>
+                                    <a class="nav-link" th:href="@{${'/'+site.value}}" th:text="${site.key}" ></a>
                             </li>
 
                         </th:block>
