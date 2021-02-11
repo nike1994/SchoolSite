@@ -12,6 +12,7 @@ public class Page {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @Column(unique = true)
     private String title;
 
     @ManyToOne(fetch = FetchType.EAGER)

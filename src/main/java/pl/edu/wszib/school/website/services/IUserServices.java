@@ -16,13 +16,13 @@ public interface IUserServices {
     int createTeacher(TeacherModel model);
     int createParent(ParentModel model);
     void updateUser(User user);
-    void updateParent(ParentModel model);
-    void updatePupil(PupilModel model);
+    boolean updateParent(ParentModel model);
+    boolean updatePupil(PupilModel model);
     boolean updateTeacher(TeacherModel model);
     void updateLogin(Login login);
     boolean deleteTeacher(int user_id);
-    void deletePupil(int user_id);
-    void deleteParentandPupils(int user_id);
+    boolean deletePupil(int user_id);
+    boolean deleteParentandPupils(int user_id);
     void passwordUpdate(PasswordUpdateModel model);
 
     List<User> getAllUsers();

@@ -11,6 +11,9 @@ import pl.edu.wszib.school.website.model.View.ParentModel;
 import pl.edu.wszib.school.website.model.View.PupilModel;
 import pl.edu.wszib.school.website.services.IClassService;
 import pl.edu.wszib.school.website.services.IUserServices;
+import pl.edu.wszib.school.website.session.SessionObject;
+
+import javax.annotation.Resource;
 
 @Controller
 @RequestMapping("/pupil")
@@ -19,53 +22,124 @@ public class PupilController {
     IUserServices userServices;
     @Autowired
     IClassService classService;
+    @Resource
+    SessionObject sessionObject;
 
     @RequestMapping(value = "/create", method = RequestMethod.GET)
-    public String createParentSite(Model model){
-        model.addAttribute("formFragment","fragments/pupilForm.html :: createForm(model=${model},parents=${parents},classes=${classes})");
-        model.addAttribute("model", new PupilModel());
-        model.addAttribute("classes", classService.getAll());
-        model.addAttribute("parents", userServices.getUsersByRole(User.Role.PARENT));
+    public String createPupilSite(Model model){
+        if (sessionObject.isLogged()){
+            if(sessionObject.getLoggedUser().getRole().equals(User.Role.ADMIN)){
+                model.addAttribute("formFragment","fragments/pupilForm.html :: createForm(model=${model},parents=${parents},classes=${classes})");
+                model.addAttribute("model", new PupilModel());
+                model.addAttribute("classes", classService.getAll());
+                model.addAttribute("parents", userServices.getUsersByRole(User.Role.PARENT));
 
-        return "FormSite";
+                return "FormSite";
+            }
+        }
+        return "redirect:/Home";
+
     }
 
     @RequestMapping(value="/create",method = RequestMethod.POST)
-    public String createParent(@ModelAttribute PupilModel model){
-        userServices.createPupil(model);
-        // TODO: 06.02.2021 sprawdzenie czy taki login już istnieje
-        // TODO: 06.02.2021 trzeba do bazy danych dodać warunki że muszą być unikalne loginy i tytuły stron
-        return "redirect:/Home";
+    public String createPupil(@ModelAttribute PupilModel modelPupil, Model model){
+        try{
+            if(userServices.createPupil(modelPupil)==0){
+                model.addAttribute("formFragment","fragments/pupilForm.html :: createForm(model=${model},parents=${parents},classes=${classes})");
+                model.addAttribute("model", new PupilModel());
+                model.addAttribute("classes", classService.getAll());
+                model.addAttribute("parents", userServices.getUsersByRole(User.Role.PARENT));
+                model.addAttribute("error","istnieje już taki login bądź wprowadzona klasa o danym id już nie istnieje");
+                return "FormSite";
+            }else{
+                return "redirect:/Home";
+            }
+        }catch (Exception e){
+            model.addAttribute("formFragment","fragments/pupilForm.html :: createForm(model=${model},parents=${parents},classes=${classes})");
+            model.addAttribute("model", new PupilModel());
+            model.addAttribute("classes", classService.getAll());
+            model.addAttribute("parents", userServices.getUsersByRole(User.Role.PARENT));
+            model.addAttribute("error","wystąpił błąd podczas tworzenia konta dla ucznia");
+            return "FormSite";
+        }
+
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.GET)
-    public String updateParentSite(Model model){
-        model.addAttribute("formFragment","fragments/pupilForm.html :: updateForm(model=${model},parents=${parents},classes=${classes},pupils=${pupils})");
-        model.addAttribute("model", new PupilModel());
-        model.addAttribute("classes", classService.getAll());
-        model.addAttribute("parents", userServices.getUsersByRole(User.Role.PARENT));
-        model.addAttribute("pupils", userServices.getUsersByRole(User.Role.PUPIL));
-        return "FormSite";
+    public String updatePupilSite(Model model){
+        if (sessionObject.isLogged()){
+            if (sessionObject.getLoggedUser().getRole().equals(User.Role.ADMIN)){
+                model.addAttribute("formFragment","fragments/pupilForm.html :: updateForm(model=${model},parents=${parents},classes=${classes},pupils=${pupils})");
+                model.addAttribute("model", new PupilModel());
+                model.addAttribute("classes", classService.getAll());
+                model.addAttribute("parents", userServices.getUsersByRole(User.Role.PARENT));
+                model.addAttribute("pupils", userServices.getUsersByRole(User.Role.PUPIL));
+                return "FormSite";
+            }
+        }
+        return "redirect:/Home";
     }
 
     @RequestMapping(value="/update",method = RequestMethod.POST)
-    public String updateParent(@ModelAttribute PupilModel model){
-        userServices.updatePupil(model);
-        return "redirect:/Home";
+    public String updatePupil(@ModelAttribute PupilModel pupilModel, Model model){
+        try {
+            if(userServices.updatePupil(pupilModel)){
+                return "redirect:/Home";
+            }else {
+                model.addAttribute("formFragment","fragments/pupilForm.html :: updateForm(model=${model},parents=${parents},classes=${classes},pupils=${pupils})");
+                model.addAttribute("model", new PupilModel());
+                model.addAttribute("classes", classService.getAll());
+                model.addAttribute("parents", userServices.getUsersByRole(User.Role.PARENT));
+                model.addAttribute("pupils", userServices.getUsersByRole(User.Role.PUPIL));
+                model.addAttribute("error","wprowadzono błędne dane");
+                return "FormSite";
+            }
+        }catch (Exception e){
+            model.addAttribute("formFragment","fragments/pupilForm.html :: updateForm(model=${model},parents=${parents},classes=${classes},pupils=${pupils})");
+            model.addAttribute("model", new PupilModel());
+            model.addAttribute("classes", classService.getAll());
+            model.addAttribute("parents", userServices.getUsersByRole(User.Role.PARENT));
+            model.addAttribute("pupils", userServices.getUsersByRole(User.Role.PUPIL));
+            model.addAttribute("error","wystąpił błąd podczas aktualizacji ucznia");
+            return "FormSite";
+        }
+
     }
 
     @RequestMapping(value = "/delete", method = RequestMethod.GET)
     public String deleteParentSite(Model model){
-        model.addAttribute("formFragment","fragments/pupilForm.html :: deleteForm(model=${model},pupils=${pupils})");
-        model.addAttribute("model", new PupilModel());
-        model.addAttribute("pupils", userServices.getUsersByRole(User.Role.PUPIL));
-        return "FormSite";
+        if (sessionObject.isLogged()){
+            if (sessionObject.getLoggedUser().getRole().equals(User.Role.ADMIN)){
+                model.addAttribute("formFragment","fragments/pupilForm.html :: deleteForm(model=${model},pupils=${pupils})");
+                model.addAttribute("model", new PupilModel());
+                model.addAttribute("pupils", userServices.getUsersByRole(User.Role.PUPIL));
+                return "FormSite";
+            }
+        }
+        return "redirect:/Home";
     }
 
     @RequestMapping(value="/delete",method = RequestMethod.POST)
-    public String deleteParent(@ModelAttribute ParentModel model){
-        userServices.deletePupil(model.getUser_id());
-        return "redirect:/Home";
+    public String deleteParent(@ModelAttribute ParentModel parentModel, Model model){
+        try {
+            if(userServices.deletePupil(parentModel.getUser_id())){
+                return "redirect:/Home";
+            }else {
+                model.addAttribute("formFragment","fragments/pupilForm.html :: deleteForm(model=${model},pupils=${pupils})");
+                model.addAttribute("model", new PupilModel());
+                model.addAttribute("pupils", userServices.getUsersByRole(User.Role.PUPIL));
+                model.addAttribute("error", "brak ucznia o podanym id");
+                return "FormSite";
+            }
+        }catch (Exception e){
+            model.addAttribute("formFragment","fragments/pupilForm.html :: deleteForm(model=${model},pupils=${pupils})");
+            model.addAttribute("model", new PupilModel());
+            model.addAttribute("pupils", userServices.getUsersByRole(User.Role.PUPIL));
+            model.addAttribute("error", "wystąpił błąd podczas usuwania konta ucznia");
+            return "FormSite";
+        }
+
+
     }
 
 }

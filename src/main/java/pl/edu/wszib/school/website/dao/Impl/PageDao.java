@@ -43,10 +43,9 @@ public class PageDao implements IPageDao {
 
     @Override
     public void updatePage(Page page) {
-        Session session = this.sessionFactory.openSession();
         Transaction tx = null;
         if(page != null) {
-            try {
+            try (Session session = this.sessionFactory.openSession()) {
                 tx = session.beginTransaction();
                 session.update(page);
                 tx.commit();
@@ -54,27 +53,22 @@ public class PageDao implements IPageDao {
                 if (tx != null) {
                     tx.rollback();
                 }
-            } finally {
-                session.close();
             }
         }
     }
 
     @Override
     public void removePage(Page page) {
-        Session session = this.sessionFactory.openSession();
         Transaction tx = null;
         if(page != null){
-            try{
+            try (Session session = this.sessionFactory.openSession()) {
                 tx = session.beginTransaction();
                 session.delete(page);
                 tx.commit();
-            }catch (Exception e){
-                if(tx != null){
+            } catch (Exception e) {
+                if (tx != null) {
                     tx.rollback();
                 }
-            }finally {
-                session.close();
             }
 
         }
@@ -104,5 +98,22 @@ public class PageDao implements IPageDao {
         List<Page> pages = query.getResultList();
         session.close();
         return pages;
+    }
+
+    @Override
+    public Page getByTitle(String title) {
+        Session session = this.sessionFactory.openSession();
+        Query<Page> query = session.createQuery("FROM "+this.model+" WHERE title = :title")
+                .setParameter("title", title);
+        Page page = null;
+        try{
+            page= query.getSingleResult();
+        }catch (NoResultException e){
+            System.out.println("nie znaleziono strony");
+            return null;
+        }finally {
+            session.close();
+        }
+        return page;
     }
 }

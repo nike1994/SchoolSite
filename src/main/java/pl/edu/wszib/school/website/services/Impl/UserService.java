@@ -35,32 +35,38 @@ public class UserService implements IUserServices {
 
     @Override
     public int createPupil(PupilModel model) {
-        User user = new User();
-        user.setName(model.getName());
-        user.setSurName(model.getSurname());
-        user.setRole(User.Role.PUPIL);
+        Login loginCheck = loginDao.getByLogin(model.getLogin());
+        if(loginCheck == null) {
+            User user = new User();
+            user.setName(model.getName());
+            user.setSurName(model.getSurname());
+            user.setRole(User.Role.PUPIL);
 
-        Login login = new Login();
-        login.setLogin(model.getLogin());
-        login.setPassword(model.getPass());
-        login.setUser(user);
+            Login login = new Login();
+            login.setLogin(model.getLogin());
+            login.setPassword(model.getPass());
+            login.setUser(user);
 
-        user.setLogin(login);
+            user.setLogin(login);
 
-        SchoolClass clas = classDao.getClassByID(model.getSchoolClass_id());
+            SchoolClass clas = classDao.getClassByID(model.getSchoolClass_id());
 
-        System.out.println();
-        System.out.println(model.getParent_id());
-        System.out.println();
-        Parent parent = parentDao.getByUserId(model.getParent_id());
-        System.out.println(parent);
+            if (clas == null) return 0;
 
-        Pupil pupil = new Pupil();
-        pupil.setsClass(clas);
-        pupil.setUser(user);
-        pupil.setParent(parent);
+            System.out.println();
+            System.out.println(model.getParent_id());
+            System.out.println();
+            Parent parent = parentDao.getByUserId(model.getParent_id());
+            System.out.println(parent);
 
-        return pupilDao.insertPupil(pupil);
+            Pupil pupil = new Pupil();
+            pupil.setsClass(clas);
+            pupil.setUser(user);
+            pupil.setParent(parent);
+
+            return pupilDao.insertPupil(pupil);
+        }
+        return 0;
     }
 
     @Override
@@ -86,22 +92,26 @@ public class UserService implements IUserServices {
 
     @Override
     public int createParent(ParentModel model) {
-        User user = new User();
-        user.setName(model.getName());
-        user.setSurName(model.getSurname());
-        user.setRole(User.Role.PARENT);
+        Login loginCheck = loginDao.getByLogin(model.getLogin());
+        if(loginCheck == null) {
+            User user = new User();
+            user.setName(model.getName());
+            user.setSurName(model.getSurname());
+            user.setRole(User.Role.PARENT);
 
-        Login login = new Login();
-        login.setLogin(model.getLogin());
-        login.setPassword(model.getPass());
-        login.setUser(user);
+            Login login = new Login();
+            login.setLogin(model.getLogin());
+            login.setPassword(model.getPass());
+            login.setUser(user);
 
-        user.setLogin(login);
+            user.setLogin(login);
 
-        Parent parent = new Parent();
-        parent.setUser(user);
+            Parent parent = new Parent();
+            parent.setUser(user);
 
-       return parentDao.insertParent(parent);
+            return parentDao.insertParent(parent);
+        }
+        return 0;
     }
 
     @Override
@@ -110,9 +120,19 @@ public class UserService implements IUserServices {
     }
 
     @Override
-    public void updateParent(ParentModel model) {
-        // TODO: 06.02.2021 sprawdzić dane i czy istnieje user
+    public boolean updateParent(ParentModel model) {
+        Login loginCheck = loginDao.getByLogin(model.getLogin());
+
+        if (loginCheck != null){
+            if(loginCheck.getUser().getId() == model.getUser_id()) {
+                return false;
+            }
+        }
+
         User user = userDao.getUserByID(model.getUser_id());
+
+        if (user ==null) return false;
+
         user.setName(model.getName());
         user.setSurName(model.getSurname());
 
@@ -122,11 +142,22 @@ public class UserService implements IUserServices {
 
         userDao.updateUser(user);
         loginDao.updateLogin(login);
+        return true;
     }
 
     @Override
-    public void updatePupil(PupilModel model) {
+    public boolean updatePupil(PupilModel model) {
+
+        Login loginCheck = loginDao.getByLogin(model.getLogin());
+        if(loginCheck != null){
+            if(loginCheck.getUser().getId() != model.getUser_id()){
+                return false;
+            }
+        }
+
         User user = userDao.getUserByID(model.getUser_id());
+        if (user == null) return false;
+
         user.setName(model.getName());
         user.setSurName(model.getSurname());
         Login login = user.getLogin();
@@ -135,6 +166,7 @@ public class UserService implements IUserServices {
 
         userDao.updateUser(user);
         loginDao.updateLogin(login);
+        return true;
     }
 
     @Override
@@ -180,18 +212,22 @@ public class UserService implements IUserServices {
     }
 
     @Override
-    public void deletePupil(int user_id) {
+    public boolean deletePupil(int user_id) {
 
         Pupil pupil = pupilDao.getPupilByUser(user_id);
+        if (pupil == null) return false;
 
         pupilDao.removePupil(pupil);
+        return true;
     }
 
     @Override
-    public void deleteParentandPupils(int user_id) {
+    public boolean deleteParentandPupils(int user_id) {
         Parent parent = parentDao.getByUserId(user_id);
+        if (parent==null) return false;
 
         parentDao.removeParent(parent);
+        return true;
     }
 
     @Override

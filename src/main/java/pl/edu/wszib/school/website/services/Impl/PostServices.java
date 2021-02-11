@@ -14,11 +14,9 @@ import pl.edu.wszib.school.website.model.User;
 import pl.edu.wszib.school.website.model.View.PostModel;
 import pl.edu.wszib.school.website.services.IPostServices;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 
@@ -39,8 +37,11 @@ public class PostServices implements IPostServices {
     }
 
     @Override
-    public void deletePost(Post post) {
+    public boolean deletePost( int id) {
+        Post post = postDao.getByID(id);
+        if (post == null) return false;
         postDao.removePost(post);
+        return true;
     }
 
     @Override
@@ -49,26 +50,32 @@ public class PostServices implements IPostServices {
     }
 
     @Override
-    public void updatePost(PostModel model) {
+    public boolean updatePost(PostModel model) {
         Post post = postDao.getByID(model.getPost_id());
+        if (post == null || model.getTitle().isEmpty() || model.getContent().isEmpty()) return false;
         post.setTitle(model.getTitle());
         post.setContent(model.getContent());
         postDao.updatePost(post);
+        return true;
     }
 
     @Override
-    public void createPost(PostModel model) {
+    public boolean createPost(PostModel model) {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
 
 
         Post post = new Post();
         post.setTitle(model.getTitle());
         post.setAuthor(model.getAuthor());
-        post.setPage(pageDao.getByID(model.getPage_id()));
+        Page page = pageDao.getByID(model.getPage_id());
+        if (page == null) return false;
+
+        post.setPage(page);
         post.setContent(model.getContent());
         post.setDate(dtf.format(model.getDate()));
 
         postDao.insertPost(post);
+        return true;
     }
 
     @Override
@@ -132,8 +139,7 @@ public class PostServices implements IPostServices {
         }
 
         try {
-            String response = mapper.writeValueAsString(posts);
-            return response;
+            return mapper.writeValueAsString(posts);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
@@ -141,16 +147,10 @@ public class PostServices implements IPostServices {
         return null;
     }
 
-    class SimplePost {
+    static class SimplePost {
         private String title;
         private String content;
         private int id;
-
-        public SimplePost(String title, String content, int id) {
-            this.title = title;
-            this.content = content;
-            this.id = id;
-        }
 
         public SimplePost(Post post) {
             this.title = post.getTitle();

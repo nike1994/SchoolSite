@@ -9,9 +9,9 @@ public interface IPageServices {
     int createPage(Page page);
     void updatePage(Page page);
     void deletePage(Page page);
-    void createPage(PageModel model);
-    void updatePage(PageModel model);
-    void deletePageByModel(PageModel model);
+    boolean createPage(PageModel model);
+    boolean updatePage(PageModel model);
+    boolean deletePageByModel(PageModel model);
 
     Page getByID(int id);
     String getPageJSONByID(int id);

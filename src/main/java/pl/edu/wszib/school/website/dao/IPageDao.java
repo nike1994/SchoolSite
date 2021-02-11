@@ -11,4 +11,5 @@ public interface IPageDao {
 
     Page getByID(int id);
     List<Page> getAllPages();
+    Page getByTitle(String title);
 }

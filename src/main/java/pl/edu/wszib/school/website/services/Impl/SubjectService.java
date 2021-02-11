@@ -33,23 +33,30 @@ public class SubjectService implements ISubjectServices {
     }
 
     @Override
-    public void createSubject(SubjectModel model) {
+    public boolean createSubject(SubjectModel model) {
         SchoolSubjects subject = new SchoolSubjects();
         subject.setName(model.getName());
 
         User teacher = userDao.getUserByID(model.getTeacher_id());
         SchoolClass clas = classDao.getClassByID(model.getClass_id());
-
+        if(teacher == null || clas == null){
+            return false;
+        }
         subject.setsClass(clas);
         subject.setTeacher(teacher);
 
         subjectDao.insertSubject(subject);
+        return true;
     }
 
     @Override
-    public void deleteSubject(int id) {
+    public boolean deleteSubject(int id) {
         SchoolSubjects subject = subjectDao.getSubjectByID(id);
+        if (subject == null){
+            return false;
+        }
         subjectDao.removeSubject(subject);
+        return true;
     }
 
     @Override
@@ -58,17 +65,23 @@ public class SubjectService implements ISubjectServices {
     }
 
     @Override
-    public void updateSubject(SubjectModel model) {
+    public boolean updateSubject(SubjectModel model) {
         SchoolSubjects subject = subjectDao.getSubjectByID(model.getId());
+
+        if(subject == null) return false;
+
         subject.setName(model.getName());
 
         User teacher = userDao.getUserByID(model.getTeacher_id());
         SchoolClass clas = classDao.getClassByID(model.getClass_id());
 
+        if(teacher == null || clas == null) return false;
+
         subject.setsClass(clas);
         subject.setTeacher(teacher);
 
         subjectDao.updateSubject(subject);
+        return true;
     }
 
     @Override

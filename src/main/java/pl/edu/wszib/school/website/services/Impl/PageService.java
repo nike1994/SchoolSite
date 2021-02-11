@@ -27,7 +27,10 @@ public class PageService implements IPageServices {
     }
 
     @Override
-    public void createPage(PageModel model) {
+    public boolean createPage(PageModel model) {
+        Page check =pageDao.getByTitle(model.getTitle());
+        if (check !=null) return false;
+
         Page parent= null;
         if(model.getParent_id()!=0){
             parent = pageDao.getByID(model.getParent_id());
@@ -40,6 +43,7 @@ public class PageService implements IPageServices {
         pageDao.insertPage(page);
 
         websiteInformationsService.updatePages();
+        return true;
     }
 
     @Override
@@ -48,14 +52,24 @@ public class PageService implements IPageServices {
     }
 
     @Override
-    public void updatePage(PageModel model) {
+    public boolean updatePage(PageModel model) {
+
         Page page = pageDao.getByID(model.getPage_id());
+        if (page == null) return false;
+
+        Page check = pageDao.getByTitle(model.getTitle());
+        if (check != null){ //czy istnieje strona o takim tytule
+            if (check.getId() != model.getPage_id()) // czy ta strona jest tą którą edytujemy
+                return false;
+        }
+
         page.setParent(pageDao.getByID(model.getParent_id()));
         page.setTitle(model.getTitle());
 
         pageDao.updatePage(page);
 
         websiteInformationsService.updatePages();
+        return true;
     }
 
     @Override
@@ -64,15 +78,17 @@ public class PageService implements IPageServices {
     }
 
     @Override
-    public void deletePageByModel(PageModel model) {
+    public boolean deletePageByModel(PageModel model) {
         if(model.getPage_id() != 0){
             Page page = pageDao.getByID(model.getPage_id());
             if(page != null){
                 pageDao.removePage(page);
 
                 websiteInformationsService.updatePages();
+                return true;
             }
         }
+        return false;
     }
 
     @Override

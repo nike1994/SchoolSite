@@ -10,10 +10,10 @@ import java.util.List;
 
 public interface IPostServices {
     int insertPost(Post post);
-    void deletePost(Post post);
+    boolean deletePost(int id);
     void updatePost(Post post);
-    void createPost(PostModel model);
-    void updatePost(PostModel model);
+    boolean createPost(PostModel model);
+    boolean updatePost(PostModel model);
     int createComment(LinkedHashMap JSON, User user);
 
     Post getByID(int id);

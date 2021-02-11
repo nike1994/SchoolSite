@@ -9,10 +9,10 @@ import java.util.List;
 
 public interface ISubjectServices {
     void insertSubject(SchoolSubjects subjects);
-    void createSubject(SubjectModel model);
-    void deleteSubject(int id);
+    boolean createSubject(SubjectModel model);
+    boolean deleteSubject(int id);
     void updateSubject(SchoolSubjects subjects);
-    void updateSubject(SubjectModel model);
+    boolean updateSubject(SubjectModel model);
 
     SchoolSubjects getSubjectByID(int id);
     String getSubjectJSONByID(int id);
