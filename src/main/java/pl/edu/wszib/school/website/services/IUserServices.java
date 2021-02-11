@@ -29,6 +29,7 @@ public interface IUserServices {
     User getUserByID(int id);
     List<User> getUsersByRole(User.Role role);
     String getUserJSON(int id);
+    int getHashPass(User user);
 
     void authenticate(Login login);
     void logout();

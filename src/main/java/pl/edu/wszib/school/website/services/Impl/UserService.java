@@ -9,7 +9,6 @@ import pl.edu.wszib.school.website.model.*;
 import pl.edu.wszib.school.website.model.View.*;
 import pl.edu.wszib.school.website.services.IUserServices;
 import pl.edu.wszib.school.website.session.SessionObject;
-
 import javax.annotation.Resource;
 import java.util.List;
 
@@ -245,5 +244,24 @@ public class UserService implements IUserServices {
     @Override
     public void logout() {
         this.sessionObject.setLoggedUser(null);
+    }
+
+    @Override
+    public int getHashPass(User user) {
+        Login login = user.getLogin();
+        return hashCode(login.getPassword());
+    }
+
+    private int hashCode(String str) {
+        int hash = 0;
+        int i;
+        char chr;
+        for (i = 0; i < str.length(); i++) {
+            chr   = str.charAt(i);
+            hash  = ((hash << 5) - hash) + chr;
+            hash |= 0; // Convert to 32bit integer
+        }
+        System.out.println(hash);
+        return hash;
     }
 }

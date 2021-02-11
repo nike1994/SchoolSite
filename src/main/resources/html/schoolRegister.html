@@ -19,70 +19,77 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
     <script type="text/javascript" src="https://unpkg.com/tabulator-tables@4.9.3/dist/js/tabulator.min.js"></script>
-    <script th:inline="javascript">
-    /*<![CDATA[*/
+    <th:block th:if="${user_role} != 'ADMIN'">
+        <script th:inline="javascript">
+        /*<![CDATA[*/
 
-        var tableDB = /*[[${table}]]*/ 'default';
-        tableDB=JSON.parse(tableDB);
-        console.log(tableDB);
+            var tableDB = /*[[${table}]]*/ 'default';
+            tableDB=JSON.parse(tableDB);
+            console.log(tableDB);
 
-    /*]]>*/
-    </script>
-    <script src="./../js/table.js" charset="utf-8"></script>
+        /*]]>*/
+        </script>
+        <script src="./../js/table.js" charset="utf-8"></script>
+    </th:block>
 </head>
 <body>
 
     <nav th:replace="fragments/navigationMenu.html :: menu(sites=${webInfo.Allsites},active='home',name=${webInfo.siteName},img=${webInfo.siteLogo},isLogged=${isLogged},buttonList=${navLogged})"></nav>
     <div th:replace="fragments/modalBox.html :: modalBox()"></div>
     <div class="content">
-        <div class="table-content" >
-            <th:block th:if="${user_role == 'PARENT'}">
-                <h2 th:text="${dropdown[0].user.Name+' '+dropdown[0].user.SurName}"></h2>
-            </th:block>
-            <th:block th:if="${user_role == 'TEACHER'}">
-                <h2 th:text="${dropdown[0].name+' klasa:'+dropdown[0].sClass.name+' '+dropdown[0].sClass.year}"></h2>
-            </th:block>
-            <div class="nav">
+        <th:block th:if="${user_role} != 'ADMIN'">
+            <div class="table-content" >
                 <th:block th:if="${user_role == 'PARENT'}">
-                    <div class="btn-group dropleft">
-                        <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Zmień dziecko
-                        </button>
-                        <div class="dropdown-menu">
-                            <th:block th:each="child, iter :${dropdown}">
-                                <th:block th:if="${iter.index} == 0">
-                                    <a class="dropdown-item active" href="" th:id="${child.id}" th:text="${child.user.Name+' '+child.user.SurName}">dziecko1</a>
-                                </th:block>
-                                <th:block th:unless="${iter.index} == 0">
-                                    <a class="dropdown-item" href="" th:id="${child.id}" th:text="${child.user.Name+' '+child.user.SurName}">dziecko1</a>
-                                </th:block>
-                            </th:block>
-                        </div>
-                    </div>
+                    <h2 th:text="${dropdown[0].user.Name+' '+dropdown[0].user.SurName}"></h2>
                 </th:block>
                 <th:block th:if="${user_role == 'TEACHER'}">
-                    <button type="button" class="btn btn-success" id="addColumn"><i class="bi bi-plus-circle"></i> Dodaj kolumne</button>
-                    <button type="button" class="btn btn-success" id="deleteColumn"><i class="bi bi-dash-circle"></i> Usuń kolumne</button>
-                    <button type="button" class="btn btn-success" id="saveColumn"><i class="bi bi-save"></i> Zapisz</button>
-                    <div class="btn-group dropleft">
-                        <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Zmień przedmiot
-                        </button>
-                        <div class="dropdown-menu">
-                            <th:block th:each="subject, iter :${dropdown}">
-                                <th:block th:if="${iter.index} == 0">
-                                    <a class="dropdown-item active" th:id="${subject.id}" href="#" th:text="${subject.name+' klasa:'+subject.sClass.name+' '+subject.sClass.year}">klasa2</a>
-                                </th:block>
-                                <th:block th:unless="${iter.index} == 0">
-                                    <a class="dropdown-item" th:id="${subject.id}" href="#" th:text="${subject.name+' klasa:'+subject.sClass.name+' '+subject.sClass.year}">klasa2</a>
-                                </th:block>
-                            </th:block>
-                        </div>
-                    </div>
+                    <h2 th:text="${dropdown[0].name+' klasa:'+dropdown[0].sClass.name+' '+dropdown[0].sClass.year}"></h2>
                 </th:block>
+                <div class="nav">
+                    <th:block th:if="${user_role == 'PARENT'}">
+                        <div class="btn-group dropleft">
+                            <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Zmień dziecko
+                            </button>
+                            <div class="dropdown-menu">
+                                <th:block th:each="child, iter :${dropdown}">
+                                    <th:block th:if="${iter.index} == 0">
+                                        <a class="dropdown-item active" href="" th:id="${child.id}" th:text="${child.user.Name+' '+child.user.SurName}">dziecko1</a>
+                                    </th:block>
+                                    <th:block th:unless="${iter.index} == 0">
+                                        <a class="dropdown-item" href="" th:id="${child.id}" th:text="${child.user.Name+' '+child.user.SurName}">dziecko1</a>
+                                    </th:block>
+                                </th:block>
+                            </div>
+                        </div>
+                    </th:block>
+                    <th:block th:if="${user_role == 'TEACHER'}">
+                        <button type="button" class="btn btn-success" id="addColumn"><i class="bi bi-plus-circle"></i> Dodaj kolumne</button>
+                        <button type="button" class="btn btn-success" id="deleteColumn"><i class="bi bi-dash-circle"></i> Usuń kolumne</button>
+                        <button type="button" class="btn btn-success" id="saveColumn"><i class="bi bi-save"></i> Zapisz</button>
+                        <div class="btn-group dropleft">
+                            <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Zmień przedmiot
+                            </button>
+                            <div class="dropdown-menu">
+                                <th:block th:each="subject, iter :${dropdown}">
+                                    <th:block th:if="${iter.index} == 0">
+                                        <a class="dropdown-item active" th:id="${subject.id}" href="#" th:text="${subject.name+' klasa:'+subject.sClass.name+' '+subject.sClass.year}">klasa2</a>
+                                    </th:block>
+                                    <th:block th:unless="${iter.index} == 0">
+                                        <a class="dropdown-item" th:id="${subject.id}" href="#" th:text="${subject.name+' klasa:'+subject.sClass.name+' '+subject.sClass.year}">klasa2</a>
+                                    </th:block>
+                                </th:block>
+                            </div>
+                        </div>
+                    </th:block>
+                </div>
+                <div class="" id="school_register"></div>
             </div>
-            <div class="" id="school_register"></div>
-        </div>
+        </th:block>
+        <th:block th:if="${user_role} == 'ADMIN'">
+            <h3 class="information">Treść dostępna dla rodziców, uczniów i nauczycieli</h3>
+        </th:block>
     </div>
 
     <footer th:replace="fragments/footer.html :: footer(tel=${webInfo.telephons}, mail=${webInfo.emails})"></footer>

@@ -167,3 +167,8 @@ section{
 #modalBox{
     z-index: 99999;
 }
+
+div.content>h3.information{
+text-align: center;
+    margin-top: 200px;
+    }

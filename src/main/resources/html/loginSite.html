@@ -23,6 +23,19 @@
     <div class="content">
         <div th:replace="fragments/loginForm.html :: loginForm(loginModel=${loginModel})"></div>
     </div>
+    <th:block th:if="${error}">
+        <script>
+        /*<![CDATA[*/
+            $( document ).ready(function() {
+                        var error ='[[${error}]]';
+                        console.log(error);
+                        $('#modalBoxTitle').html("Błąd !!");
+                        $('#modalBoxBody').html(error);
+                        $('#modalBox').modal('show');
+            });
+        /*]]>*/
+        </script>
+    </th:block>
     <footer th:replace="fragments/footer.html :: footer(tel=${webInfo.telephons}, mail=${webInfo.emails})"></footer>
 </body>
 </html>
