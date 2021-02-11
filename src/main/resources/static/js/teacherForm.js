@@ -19,8 +19,7 @@ function ajax(url,type,object,callback){
 
 var posts = new Array();
 $( document ).ready(function() {
-    $('#teacher').change(function(e){
-        console.log($(this).val());
+    $('#updateTeacherForm #teacher').change(function(e){
         if($(this).val()!=0){
             var callback = function(responseText){
                     user = JSON.parse(responseText);
@@ -39,5 +38,44 @@ $( document ).ready(function() {
             $('#pass').val(0);
         }
     });
+
+     $('#updateTeacherForm').on('submit',function(event){
+            if(!$('#updateTeacherForm')[0].checkValidity()){
+                event.preventDefault();
+                event.stopPropagation();
+                return false;
+            }
+            if($('#teacher').val() == 0){
+                event.preventDefault();
+                event.stopPropagation();
+                $('#teacher')[0].setCustomValidity("Nie wybrałeś nauczyciela");
+                $('#teacher')[0].reportValidity();
+                return false;
+            }
+            $('#updateTeacherForm')[0].classList.add('was-validated')
+    });
+
+    $('form button').click(function(){
+            if($('#teacher').val() != 0 ){
+                $('#teacher')[0].setCustomValidity("");
+            }
+    });
+
+    $('#deletePostForm').on('submit',function(event){
+        if(!$('#deletePostForm')[0].checkValidity()){
+            event.preventDefault();
+            event.stopPropagation();
+            return false;
+        }
+        if($('#teacher').val() == 0){
+            event.preventDefault();
+            event.stopPropagation();
+            $('#teacher')[0].setCustomValidity("Nie wybrałeś nauczyciela");
+            $('#teacher')[0].reportValidity();
+            return false;
+        }
+
+        $('#deletePostForm')[0].classList.add('was-validated')
+    })
 
 });

@@ -10,19 +10,19 @@
     <form id="updateTeacherForm"  enctype="multipart/form-data" method="post" th:object="${model}">
         <div class="form-group">
             <label for="name">Nazwa strony</label>
-            <input th:field="*{siteName}" type="text" class="form-control" id="name" placeholder="Wpisz imie" aria-label="Wpisz imie">
+            <input th:field="*{siteName}" type="text" class="form-control" id="name" placeholder="Wpisz imie" aria-label="Wpisz imie" required>
         </div>
         <div class="form-group">
             <label>Telefony</label>
             <th:block th:each="tel,itemStat: *{telephons}">
-                <input th:value="${tel}" th:field="*{telephons[__${itemStat.index}__]}" type="text" class="form-control" placeholder="Wpisz telefon" aria-label="Wpisz telefon">
+                <input th:value="${tel}" th:field="*{telephons[__${itemStat.index}__]}" type="text" class="form-control" placeholder="Wpisz telefon" aria-label="Wpisz telefon" required>
 
             </th:block>
         </div>
         <div class="form-group">
             <label>Maile</label>
             <th:block th:each="email,itemStat: *{emails}">
-                <input th:value="${email}" th:field="*{emails[__${itemStat.index}__]}" type="text" class="form-control" placeholder="Wpisz telefon" aria-label="Wpisz telefon">
+                <input th:value="${email}" th:field="*{emails[__${itemStat.index}__]}" type="text" class="form-control" placeholder="Wpisz email" aria-label="Wpisz email" required>
 
             </th:block>
         </div>
@@ -32,7 +32,6 @@
         </div>
         <button type="submit" class="btn save">Zapisz</button>
     </form>
-    <script src="/js/webInfoForm.js" charset="utf-8"></script>
 </div>
 
 </body>

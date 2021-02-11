@@ -11,23 +11,18 @@ function hashCode(str) {
 $( document ).ready(function() {
     console.log(hashPass);
     $('#updatePostForm.needs-validation').on('submit',function(event){
-        console.log("submit");
         if(!$('#updatePostForm')[0].checkValidity()){
             event.preventDefault();
             event.stopPropagation();
             return false;
         }
         if($('#pass').val() != $('#pass2').val()){
-            console.log("nie takie same");
             event.preventDefault();
             event.stopPropagation();
             $('#pass2')[0].setCustomValidity("Hasła nie są takie same");
             $('#pass2')[0].reportValidity();
             return false;
         }else if(hashCode($('#pass').val()) == hashPass){ // hashPass hash z serwera
-            console.log("takie same");
-            console.log(hashCode($('#pass').val()));
-            console.log(hashPass);
             event.preventDefault();
             event.stopPropagation();
             $('#pass')[0].setCustomValidity("Hasło jest takie samo jak stare");

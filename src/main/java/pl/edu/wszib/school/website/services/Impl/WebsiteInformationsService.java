@@ -8,6 +8,7 @@ import pl.edu.wszib.school.website.dao.IWebsiteInformationsDao;
 import pl.edu.wszib.school.website.model.Page;
 import pl.edu.wszib.school.website.model.User;
 import pl.edu.wszib.school.website.model.View.AllWebsiteInformationsModel;
+import pl.edu.wszib.school.website.model.View.ButtonModel;
 import pl.edu.wszib.school.website.model.WebsiteInformations;
 import pl.edu.wszib.school.website.services.IWebsiteInformationsService;
 
@@ -33,7 +34,6 @@ public class WebsiteInformationsService implements IWebsiteInformationsService {
     @Override
     public void updateInformations(AllWebsiteInformationsModel model, MultipartFile file) {
         WebsiteInformations websiteInformations = infoDao.getInformations();
-
         websiteInformations.setTelephons(model.getTelephons());
 
         websiteInformations.setEmails(model.getEmails());
@@ -94,67 +94,24 @@ public class WebsiteInformationsService implements IWebsiteInformationsService {
         List<Object> listbutton = new ArrayList<>();
 
         if(role.equals(User.Role.ADMIN)){
-            listbutton.add(new ButtonObj("Strona","stronę", "page"));
-            listbutton.add(new ButtonObj("Posty","post","post"));
-            listbutton.add(new ButtonObj("Klasa","klasę","class"));
-            listbutton.add(new ButtonObj("Rodzic","rodzica","parent"));
-            listbutton.add(new ButtonObj("Uczeń","ucznia","pupil"));
-            listbutton.add(new ButtonObj("Nauczyciel","nauczyciela","teacher"));
-            listbutton.add(new ButtonObj("Przedmiot","przedmiot","subject"));
-            listbutton.add(new ButtonObj("Ustawienia strony","webPageSettings"));
-            listbutton.add(new ButtonObj("Zmień swoje hasło","passwordUpdate"));
+            listbutton.add(new ButtonModel("Strona", "stronę", "page"));
+            listbutton.add(new ButtonModel("Posty", "post", "post"));
+            listbutton.add(new ButtonModel("Klasa", "klasę", "class"));
+            listbutton.add(new ButtonModel("Rodzic", "rodzica", "parent"));
+            listbutton.add(new ButtonModel("Uczeń", "ucznia", "pupil"));
+            listbutton.add(new ButtonModel("Nauczyciel", "nauczyciela", "teacher"));
+            listbutton.add(new ButtonModel("Przedmiot", "przedmiot", "subject"));
+            listbutton.add(new ButtonModel("Ustawienia strony", "webPageSettings"));
+            listbutton.add(new ButtonModel("Zmień swoje hasło", "passwordUpdate"));
 
         }else if(role.equals(User.Role.TEACHER)){
-            listbutton.add(new ButtonObj("Posty","post","post"));
-            listbutton.add(new ButtonObj("Zmień swoje hasło","passwordUpdate"));
+            listbutton.add(new ButtonModel("Posty", "post", "post"));
+            listbutton.add(new ButtonModel("Zmień swoje hasło", "passwordUpdate"));
         }else{
-            listbutton.add(new ButtonObj("Zmień swoje hasło","passwordUpdate"));
+            listbutton.add(new ButtonModel("Zmień swoje hasło", "passwordUpdate"));
         }
 
         return listbutton;
-    }
-
-
-    class  ButtonObj {
-        String btnName;
-        String subBtnName;
-        String href;
-
-        public ButtonObj(String btnName, String subBtnName, String href) {
-            this.btnName = btnName;
-            this.subBtnName = subBtnName;
-            this.href = href;
-        }
-
-        public ButtonObj(String btnName, String href) {
-            this.btnName = btnName;
-            this.href = href;
-            this.subBtnName=null;
-        }
-
-        public String getBtnName() {
-            return btnName;
-        }
-
-        public void setBtnName(String btnName) {
-            this.btnName = btnName;
-        }
-
-        public String getSubBtnName() {
-            return subBtnName;
-        }
-
-        public void setSubBtnName(String subBtnName) {
-            this.subBtnName = subBtnName;
-        }
-
-        public String getHref() {
-            return href;
-        }
-
-        public void setHref(String href) {
-            this.href = href;
-        }
     }
 
 
@@ -165,16 +122,14 @@ public class WebsiteInformationsService implements IWebsiteInformationsService {
         List<Page> pages = pageDao.getAllPages();
 
         //home zawsze na 1 miejscu
-        Comparator<String> customComparator = new Comparator<String>() {
-            @Override public int compare(String s1, String s2) {
-                if(s1.equals(staticPages.get(0))){
-                    return -1;
-                }else if(s2.equals(staticPages.get(0))) {
-                    return 1;
-                }
-
-                return s1.compareTo(s2);
+        Comparator<String> customComparator = (s1, s2) -> {
+            if(s1.equals(staticPages.get(0))){
+                return -1;
+            }else if(s2.equals(staticPages.get(0))) {
+                return 1;
             }
+
+            return s1.compareTo(s2);
         };
 
         Map<String,Object> sites= new TreeMap<>(customComparator);

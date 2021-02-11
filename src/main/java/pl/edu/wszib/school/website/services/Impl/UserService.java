@@ -65,19 +65,23 @@ public class UserService implements IUserServices {
 
     @Override
     public int createTeacher(TeacherModel model) {
-        User user = new User();
-        user.setName(model.getName());
-        user.setSurName(model.getSurname());
-        user.setRole(User.Role.TEACHER);
+        Login loginCheck = loginDao.getByLogin(model.getLogin());
+        if(loginCheck == null){
+            User user = new User();
+            user.setName(model.getName());
+            user.setSurName(model.getSurname());
+            user.setRole(User.Role.TEACHER);
 
-        Login login = new Login();
-        login.setLogin(model.getLogin());
-        login.setPassword(model.getPass());
-        login.setUser(user);
+            Login login = new Login();
+            login.setLogin(model.getLogin());
+            login.setPassword(model.getPass());
+            login.setUser(user);
 
-        user.setLogin(login);
+            user.setLogin(login);
 
-        return userDao.insertUser(user);
+            return userDao.insertUser(user);
+        }
+        return 0;
     }
 
     @Override
@@ -134,8 +138,19 @@ public class UserService implements IUserServices {
     }
 
     @Override
-    public void updateTeacher(TeacherModel model) {
+    public boolean updateTeacher(TeacherModel model) {
+
+        Login loginCheck = loginDao.getByLogin(model.getLogin());
+        if(loginCheck != null){
+            if(loginCheck.getUser().getId() != model.getUser_id()){
+                return false;
+            }
+        }
+
         User user = userDao.getUserByID(model.getUser_id());
+        if(user == null){
+            return false;
+        }
         user.setName(model.getName());
         user.setSurName(model.getSurname());
 
@@ -145,6 +160,8 @@ public class UserService implements IUserServices {
 
         userDao.updateUser(user);
         loginDao.updateLogin(login);
+        return true;
+
     }
 
     @Override
@@ -153,14 +170,18 @@ public class UserService implements IUserServices {
     }
 
     @Override
-    public void deleteTeacher(int user_id) {
+    public boolean deleteTeacher(int user_id) {
         User user = userDao.getUserByID(user_id);
-
-        userDao.removeUser(user);
+        if (user != null){
+            userDao.removeUser(user);
+            return true;
+        }
+        return false;
     }
 
     @Override
     public void deletePupil(int user_id) {
+
         Pupil pupil = pupilDao.getPupilByUser(user_id);
 
         pupilDao.removePupil(pupil);

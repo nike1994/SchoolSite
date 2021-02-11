@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import pl.edu.wszib.school.website.model.Login;
 import pl.edu.wszib.school.website.model.View.PasswordUpdateModel;
 import pl.edu.wszib.school.website.services.IUserServices;
-import pl.edu.wszib.school.website.services.IWebsiteInformationsService;
 import pl.edu.wszib.school.website.session.SessionObject;
 
 import javax.annotation.Resource;
@@ -18,9 +17,6 @@ import javax.annotation.Resource;
 public class LoginControler {
     @Autowired
     IUserServices userService;
-
-    @Autowired
-    IWebsiteInformationsService webInfoService;
 
     @Resource
     SessionObject sessionObject;

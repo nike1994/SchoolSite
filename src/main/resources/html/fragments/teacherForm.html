@@ -10,17 +10,17 @@
     <form id="createTeacherForm" method="post" th:object="${model}">
         <div class="form-group">
             <label for="name">Imie</label>
-            <input th:field="*{name}" type="text" class="form-control" id="name" placeholder="Wpisz imie" aria-label="Wpisz imie">
+            <input th:field="*{name}" type="text" class="form-control" id="name" placeholder="Wpisz imie" aria-label="Wpisz imie" required>
             <label for="surname">Nazwisko</label>
-            <input th:field="*{surname}" type="text" class="form-control" id="surname" placeholder="Wpisz nazwisko" aria-label="Wpisz nazwisko">
+            <input th:field="*{surname}" type="text" class="form-control" id="surname" placeholder="Wpisz nazwisko" aria-label="Wpisz nazwisko" required>
         </div>
         <div class="form-group">
             <label for="login">Login</label>
-            <input th:field="*{login}" type="text" class="form-control" id="login" placeholder="Wpisz login" aria-label="Wpisz login">
+            <input th:field="*{login}" type="text" class="form-control" id="login" placeholder="Wpisz login" aria-label="Wpisz login" required>
         </div>
         <div class="form-group">
             <label for="pass">Hasło</label>
-            <input th:field="*{pass}" type="text" class="form-control" id="pass" placeholder="Wpisz hasło" aria-label="Wpisz hasło">
+            <input th:field="*{pass}" type="text" class="form-control" id="pass" placeholder="Wpisz hasło" aria-label="Wpisz hasło" required>
         </div>
 
         <button type="submit" class="btn save">Zapisz</button>
@@ -31,7 +31,7 @@
     <form id="updateTeacherForm" method="post" th:object="${model}">
         <div class="form-group">
             <label for="teacher">Wybierz nauczyciela do edycji</label>
-            <select th:field="*{user_id}" class="form-select form-select-lg mb-3" id="teacher" aria-label="Wybierz nauczyciela">
+            <select th:field="*{user_id}" class="form-select form-select-lg mb-3" id="teacher" aria-label="Wybierz nauczyciela" required>
                 <option  value="0"> wybierz nauczyciela </option>
                 <th:block th:each="teacher : ${teachers}" >
                     <option  th:value="${teacher.id}" th:text="${teacher.Name+' '+teacher.SurName}"></option>
@@ -40,17 +40,17 @@
         </div>
         <div class="form-group">
             <label for="name">Imie</label>
-            <input th:field="*{name}" type="text" class="form-control" id="name" placeholder="Wpisz imie" aria-label="Wpisz imie">
+            <input th:field="*{name}" type="text" class="form-control" id="name" placeholder="Wpisz imie" aria-label="Wpisz imie" required>
             <label for="surname">Nazwisko</label>
-            <input th:field="*{surname}" type="text" class="form-control" id="surname" placeholder="Wpisz nazwisko" aria-label="Wpisz nazwisko">
+            <input th:field="*{surname}" type="text" class="form-control" id="surname" placeholder="Wpisz nazwisko" aria-label="Wpisz nazwisko" required>
         </div>
         <div class="form-group">
             <label for="login">Login</label>
-            <input th:field="*{login}" type="text" class="form-control" id="login" placeholder="Wpisz login" aria-label="Wpisz login">
+            <input th:field="*{login}" type="text" class="form-control" id="login" placeholder="Wpisz login" aria-label="Wpisz login" required>
         </div>
         <div class="form-group">
             <label for="pass">Hasło</label>
-            <input th:field="*{pass}" type="text" class="form-control" id="pass" placeholder="Wpisz hasło" aria-label="Wpisz hasło">
+            <input th:field="*{pass}" type="text" class="form-control" id="pass" placeholder="Wpisz hasło" aria-label="Wpisz hasło" required>
         </div>
         <button type="submit" class="btn save">Zapisz</button>
     </form>
@@ -61,16 +61,16 @@
     <form id="deletePostForm" method="post" th:object="${model}">
         <div class="form-group">
             <label for="teacher">Wybierz nauczyciela do usunięcia</label>
-            <select th:field="*{user_id}" class="form-select form-select-lg mb-3" id="teacher" aria-label="Wybierz nauczyciela">
+            <select th:field="*{user_id}" class="form-select form-select-lg mb-3" id="teacher" aria-label="Wybierz nauczyciela" required>
                 <option  value="0"> wybierz nauczyciela </option>
                 <th:block th:each="teacher : ${teachers}" >
                     <option  th:value="${teacher.id}" th:text="${teacher.Name+' '+teacher.SurName}"></option>
                 </th:block>
             </select>
         </div>
-
         <button type="submit" class="btn save">Usuń</button>
     </form>
+    <script src="/js/teacherForm.js" charset="utf-8"></script>
 </div>
 
 </body>
