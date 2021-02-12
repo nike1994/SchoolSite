@@ -23,24 +23,33 @@ public class ClassService implements IClassService {
     }
 
     @Override
-    public void deleteClass(int id) {
-        classDao.removeClass(classDao.getClassByID(id));
+    public boolean deleteClass(int id) {
+        SchoolClass clas = classDao.getClassByID(id);
+        if (clas == null) return false;
+        classDao.removeClass(clas);
+        return true;
     }
 
     @Override
-    public void createClass(ClassModel model) {
+    public boolean createClass(ClassModel model) {
+        SchoolClass check = classDao.getClassByNameAndYear(model.getName(), model.getYear());
+        if (check != null) return false;
+
         SchoolClass clas = new SchoolClass();
         clas.setYear(model.getYear());
         clas.setName(model.getName());
         classDao.insertClass(clas);
+        return true;
     }
 
     @Override
-    public void updateClass(ClassModel model) {
+    public boolean updateClass(ClassModel model) {
         SchoolClass clas = classDao.getClassByID(model.getId());
+        if (clas == null) return false;
         clas.setName(model.getName());
         clas.setYear(model.getYear());
         classDao.updateClass(clas);
+        return true;
     }
 
     @Override

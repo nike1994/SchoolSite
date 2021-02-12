@@ -125,4 +125,22 @@ public class ClassDao implements IClassDao {
         session.close();
         return classes;
     }
+
+    @Override
+    public SchoolClass getClassByNameAndYear(String name, int year) {
+        Session session = this.sessionFactory.openSession();
+        Query<SchoolClass> query = session.createQuery("FROM "+this.model+" WHERE name = :name AND year =:year")
+                .setParameter("year", year)
+                .setParameter("name", name);
+        SchoolClass sClass = null;
+        try{
+            sClass= query.getSingleResult();
+        }catch (NoResultException e){
+            System.out.println("nie znaleziono klasy");
+            return null;
+        }finally {
+            session.close();
+        }
+        return sClass;
+    }
 }

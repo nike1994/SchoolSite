@@ -74,8 +74,8 @@ $( document ).ready(function() {
     });
 
     $('#createPostForm button').click(function(){
-            if($('#teacher').val() != 0 ){
-                $('#teacher')[0].setCustomValidity("");
+            if($('#pageParent').val() != 0 ){
+                $('#pageParent')[0].setCustomValidity("");
             }
     });
 

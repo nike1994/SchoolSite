@@ -115,14 +115,17 @@ public class SchoolRegisterService implements ISchoolRegisterService {
 
         Iterator<SchoolSubjects> schoolSubjectsIterator = subjects.iterator();
         while (schoolSubjectsIterator.hasNext()) {
-            JSONTable+="{\"name\":\""+schoolSubjectsIterator.next().getName()+"\", \"ocena\":\"\", \"_children\":[";
+            SchoolSubjects subject = schoolSubjectsIterator.next();
+            JSONTable+="{\"name\":\""+subject.getName()+"\", \"ocena\":\"\", \"_children\":[";
 
             Iterator<Grade> gradeIterator = grades.iterator();
             while (gradeIterator.hasNext()){
                 Grade grade = gradeIterator.next();
-                JSONTable+="{\"name\":\""+grade.getDescription()+"\",\"ocena\":\""+grade.getGrade()+"\"}";
-                if (gradeIterator.hasNext()){
-                    JSONTable+=",";
+                if(grade.getSubject().getId() == subject.getId()){
+                    JSONTable+="{\"name\":\""+grade.getDescription().replaceAll("\"", "\\\\\"")+"\",\"ocena\":\""+grade.getGrade()+"\"}";
+                    if (gradeIterator.hasNext()){
+                        JSONTable+=",";
+                    }
                 }
             }
 
@@ -147,21 +150,30 @@ public class SchoolRegisterService implements ISchoolRegisterService {
         //definicja wierszy {uczeń, ocena0, ..., ocenaN}
         String tableRow =",\"tableData\":[";
 
+        Map<String,String > descriptions = new HashMap<>();
         Iterator<Grade> gradeIterator = grades.listIterator();
         int index =0;
         while (gradeIterator.hasNext()){
-            tableConfiguration+=",{\"title\":\""+gradeIterator.next().getDescription()+"\", \"field\":\"ocena"+index+"\"}";
-            index++;
+            Grade grade = gradeIterator.next();
+            if(!descriptions.containsKey(grade.getDescription())){
+                tableConfiguration+=",{\"title\":\""+grade.getDescription().replaceAll("\"", "\\\\\"")+"\", \"field\":\"ocena"+index+"\"}";
+                descriptions.put(grade.getDescription(),"ocena"+index);
+                index++;
+            }
+
         }
         tableConfiguration+="]";
 
         Iterator<Pupil> pupilIterator = pupils.iterator();
+
         while (pupilIterator.hasNext()){
             Pupil pupil = pupilIterator.next();
             User user =pupil.getUser();
             tableRow+="{\"id\":\""+pupil.getId()+"\",\"pupil\":\""+user.getName()+" "+user.getSurName()+"\"";
-            for (int i =0; i<grades.size();i++){
-                tableRow+=",\"ocena"+i+"\":\""+grades.get(i).getGrade()+"\"";
+            for (int j =0; j<grades.size();j++){
+                if(grades.get(j).getPupil().getId() == pupil.getId()){
+                    tableRow+=",\""+descriptions.get(grades.get(j).getDescription())+"\":\""+grades.get(j).getGrade()+"\"";
+                }
             }
             tableRow+="}";
             if(pupilIterator.hasNext()){

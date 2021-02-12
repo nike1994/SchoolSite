@@ -1,19 +1,18 @@
 package pl.edu.wszib.school.website.helper;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
-import pl.edu.wszib.school.website.dao.*;
-import pl.edu.wszib.school.website.model.*;
-import pl.edu.wszib.school.website.services.IClassService;
-import pl.edu.wszib.school.website.services.IPageServices;
-import pl.edu.wszib.school.website.services.IPostServices;
-import pl.edu.wszib.school.website.services.IUserServices;
+import pl.edu.wszib.school.website.dao.IUserDao;
+import pl.edu.wszib.school.website.dao.IWebsiteInformationsDao;
+import pl.edu.wszib.school.website.model.Login;
+import pl.edu.wszib.school.website.model.User;
+import pl.edu.wszib.school.website.model.WebsiteInformations;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 @Component
 public class DataLoader implements ApplicationRunner {
@@ -22,153 +21,37 @@ public class DataLoader implements ApplicationRunner {
     private IWebsiteInformationsDao dao;
 
     @Autowired
-    IUserDao userDao;
-
-    @Autowired
-    IPageServices pageServices;
-
-    @Autowired
-    IPostServices postServices;
-
-    @Autowired
-    IClassService classService;
-
-    @Autowired
-    IParentDao parentDao;
-
-    @Autowired
-    IClassDao classDao;
-
-    @Autowired
-    IPupilDao pupilDao;
-
-    @Autowired
-    ISubjectDao subjectDao;
-
+    private IUserDao userDao;
 
     @Override
-    public void run(ApplicationArguments args) throws Exception {
+    public void run(ApplicationArguments args) {
+        WebsiteInformations info = dao.getInformations();
+        if (info == null){
+             info = new WebsiteInformations(
+                    "Sp Laskowa",
+                    "/img/logo.svg",
+                    new ArrayList<>(Arrays.asList("szkola@sp.pl")),
+                    new ArrayList<>(Arrays.asList("234-432-233","429-432-134")),
+                    new ArrayList<>(Arrays.asList("Home,Dziennik")));
 
-        WebsiteInformations info = new WebsiteInformations(
-                "Sp Laskowa",
-                "/img/logo.svg",
-                new ArrayList<String>(Arrays.asList("szkola@sp.pl")),
-                new ArrayList<String>(Arrays.asList("234-432-233","429-432-134")),
-                new ArrayList<String>(Arrays.asList("Home,Dziennik")));
+            dao.createInformations(info);
+        }
 
-        dao.createInformations(info);
+        List<User> admins = userDao.getUserByRole(User.Role.ADMIN);
+        if (admins.isEmpty()){
+            User admin = new User();
+            admin.setRole(User.Role.ADMIN);
+            admin.setName("Admin");
+            admin.setSurName("");
 
-        Page parent = new Page();
-        parent.setTitle("aktualności");
+            Login login = new Login();
+            login.setLogin("admin");
+            login.setPassword("admin");
+            login.setUser(admin);
 
-        Page child = new Page();
-        child.setTitle("Wiosna2021");
-        child.setParent(parent);
+            admin.setLogin(login);
 
-        Page child2 = new Page();
-        child2.setTitle("Wiosna2020");
-        child2.setParent(parent);
-
-        pageServices.createPage(parent);
-        int id_page = pageServices.createPage(child);
-        pageServices.createPage(child2);
-
-        Login login = new Login();
-        login.setLogin("admin");
-        login.setPassword("admin");
-        User user = new User();
-        user.setRole(User.Role.ADMIN);
-        user.setName("Wiki");
-        user.setSurName("Kozak");
-        user.setLogin(login);
-        login.setUser(user);
-
-        int id = userDao.insertUser(user);
-
-        Post post = new Post();
-        post.setAuthor(userDao.getUserByID(id));
-        post.setDate("12/12/12 23:00");
-        post.setPage(pageServices.getByID(id_page));
-        post.setTitle("tytul1");
-        post.setContent("tekst");
-
-        postServices.insertPost(post);
-
-        SchoolClass clas = new SchoolClass();
-        clas.setName("A");
-        clas.setYear(2020);
-
-        classService.createClass(clas);
-
-        User user1 = new User();
-        user1.setName("Anna");
-        user1.setSurName("Kowalska");
-        user1.setRole(User.Role.PARENT);
-
-        Login login1 = new Login();
-        login1.setLogin("AKowalska");
-        login1.setPassword("AKowalska");
-        login1.setUser(user1);
-
-        user1.setLogin(login1);
-
-        Parent parent1 = new Parent();
-        parent1.setUser(user1);
-
-        parentDao.insertParent(parent1);
-
-        User user2 = new User();
-        user2.setName("Tomasz");
-        user2.setSurName("Kowalski");
-        user2.setRole(User.Role.PUPIL);
-
-        Login login2 = new Login();
-        login2.setLogin("TKowalski");
-        login2.setPassword("123");
-        login2.setUser(user2);
-
-        user2.setLogin(login2);
-
-        SchoolClass clas2 = classDao.getClassByID(1);
-
-        Parent parent2 = parentDao.getByUserId(2);
-
-
-        Pupil pupil = new Pupil();
-        pupil.setsClass(clas2);
-        pupil.setUser(user2);
-        pupil.setParent(parent2);
-
-        pupilDao.insertPupil(pupil);
-
-        User teacher = new User();
-        teacher.setSurName("Nowak");
-        teacher.setName("Barbara");
-        teacher.setRole(User.Role.TEACHER);
-
-        Login teacherLogin = new Login();
-        teacherLogin.setPassword("123");
-        teacherLogin.setLogin("BNowak");
-        teacherLogin.setUser(teacher);
-        teacher.setLogin(teacherLogin);
-
-        int idTeacher =userDao.insertUser(teacher);
-        teacher.setId(idTeacher);
-
-        SchoolSubjects subject = new SchoolSubjects();
-        subject.setTeacher(teacher);
-        subject.setsClass(classDao.getClassByID(1));
-        subject.setName("przyroda");
-
-        subjectDao.insertSubject(subject);
-
-
-        subject.setName("matematyka");
-
-        subjectDao.insertSubject(subject);
-
-        subject.setName("j. polski");
-
-        subjectDao.insertSubject(subject);
+            userDao.insertUser(admin);
+        }
     }
 }

@@ -68,8 +68,8 @@ $( document ).ready(function() {
     });
 
     $('#createForm button').click(function(){
-            if($('#teacher').val() != 0 ){
-                $('#teacher')[0].setCustomValidity("");
+            if($('#parent').val() != 0 ){
+                $('#parent')[0].setCustomValidity("");
             }
             if($('#class').val() != 0 ){
                 $('#class')[0].setCustomValidity("");
@@ -107,8 +107,8 @@ $( document ).ready(function() {
     });
 
     $('#updateForm button').click(function(){
-            if($('#teacher').val() != 0 ){
-                $('#teacher')[0].setCustomValidity("");
+            if($('#parent').val() != 0 ){
+                $('#parent')[0].setCustomValidity("");
             }
             if($('#class').val() != 0 ){
                 $('#class')[0].setCustomValidity("");

@@ -54,7 +54,7 @@
                 <select th:field="*{id}" class="form-select form-select-lg mb-3" id="class" aria-label="Wybierz klasę" required>
                     <option  value="0"> wybierz kasę </option>
                     <th:block th:each="class : ${classes}" >
-                        <option  th:value="${class.id}" th:text="${class.name}"></option>
+                        <option  th:value="${class.id}" th:text="${class.name+' '+class.year}"></option>
                     </th:block>
                 </select>
             </div>

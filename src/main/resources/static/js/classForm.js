@@ -23,7 +23,7 @@ $( document ).ready(function() {
         format: " yyyy",
         viewMode: "years",
         minViewMode: "years",
-        startDate: new Date('2020')
+        startDate: new Date('2010')
     });
 
     $('#classEdit').change(function(e){

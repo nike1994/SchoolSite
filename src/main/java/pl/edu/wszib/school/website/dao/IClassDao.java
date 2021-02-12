@@ -12,5 +12,6 @@ public interface IClassDao {
 
     SchoolClass getClassByID(int id);
     SchoolClass getClassByUser(User user);
+    SchoolClass getClassByNameAndYear(String name, int year);
     List<SchoolClass> getAll();
 }

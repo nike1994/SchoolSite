@@ -74,16 +74,24 @@ $( document ).ready(function() {
     var subject = $("div.dropdown-menu a.dropdown-item.active").attr("id"); //aktywny przedmiot
     console.log(columns.length);
     for(let i=0; i<columns.length;i++){
-        console.log(columns[i].getField());
-        var cells = columns[i].getCells();
-        console.log(cells.length);
-        for(let j=0; j<cells.length;j++){
-            data.push({
-                    grade:cells[j].getValue(),
-                    pupil_id: cells[j].getRow().getData().id,
-                    description: columns[i].getDefinition().title,
-                    subject_id: subject
-                    });
+        if(columns[i].getDefinition().title == "" || columns[i].getDefinition().title == "wpisz opis"){
+                console.log(columns[i].getField());
+                var cells = columns[i].getCells();
+                console.log(cells.length);
+                for(let j=0; j<cells.length;j++){
+                    if(cells[j].getValue() != ""){
+                        data.push({
+                                grade:cells[j].getValue(),
+                                pupil_id: cells[j].getRow().getData().id,
+                                description: columns[i].getDefinition().title,
+                                subject_id: subject
+                                });
+                    }
+                }
+        }else{
+             $('#modalBoxTitle').html("Błąd !!");
+            $('#modalBoxBody').html("Nie uzupełniłeś opisu kolumny");
+            $('#modalBox').modal('show');
         }
     }
     console.log("tabela");
