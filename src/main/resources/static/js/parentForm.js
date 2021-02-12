@@ -40,4 +40,42 @@ $( document ).ready(function() {
         }
     });
 
+    $('#updateForm').on('submit',function(event){
+            if(!$('#updateForm')[0].checkValidity()){
+                event.preventDefault();
+                event.stopPropagation();
+                return false;
+            }
+            if($('#parent').val() == 0){
+                event.preventDefault();
+                event.stopPropagation();
+                $('#parent')[0].setCustomValidity("Nie wybrałeś rodzica");
+                $('#parent')[0].reportValidity();
+                return false;
+            }
+            $('#updateForm')[0].classList.add('was-validated')
+    });
+
+    $('#deleteForm').on('submit',function(event){
+            if(!$('#deleteForm')[0].checkValidity()){
+                event.preventDefault();
+                event.stopPropagation();
+                return false;
+            }
+            if($('#parent').val() == 0){
+                event.preventDefault();
+                event.stopPropagation();
+                $('#parent')[0].setCustomValidity("Nie wybrałeś rodzica");
+                $('#parent')[0].reportValidity();
+                return false;
+            }
+            $('#updateForm')[0].classList.add('was-validated')
+    });
+
+    $('form button').click(function(){
+            if($('#parent').val() != 0 ){
+                $('#parent')[0].setCustomValidity("");
+            }
+    });
+
 });

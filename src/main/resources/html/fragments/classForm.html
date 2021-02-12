@@ -10,11 +10,11 @@
         <form id="createForm" method="post" th:object="${model}">
             <div class="form-group">
                 <label for="name">Nazwa</label>
-                <input th:field="*{name}" type="text" class="form-control" id="name" placeholder="Nazwa klasy" aria-label="Wpisz nazwę klasy">
+                <input th:field="*{name}" type="text" class="form-control" id="name" placeholder="Nazwa klasy" aria-label="Wpisz nazwę klasy" required>
             </div>
             <div class="form-group">
                 <label for="year">Rok</label>
-                <input th:field="*{year}" type="text" class="form-control" id="year" placeholder="Rok" aria-label="Wpisz rocznik">
+                <input th:field="*{year}" type="text" class="form-control" id="year" placeholder="Rok" aria-label="Wpisz rocznik" required>
             </div>
             <button type="submit" class="btn save">Zapisz</button>
         </form>
@@ -27,7 +27,7 @@
         <form id="updateForm" method="post" th:object="${model}">
             <div class="form-group">
                 <label for="classEdit">Wybierz klasę do edycji</label>
-                <select th:field="*{id}" class="form-select form-select-lg mb-3" id="classEdit" aria-label="Wybierz klasę">
+                <select th:field="*{id}" class="form-select form-select-lg mb-3" id="classEdit" aria-label="Wybierz klasę" required>
                     <option  value="0"> wybierz klasę </option>
                     <th:block th:each="class : ${classes}" >
                         <option  th:value="${class.id}" th:text="${class.name}"></option>
@@ -36,11 +36,11 @@
             </div>
             <div class="form-group">
                 <label for="name">Nazwa</label>
-                <input th:field="*{name}" type="nazwa" class="form-control" id="name" placeholder="Nazwa klasy" aria-label="Wpisz nazwę klasy">
+                <input th:field="*{name}" type="nazwa" class="form-control" id="name" placeholder="Nazwa klasy" aria-label="Wpisz nazwę klasy" required>
             </div>
             <div class="form-group">
                 <label for="year">Rok</label>
-                <input th:field="*{year}" type="text" class="form-control" id="year" placeholder="Rok" aria-label="Wpisz rocznik">
+                <input th:field="*{year}" type="text" class="form-control" id="year" placeholder="Rok" aria-label="Wpisz rocznik" required>
             </div>
             <button type="submit" class="btn save">Zapisz zmiany</button>
         </form>
@@ -51,7 +51,7 @@
         <form id="deleteForm" method="post" th:object="${model}">
             <div class="form-group">
                 <label for="class">Wybierz klasę do usunięcia</label>
-                <select th:field="*{id}" class="form-select form-select-lg mb-3" id="class" aria-label="Wybierz klasę">
+                <select th:field="*{id}" class="form-select form-select-lg mb-3" id="class" aria-label="Wybierz klasę" required>
                     <option  value="0"> wybierz kasę </option>
                     <th:block th:each="class : ${classes}" >
                         <option  th:value="${class.id}" th:text="${class.name}"></option>

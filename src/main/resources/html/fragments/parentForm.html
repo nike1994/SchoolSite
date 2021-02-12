@@ -10,17 +10,17 @@
         <form id="createParentForm" method="post" th:object="${model}">
             <div class="form-group">
                 <label for="name">Imie</label>
-                <input th:field="*{name}" type="text" class="form-control" id="name" placeholder="Wpisz imie" aria-label="Wpisz imie">
+                <input th:field="*{name}" type="text" class="form-control" id="name" placeholder="Wpisz imie" aria-label="Wpisz imie" required>
                 <label for="surname">Nazwisko</label>
-                <input th:field="*{surname}" type="text" class="form-control" id="surname" placeholder="Wpisz nazwisko" aria-label="Wpisz nazwisko">
+                <input th:field="*{surname}" type="text" class="form-control" id="surname" placeholder="Wpisz nazwisko" aria-label="Wpisz nazwisko" required>
             </div>
             <div class="form-group">
                 <label for="login">Login</label>
-                <input th:field="*{login}" type="text" class="form-control" id="login" placeholder="Wpisz login" aria-label="Wpisz login">
+                <input th:field="*{login}" type="text" class="form-control" id="login" placeholder="Wpisz login" aria-label="Wpisz login" required>
             </div>
             <div class="form-group">
                 <label for="pass">Hasło</label>
-                <input th:field="*{pass}" type="text" class="form-control" id="pass" placeholder="Wpisz hasło" aria-label="Wpisz hasło">
+                <input th:field="*{pass}" type="text" class="form-control" id="pass" placeholder="Wpisz hasło" aria-label="Wpisz hasło" required>
             </div>
 
             <button type="submit" class="btn save">Zapisz</button>
@@ -28,10 +28,10 @@
     </div>
 
     <div class="form-box" th:fragment="updateForm(model,parents)">
-        <form id="updatePostForm" method="post" th:object="${model}">
+        <form id="updateForm" method="post" th:object="${model}">
             <div class="form-group">
                 <label for="parent">Wybierz rodzica do edycji</label>
-                <select th:field="*{user_id}" class="form-select form-select-lg mb-3" id="parent" aria-label="Wybierz rodzica">
+                <select th:field="*{user_id}" class="form-select form-select-lg mb-3" id="parent" aria-label="Wybierz rodzica" required>
                     <option  value="0"> wybierz rodzica </option>
                     <th:block th:each="parent : ${parents}" >
                         <option  th:value="${parent.id}" th:text="${parent.Name+' '+parent.SurName}"></option>
@@ -40,17 +40,17 @@
             </div>
             <div class="form-group">
                 <label for="name">Imie</label>
-                <input th:field="*{name}" type="text" class="form-control" id="name" placeholder="Wpisz imie" aria-label="Wpisz imie">
+                <input th:field="*{name}" type="text" class="form-control" id="name" placeholder="Wpisz imie" aria-label="Wpisz imie" required>
                 <label for="surname">Nazwisko</label>
-                <input th:field="*{surname}" type="text" class="form-control" id="surname" placeholder="Wpisz nazwisko" aria-label="Wpisz nazwisko">
+                <input th:field="*{surname}" type="text" class="form-control" id="surname" placeholder="Wpisz nazwisko" aria-label="Wpisz nazwisko" required>
             </div>
             <div class="form-group">
                 <label for="login">Login</label>
-                <input th:field="*{login}" type="text" class="form-control" id="login" placeholder="Wpisz login" aria-label="Wpisz login">
+                <input th:field="*{login}" type="text" class="form-control" id="login" placeholder="Wpisz login" aria-label="Wpisz login" required>
             </div>
             <div class="form-group">
                 <label for="pass">Hasło</label>
-                <input th:field="*{pass}" type="text" class="form-control" id="pass" placeholder="Wpisz hasło" aria-label="Wpisz hasło">
+                <input th:field="*{pass}" type="text" class="form-control" id="pass" placeholder="Wpisz hasło" aria-label="Wpisz hasło" required>
             </div>
             <button type="submit" class="btn save">Zapisz</button>
         </form>
@@ -58,10 +58,10 @@
     </div>
 
     <div class="form-box" th:fragment="deleteForm(model,parents)">
-        <form id="deletePostForm" method="post" th:object="${model}">
+        <form id="deleteForm" method="post" th:object="${model}">
             <div class="form-group">
                 <label for="parent">Wybierz rodzica do usunięcia</label>
-                <select th:field="*{user_id}" class="form-select form-select-lg mb-3" id="parent" aria-label="Wybierz rodzica">
+                <select th:field="*{user_id}" class="form-select form-select-lg mb-3" id="parent" aria-label="Wybierz rodzica" required>
                     <option  value="0"> wybierz rodzica </option>
                     <th:block th:each="parent : ${parents}" >
                         <option  th:value="${parent.id}" th:text="${parent.Name+' '+parent.SurName}"></option>
@@ -71,6 +71,7 @@
 
             <button type="submit" class="btn save">Usuń</button>
         </form>
+        <script src="/js/parentForm.js" charset="utf-8"></script>
     </div>
 
 </body>

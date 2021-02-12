@@ -13,7 +13,6 @@ function ajax(url,type,object,callback){
             alert(e.toString());
         }
     }
-    //xmlhttp.onreadystatechange = callback;
     xmlhttp.send(JSON.stringify(object));
 
 }
@@ -23,16 +22,6 @@ $( document ).ready(function() {
     $('#page').change(function(e){
         console.log($(this).val());
         if($(this).val()!=0){
-//            $.ajax({
-//                    url:"/post/getPostsByPage",
-//                    method:"POST",
-//                    data:{"id":$(this).val()},
-//                    dataType: "json",
-//                    contentType: "application/json",
-//             }).done(function(result) {
-//                 console.log(result)
-//             });
-// z jakiegoś powodu nie działa jquery ajax
             $('#post').empty();
             var callback = function(responseText){
                     posts = JSON.parse(responseText);
@@ -66,5 +55,91 @@ $( document ).ready(function() {
             $('#Title').val(post.title);
             $('#textPost').summernote('code', post.content);
         }
+    });
+
+    $('#createPostForm').on('submit',function(event){
+            if(!$('#createPostForm')[0].checkValidity()){
+                event.preventDefault();
+                event.stopPropagation();
+                return false;
+            }
+            if($('#pageParent').val() == 0){
+                event.preventDefault();
+                event.stopPropagation();
+                $('#pageParent')[0].setCustomValidity("Nie wybrałeś strony");
+                $('#pageParent')[0].reportValidity();
+                return false;
+            }
+            $('#createPostForm')[0].classList.add('was-validated')
+    });
+
+    $('#createPostForm button').click(function(){
+            if($('#teacher').val() != 0 ){
+                $('#teacher')[0].setCustomValidity("");
+            }
+    });
+
+    $('#updatePostForm').on('submit',function(event){
+            if(!$('#updatePostForm')[0].checkValidity()){
+                event.preventDefault();
+                event.stopPropagation();
+                return false;
+            }
+            if($('#page').val() == 0){
+                event.preventDefault();
+                event.stopPropagation();
+                $('#page')[0].setCustomValidity("Nie wybrałeś strony");
+                $('#page')[0].reportValidity();
+                return false;
+            }
+            if($('#post').val() == 0){
+                event.preventDefault();
+                event.stopPropagation();
+                $('#post')[0].setCustomValidity("Nie wybrałeś postu");
+                $('#post')[0].reportValidity();
+                return false;
+            }
+            $('#createPostForm')[0].classList.add('was-validated')
+    });
+
+    $('#updatePostForm button').click(function(){
+            if($('#page').val() != 0 ){
+                $('#page')[0].setCustomValidity("");
+            }
+            if($('#post').val() != 0 ){
+                $('#post')[0].setCustomValidity("");
+            }
+    });
+
+    $('#deletePostForm').on('submit',function(event){
+            if(!$('#deletePostForm')[0].checkValidity()){
+                event.preventDefault();
+                event.stopPropagation();
+                return false;
+            }
+            if($('#page').val() == 0){
+                event.preventDefault();
+                event.stopPropagation();
+                $('#page')[0].setCustomValidity("Nie wybrałeś strony");
+                $('#page')[0].reportValidity();
+                return false;
+            }
+            if($('#post').val() == 0){
+                event.preventDefault();
+                event.stopPropagation();
+                $('#post')[0].setCustomValidity("Nie wybrałeś postu");
+                $('#post')[0].reportValidity();
+                return false;
+            }
+            $('#createPostForm')[0].classList.add('was-validated')
+    });
+
+    $('#deletePostForm button').click(function(){
+            if($('#page').val() != 0 ){
+                $('#page')[0].setCustomValidity("");
+            }
+            if($('#post').val() != 0 ){
+                $('#post')[0].setCustomValidity("");
+            }
     });
 });

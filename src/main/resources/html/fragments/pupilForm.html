@@ -10,21 +10,21 @@
     <form id="createForm" method="post" th:object="${model}">
         <div class="form-group">
             <label for="name">Imie</label>
-            <input th:field="*{name}" type="text" class="form-control" id="name" placeholder="Wpisz imie" aria-label="Wpisz imie">
+            <input th:field="*{name}" type="text" class="form-control" id="name" placeholder="Wpisz imie" aria-label="Wpisz imie" required>
             <label for="surname">Nazwisko</label>
-            <input th:field="*{surname}" type="text" class="form-control" id="surname" placeholder="Wpisz nazwisko" aria-label="Wpisz nazwisko">
+            <input th:field="*{surname}" type="text" class="form-control" id="surname" placeholder="Wpisz nazwisko" aria-label="Wpisz nazwisko" required>
         </div>
         <div class="form-group">
             <label for="login">Login</label>
-            <input th:field="*{login}" type="text" class="form-control" id="login" placeholder="Wpisz login" aria-label="Wpisz login">
+            <input th:field="*{login}" type="text" class="form-control" id="login" placeholder="Wpisz login" aria-label="Wpisz login" required>
         </div>
         <div class="form-group">
             <label for="pass">Hasło</label>
-            <input th:field="*{pass}" type="text" class="form-control" id="pass" placeholder="Wpisz hasło" aria-label="Wpisz hasło">
+            <input th:field="*{pass}" type="text" class="form-control" id="pass" placeholder="Wpisz hasło" aria-label="Wpisz hasło" required>
         </div>
         <div class="form-group">
             <label for="parent">Wybierz rodzica</label>
-            <select th:field="*{parent_id}" class="form-select form-select-lg mb-3" id="parent" aria-label="Wybierz rodzica">
+            <select th:field="*{parent_id}" class="form-select form-select-lg mb-3" id="parent" aria-label="Wybierz rodzica" required>
                 <option  value="0"> wybierz rodzica </option>
                 <th:block th:each="parent : ${parents}" >
                     <option  th:value="${parent.id}" th:text="${parent.Name+' '+parent.SurName}"></option>
@@ -33,7 +33,7 @@
         </div>
         <div class="form-group">
             <label for="class">Wybierz klasę</label>
-            <select th:field="*{schoolClass_id}" class="form-select form-select-lg mb-3" id="class" aria-label="Wybierz klasę">
+            <select th:field="*{schoolClass_id}" class="form-select form-select-lg mb-3" id="class" aria-label="Wybierz klasę" required>
                 <option  value="0"> wybierz klasę </option>
                 <th:block th:each="clas : ${classes}" >
                     <option  th:value="${clas.id}" th:text="${clas.name}"></option>
@@ -49,7 +49,7 @@
     <form id="updateForm" method="post" th:object="${model}">
         <div class="form-group">
             <label for="pupil">Wybierz ucznia do edycji</label>
-            <select th:field="*{user_id}" class="form-select form-select-lg mb-3" id="pupil" aria-label="Wybierz ucznia">
+            <select th:field="*{user_id}" class="form-select form-select-lg mb-3" id="pupil" aria-label="Wybierz ucznia" required>
                 <option  value="0"> wybierz ucznia </option>
                 <th:block th:each="pupil : ${pupils}" >
                     <option  th:value="${pupil.id}" th:text="${pupil.Name+' '+pupil.SurName}"></option>
@@ -58,21 +58,21 @@
         </div>
         <div class="form-group">
             <label for="name">Imie</label>
-            <input th:field="*{name}" type="text" class="form-control" id="name" placeholder="Wpisz imie" aria-label="Wpisz imie">
+            <input th:field="*{name}" type="text" class="form-control" id="name" placeholder="Wpisz imie" aria-label="Wpisz imie" required>
             <label for="surname">Nazwisko</label>
-            <input th:field="*{surname}" type="text" class="form-control" id="surname" placeholder="Wpisz nazwisko" aria-label="Wpisz nazwisko">
+            <input th:field="*{surname}" type="text" class="form-control" id="surname" placeholder="Wpisz nazwisko" aria-label="Wpisz nazwisko" required>
         </div>
         <div class="form-group">
             <label for="login">Login</label>
-            <input th:field="*{login}" type="text" class="form-control" id="login" placeholder="Wpisz login" aria-label="Wpisz login">
+            <input th:field="*{login}" type="text" class="form-control" id="login" placeholder="Wpisz login" aria-label="Wpisz login" required>
         </div>
         <div class="form-group">
             <label for="pass">Hasło</label>
-            <input th:field="*{pass}" type="text" class="form-control" id="pass" placeholder="Wpisz hasło" aria-label="Wpisz hasło">
+            <input th:field="*{pass}" type="text" class="form-control" id="pass" placeholder="Wpisz hasło" aria-label="Wpisz hasło" required>
         </div>
         <div class="form-group">
             <label for="parent">Wybierz rodzica</label>
-            <select th:field="*{parent_id}" class="form-select form-select-lg mb-3" id="parent" aria-label="Wybierz rodzica">
+            <select th:field="*{parent_id}" class="form-select form-select-lg mb-3" id="parent" aria-label="Wybierz rodzica" required>
                 <option  value="0"> wybierz rodzica </option>
                 <th:block th:each="parent : ${parents}" >
                     <option  th:value="${parent.id}" th:text="${parent.Name+' '+parent.SurName}"></option>
@@ -81,7 +81,7 @@
         </div>
         <div class="form-group">
             <label for="class">Wybierz klasę</label>
-            <select th:field="*{schoolClass_id}" class="form-select form-select-lg mb-3" id="class" aria-label="Wybierz klasę">
+            <select th:field="*{schoolClass_id}" class="form-select form-select-lg mb-3" id="class" aria-label="Wybierz klasę" required>
                 <option  value="0"> wybierz klasę </option>
                 <th:block th:each="clas : ${classes}" >
                     <option  th:value="${clas.id}" th:text="${clas.name}"></option>
@@ -96,10 +96,10 @@
 
 
 <div class="form-box" th:fragment="deleteForm(model,pupils)">
-    <form id="deletePostForm" method="post" th:object="${model}">
+    <form id="deleteForm" method="post" th:object="${model}">
         <div class="form-group">
             <label for="pupil">Wybierz ucznia do usunięcia</label>
-            <select th:field="*{user_id}" class="form-select form-select-lg mb-3" id="pupil" aria-label="Wybierz ucznia">
+            <select th:field="*{user_id}" class="form-select form-select-lg mb-3" id="pupil" aria-label="Wybierz ucznia" required>
                 <option  value="0"> wybierz ucznia </option>
                 <th:block th:each="pupil : ${pupils}" >
                     <option  th:value="${pupil.id}" th:text="${pupil.Name+' '+pupil.SurName}"></option>

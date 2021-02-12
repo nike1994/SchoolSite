@@ -43,4 +43,26 @@ $( document ).ready(function() {
                 $('#year').val('');
             }
         });
+
+        $('form').on('submit',function(event){
+                if(!$('form')[0].checkValidity()){
+                    event.preventDefault();
+                    event.stopPropagation();
+                    return false;
+                }
+                if($('select').val() == 0){
+                    event.preventDefault();
+                    event.stopPropagation();
+                    $('select')[0].setCustomValidity("Nie wybrałeś klasy");
+                    $('select')[0].reportValidity();
+                    return false;
+                }
+                $('form')[0].classList.add('was-validated')
+        });
+
+        $('form button').click(function(){
+                if($('select').val() != 0 ){
+                    $('select')[0].setCustomValidity("");
+                }
+        });
 });

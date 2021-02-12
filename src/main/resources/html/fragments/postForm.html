@@ -10,11 +10,11 @@
         <form id="createPostForm" method="post" th:object="${model}">
             <div class="form-group">
                 <label for="Title">Tytuł</label>
-                <input th:field="*{title}" type="text" class="form-control" id="Title" placeholder="Tytuł postu" aria-label="Wpisz tytuł postu">
+                <input th:field="*{title}" type="text" class="form-control" id="Title" placeholder="Tytuł postu" aria-label="Wpisz tytuł postu" required>
             </div>
             <div class="form-group">
-                <label for="page">Wybierz stronę</label>
-                <select th:field="*{page_id}" class="form-select form-select-lg mb-3" id="page" aria-label="Wybierz stronę postu">
+                <label for="pageParent">Wybierz stronę</label>
+                <select th:field="*{page_id}" class="form-select form-select-lg mb-3" id="pageParent" aria-label="Wybierz stronę postu" required>
                     <th:block th:each="site : ${sites}" >
                         <th:block th:if="${#lists.isEmpty(site.children)}">
                             <option  th:value="${site.id}" th:text="${site.title}"></option>
@@ -28,15 +28,15 @@
             </div>
             <button type="submit" class="btn save">Zapisz</button>
         </form>
-
         <script src="/js/TextEditor.js" charset="utf-8"></script>
+        <script src="/js/postForm.js" charset="utf-8"></script>
     </div>
 
     <div class="form-box" th:fragment="updateForm(model,sites)">
         <form id="updatePostForm" method="post" th:object="${model}">
             <div class="form-group">
                 <label for="page">Wybierz stronę</label>
-                <select th:field="*{page_id}" class="form-select form-select-lg mb-3" id="page" aria-label="Wybierz stronę postu">
+                <select th:field="*{page_id}" class="form-select form-select-lg mb-3" id="page" aria-label="Wybierz stronę postu" required>
                     <option  value="0" > wybierz </option>
                     <th:block th:each="site : ${sites}" >
                         <th:block th:if="${#lists.isEmpty(site.children)}">
@@ -47,12 +47,12 @@
             </div>
             <div class="form-group">
                 <label for="post">Wybierz post</label>
-                <select th:field="*{post_id}" class="form-select form-select-lg mb-3" id="post" aria-label="Wybierz post do edycji">
+                <select th:field="*{post_id}" class="form-select form-select-lg mb-3" id="post" aria-label="Wybierz post do edycji" required>
                 </select>
             </div>
             <div class="form-group">
                 <label for="Title">Tytuł</label>
-                <input th:field="*{title}" type="text" class="form-control" id="Title" placeholder="Tytuł postu" aria-label="Wpisz tytuł postu">
+                <input th:field="*{title}" type="text" class="form-control" id="Title" placeholder="Tytuł postu" aria-label="Wpisz tytuł postu" required>
             </div>
             <div class="mb-3">
                 <label for="textPost" class="form-label">Zawartość Postu</label>
@@ -69,7 +69,7 @@
         <form id="deletePostForm" method="post" th:object="${model}">
             <div class="form-group">
                 <label for="page">Wybierz stronę</label>
-                <select th:field="*{page_id}" class="form-select form-select-lg mb-3" id="page" aria-label="Wybierz stronę postu">
+                <select th:field="*{page_id}" class="form-select form-select-lg mb-3" id="page" aria-label="Wybierz stronę postu" required>
                     <option  value="0" > wybierz </option>
                     <th:block th:each="site : ${sites}" >
                         <th:block th:if="${#lists.isEmpty(site.children)}">
@@ -80,7 +80,7 @@
             </div>
             <div class="form-group">
                 <label for="post">Wybierz post</label>
-                <select th:field="*{post_id}" class="form-select form-select-lg mb-3" id="post" aria-label="Wybierz post do edycji">
+                <select th:field="*{post_id}" class="form-select form-select-lg mb-3" id="post" aria-label="Wybierz post do edycji" required>
                 </select>
             </div>
             <button type="submit" class="btn save">Zapisz zmiany</button>

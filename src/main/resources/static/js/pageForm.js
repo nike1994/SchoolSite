@@ -46,4 +46,26 @@ $( document ).ready(function() {
         }
     });
 
+    $('form').on('submit',function(event){
+            if(!$('form')[0].checkValidity()){
+                event.preventDefault();
+                event.stopPropagation();
+                return false;
+            }
+            if($('#pageEdit').val() == 0){
+                event.preventDefault();
+                event.stopPropagation();
+                $('#pageEdit')[0].setCustomValidity("Nie wybrałeś strony");
+                $('#pageEdit')[0].reportValidity();
+                return false;
+            }
+            $('form')[0].classList.add('was-validated')
+    });
+
+    $('form button').click(function(){
+            if($('#pageEdit').val() != 0 ){
+                $('#pageEdit')[0].setCustomValidity("");
+            }
+    });
+
 });

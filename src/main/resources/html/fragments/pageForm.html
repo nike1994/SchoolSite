@@ -10,11 +10,11 @@
         <form id="createPostForm" method="post" th:object="${model}">
             <div class="form-group">
                 <label for="Title">Tytuł</label>
-                <input th:field="*{title}" type="text" class="form-control" id="Title" placeholder="Tytuł strony" aria-label="Wpisz tytuł strony">
+                <input th:field="*{title}" type="text" class="form-control" id="Title" placeholder="Tytuł strony" aria-label="Wpisz tytuł strony" required>
             </div>
             <div class="form-group">
                 <label for="page">Wybierz stronę rodzica</label>
-                <select th:field="*{parent_id}" class="form-select form-select-lg mb-3" id="page" aria-label="Wybierz stronę rodzica">
+                <select th:field="*{parent_id}" class="form-select form-select-lg mb-3" id="page" aria-label="Wybierz stronę rodzica" required>
                     <option  value="0"> -menu- </option>
                     <th:block th:each="site : ${sites}" >
                         <th:block th:if="${site.parent == null}">
@@ -33,7 +33,7 @@
         <form id="updatePostForm" method="post" th:object="${model}">
             <div class="form-group">
                 <label for="pageEdit">Wybierz stronę do edycji</label>
-                <select th:field="*{page_id}" class="form-select form-select-lg mb-3" id="pageEdit" aria-label="Wybierz stronę">
+                <select th:field="*{page_id}" class="form-select form-select-lg mb-3" id="pageEdit" aria-label="Wybierz stronę" required>
                     <option  value="0"> wybierz stronę </option>
                     <th:block th:each="site : ${sites}" >
                             <option  th:value="${site.id}" th:text="${site.title}"></option>
@@ -42,11 +42,11 @@
             </div>
             <div class="form-group">
                 <label for="Title">Tytuł</label>
-                <input th:field="*{title}" type="text" class="form-control" id="Title" placeholder="Tytuł strony" aria-label="Wpisz tytuł strony">
+                <input th:field="*{title}" type="text" class="form-control" id="Title" placeholder="Tytuł strony" aria-label="Wpisz tytuł strony" required>
             </div>
             <div class="form-group">
                 <label for="parentPage">Wybierz stronę rodzica</label>
-                <select th:field="*{parent_id}" class="form-select form-select-lg mb-3" id="parentPage" aria-label="Wybierz stronę rodzica">
+                <select th:field="*{parent_id}" class="form-select form-select-lg mb-3" id="parentPage" aria-label="Wybierz stronę rodzica" required>
                     <option  value="0"> -menu- </option>
                     <th:block th:each="site : ${sites}" >
                         <th:block th:if="${site.parent == null}">
@@ -63,8 +63,8 @@
     <div class="form-box" th:fragment="deleteForm(sites,model)">
         <form id="deletePostForm" method="post" th:object="${model}">
             <div class="form-group">
-                <label for="page">Wybierz stronę do usunięcia</label>
-                <select th:field="*{page_id}" class="form-select form-select-lg mb-3" id="page" aria-label="Wybierz stronę">
+                <label for="pageEdit">Wybierz stronę do usunięcia</label>
+                <select th:field="*{page_id}" class="form-select form-select-lg mb-3" id="pageEdit" aria-label="Wybierz stronę" required>
                     <option  value="0"> wybierz stronę </option>
                     <th:block th:each="site : ${sites}" >
                         <option  th:value="${site.id}" th:text="${site.title}"></option>
@@ -73,6 +73,7 @@
             </div>
             <button type="submit" class="btn save">Zapisz zmiany</button>
         </form>
+        <script src="/js/pageForm.js" charset="utf-8"></script>
     </div>
 </body>
 </html>

@@ -16,11 +16,6 @@ public class HomeController {
 
     @RequestMapping(value = "/Home", method = RequestMethod.GET)
     public String main(Model model) {
-
-
-// TODO: 31.01.2021 trzeba stworzyć możliwość edycji tekstowej zawartości strony
-// TODO: 06.02.2021 nie można wejść do trybu edycji nie będąc zalogowanym
-        // TODO: 06.02.2021 nie można dać dwóch stron o takich samych tytułach
         return "main";
     }
 

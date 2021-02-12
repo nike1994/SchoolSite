@@ -1,6 +1,5 @@
 package pl.edu.wszib.school.website.controllers;
 
-import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -8,9 +7,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import pl.edu.wszib.school.website.model.User;
-import pl.edu.wszib.school.website.model.View.PageModel;
 import pl.edu.wszib.school.website.model.View.ParentModel;
-import pl.edu.wszib.school.website.services.IClassService;
 import pl.edu.wszib.school.website.services.IUserServices;
 import pl.edu.wszib.school.website.session.SessionObject;
 
