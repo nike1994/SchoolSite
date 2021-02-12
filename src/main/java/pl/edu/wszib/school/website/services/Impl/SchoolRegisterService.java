@@ -119,12 +119,15 @@ public class SchoolRegisterService implements ISchoolRegisterService {
             JSONTable+="{\"name\":\""+subject.getName()+"\", \"ocena\":\"\", \"_children\":[";
 
             Iterator<Grade> gradeIterator = grades.iterator();
+            int i =0;
             while (gradeIterator.hasNext()){
                 Grade grade = gradeIterator.next();
                 if(grade.getSubject().getId() == subject.getId()){
-                    JSONTable+="{\"name\":\""+grade.getDescription().replaceAll("\"", "\\\\\"")+"\",\"ocena\":\""+grade.getGrade()+"\"}";
-                    if (gradeIterator.hasNext()){
-                        JSONTable+=",";
+                    if(i==0){
+                        JSONTable+="{\"name\":\""+grade.getDescription().replaceAll("\"", "\\\\\"")+"\",\"ocena\":\""+grade.getGrade()+"\"}";
+                        i++;
+                    }else{
+                        JSONTable+=",{\"name\":\""+grade.getDescription().replaceAll("\"", "\\\\\"")+"\",\"ocena\":\""+grade.getGrade()+"\"}";
                     }
                 }
             }

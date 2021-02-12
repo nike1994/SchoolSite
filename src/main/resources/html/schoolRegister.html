@@ -54,10 +54,10 @@
                             <div class="dropdown-menu">
                                 <th:block th:each="child, iter :${dropdown}">
                                     <th:block th:if="${iter.index} == 0">
-                                        <a class="dropdown-item active" href="" th:id="${child.id}" th:text="${child.user.Name+' '+child.user.SurName}">dziecko1</a>
+                                        <a class="dropdown-item active" href="#" th:id="${child.id}" th:text="${child.user.Name+' '+child.user.SurName}">dziecko1</a>
                                     </th:block>
                                     <th:block th:unless="${iter.index} == 0">
-                                        <a class="dropdown-item" href="" th:id="${child.id}" th:text="${child.user.Name+' '+child.user.SurName}">dziecko1</a>
+                                        <a class="dropdown-item" href="#" th:id="${child.id}" th:text="${child.user.Name+' '+child.user.SurName}">dziecko1</a>
                                     </th:block>
                                 </th:block>
                             </div>
