@@ -1,7 +1,5 @@
 package pl.edu.wszib.school.website.model;
 
-import org.hibernate.annotations.Cascade;
-
 import javax.persistence.*;
 
 @Entity(name="Users")

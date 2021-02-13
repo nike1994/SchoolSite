@@ -34,6 +34,8 @@ public class SubjectService implements ISubjectServices {
 
     @Override
     public boolean createSubject(SubjectModel model) {
+        if (model.getName() == "") return false;
+
         SchoolSubjects subject = new SchoolSubjects();
         subject.setName(model.getName());
 
@@ -66,6 +68,8 @@ public class SubjectService implements ISubjectServices {
 
     @Override
     public boolean updateSubject(SubjectModel model) {
+        if (model.getName() == "") return false;
+
         SchoolSubjects subject = subjectDao.getSubjectByID(model.getId());
 
         if(subject == null) return false;

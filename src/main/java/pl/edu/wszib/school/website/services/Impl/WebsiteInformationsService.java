@@ -34,12 +34,19 @@ public class WebsiteInformationsService implements IWebsiteInformationsService {
     @Override
     public void updateInformations(AllWebsiteInformationsModel model, MultipartFile file) {
         WebsiteInformations websiteInformations = infoDao.getInformations();
-        websiteInformations.setTelephons(model.getTelephons());
 
-        websiteInformations.setEmails(model.getEmails());
+        if (!model.getTelephons().isEmpty()) {
+            allWbInfModel.setTelephons(model.getTelephons());
+            websiteInformations.setTelephons(model.getTelephons());
+        }
 
-        StringBuilder sb = new StringBuilder();
+        if (!model.getEmails().isEmpty()){
+            allWbInfModel.setEmails(model.getEmails());
+            websiteInformations.setEmails(model.getEmails());
+        }
+
         if(!file.isEmpty()){
+            StringBuilder sb = new StringBuilder();
             sb.append("data:image/png;base64,");
             try {
                 sb.append(Base64.getEncoder().encodeToString(file.getBytes()));
@@ -50,13 +57,12 @@ public class WebsiteInformationsService implements IWebsiteInformationsService {
 
             }
         }
-        websiteInformations.setSiteName(model.getSiteName());
+        if (model.getSiteName() != ""){
+            allWbInfModel.setSiteName(model.getSiteName());
+            websiteInformations.setSiteName(model.getSiteName());
+        }
 
         infoDao.updateInfomations(websiteInformations);
-
-        allWbInfModel.setTelephons(model.getTelephons());
-        allWbInfModel.setEmails(model.getEmails());
-        allWbInfModel.setSiteName(model.getSiteName());
 
     }
 

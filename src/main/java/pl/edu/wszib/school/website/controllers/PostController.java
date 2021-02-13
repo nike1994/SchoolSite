@@ -6,12 +6,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import pl.edu.wszib.school.website.model.Post;
 import pl.edu.wszib.school.website.model.User;
 import pl.edu.wszib.school.website.model.View.PostModel;
 import pl.edu.wszib.school.website.services.IPageServices;
 import pl.edu.wszib.school.website.services.IPostServices;
-import pl.edu.wszib.school.website.services.IUserServices;
 import pl.edu.wszib.school.website.session.SessionObject;
 
 import javax.annotation.Resource;

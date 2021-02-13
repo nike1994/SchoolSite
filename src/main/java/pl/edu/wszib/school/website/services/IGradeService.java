@@ -1,6 +1,5 @@
 package pl.edu.wszib.school.website.services;
 
-import pl.edu.wszib.school.website.model.SchoolSubjects;
 import pl.edu.wszib.school.website.model.View.GradeModel;
 
 public interface IGradeService {

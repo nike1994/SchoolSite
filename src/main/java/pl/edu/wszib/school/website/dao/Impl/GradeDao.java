@@ -12,7 +12,6 @@ import pl.edu.wszib.school.website.model.Pupil;
 import pl.edu.wszib.school.website.model.SchoolSubjects;
 
 import javax.persistence.NoResultException;
-import javax.security.auth.Subject;
 import java.util.List;
 
 @Repository

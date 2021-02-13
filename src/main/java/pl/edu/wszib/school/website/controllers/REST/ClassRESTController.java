@@ -5,7 +5,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import pl.edu.wszib.school.website.services.IClassService;
-import pl.edu.wszib.school.website.services.IPageServices;
 
 import java.util.LinkedHashMap;
 

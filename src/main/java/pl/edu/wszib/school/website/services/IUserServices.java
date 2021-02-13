@@ -1,7 +1,6 @@
 package pl.edu.wszib.school.website.services;
 
 import pl.edu.wszib.school.website.model.Login;
-import pl.edu.wszib.school.website.model.Parent;
 import pl.edu.wszib.school.website.model.User;
 import pl.edu.wszib.school.website.model.View.ParentModel;
 import pl.edu.wszib.school.website.model.View.PasswordUpdateModel;

@@ -7,7 +7,6 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import pl.edu.wszib.school.website.dao.IWebsiteInformationsDao;
-import pl.edu.wszib.school.website.model.User;
 import pl.edu.wszib.school.website.model.WebsiteInformations;
 
 import javax.persistence.NoResultException;

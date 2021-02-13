@@ -6,9 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.edu.wszib.school.website.dao.*;
 import pl.edu.wszib.school.website.model.*;
-import pl.edu.wszib.school.website.model.View.*;
+import pl.edu.wszib.school.website.model.View.ParentModel;
+import pl.edu.wszib.school.website.model.View.PasswordUpdateModel;
+import pl.edu.wszib.school.website.model.View.PupilModel;
+import pl.edu.wszib.school.website.model.View.TeacherModel;
 import pl.edu.wszib.school.website.services.IUserServices;
 import pl.edu.wszib.school.website.session.SessionObject;
+
 import javax.annotation.Resource;
 import java.util.List;
 
@@ -38,12 +42,21 @@ public class UserService implements IUserServices {
         Login loginCheck = loginDao.getByLogin(model.getLogin());
         if(loginCheck == null) {
             User user = new User();
+            if (model.getName()=="") return 0;
+
             user.setName(model.getName());
+
+            if (model.getSurname()=="") return 0;
+
             user.setSurName(model.getSurname());
+
             user.setRole(User.Role.PUPIL);
 
             Login login = new Login();
             login.setLogin(model.getLogin());
+
+            if (model.getPass()=="") return 0;
+
             login.setPassword(model.getPass());
             login.setUser(user);
 
@@ -53,11 +66,8 @@ public class UserService implements IUserServices {
 
             if (clas == null) return 0;
 
-            System.out.println();
-            System.out.println(model.getParent_id());
-            System.out.println();
             Parent parent = parentDao.getByUserId(model.getParent_id());
-            System.out.println(parent);
+            if(parent == null) return 0;
 
             Pupil pupil = new Pupil();
             pupil.setsClass(clas);
@@ -72,7 +82,8 @@ public class UserService implements IUserServices {
     @Override
     public int createTeacher(TeacherModel model) {
         Login loginCheck = loginDao.getByLogin(model.getLogin());
-        if(loginCheck == null){
+        if(loginCheck == null && model.getName() !="" && model.getLogin()!=""
+                && model.getSurname()!="" && model.getPass()!=""){
             User user = new User();
             user.setName(model.getName());
             user.setSurName(model.getSurname());
@@ -93,7 +104,8 @@ public class UserService implements IUserServices {
     @Override
     public int createParent(ParentModel model) {
         Login loginCheck = loginDao.getByLogin(model.getLogin());
-        if(loginCheck == null) {
+        if(loginCheck == null && model.getName() !="" && model.getLogin()!=""
+                && model.getSurname()!="" && model.getPass()!="") {
             User user = new User();
             user.setName(model.getName());
             user.setSurName(model.getSurname());
@@ -121,17 +133,20 @@ public class UserService implements IUserServices {
 
     @Override
     public boolean updateParent(ParentModel model) {
-        Login loginCheck = loginDao.getByLogin(model.getLogin());
+        if (model.getPass() == "" || model.getLogin() == ""
+                || model.getName() == "" || model.getSurname() == "")
+            return false;
 
+        Login loginCheck = loginDao.getByLogin(model.getLogin());
         if (loginCheck != null){
-            if(loginCheck.getUser().getId() == model.getUser_id()) {
+            if(loginCheck.getUser().getId() != model.getUser_id()) {
                 return false;
             }
         }
 
         User user = userDao.getUserByID(model.getUser_id());
 
-        if (user ==null) return false;
+        if (user == null) return false;
 
         user.setName(model.getName());
         user.setSurName(model.getSurname());
@@ -147,6 +162,9 @@ public class UserService implements IUserServices {
 
     @Override
     public boolean updatePupil(PupilModel model) {
+        if (model.getPass() == "" || model.getLogin() == ""
+                || model.getName() == "" || model.getSurname() == "")
+            return false;
 
         Login loginCheck = loginDao.getByLogin(model.getLogin());
         if(loginCheck != null){
@@ -171,6 +189,9 @@ public class UserService implements IUserServices {
 
     @Override
     public boolean updateTeacher(TeacherModel model) {
+        if (model.getPass() == "" || model.getLogin() == ""
+                || model.getName() == "" || model.getSurname() == "")
+            return false;
 
         Login loginCheck = loginDao.getByLogin(model.getLogin());
         if(loginCheck != null){

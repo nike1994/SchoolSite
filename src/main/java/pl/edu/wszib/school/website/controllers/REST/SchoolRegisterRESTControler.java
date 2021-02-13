@@ -2,7 +2,6 @@ package pl.edu.wszib.school.website.controllers.REST;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import pl.edu.wszib.school.website.services.Impl.GradeService;
 import pl.edu.wszib.school.website.services.Impl.SchoolRegisterService;
 import pl.edu.wszib.school.website.session.SessionObject;
 

@@ -2,9 +2,7 @@ package pl.edu.wszib.school.website.controllers.REST;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import pl.edu.wszib.school.website.dao.IPupilDao;
 import pl.edu.wszib.school.website.services.IPupilService;
-import pl.edu.wszib.school.website.services.IUserServices;
 
 import java.util.LinkedHashMap;
 

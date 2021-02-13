@@ -2,11 +2,13 @@ package pl.edu.wszib.school.website.services.Impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pl.edu.wszib.school.website.dao.*;
+import pl.edu.wszib.school.website.dao.IGradeDao;
+import pl.edu.wszib.school.website.dao.IParentDao;
+import pl.edu.wszib.school.website.dao.IPupilDao;
+import pl.edu.wszib.school.website.dao.ISubjectDao;
 import pl.edu.wszib.school.website.model.*;
 import pl.edu.wszib.school.website.services.ISchoolRegisterService;
 
-import javax.security.auth.Subject;
 import java.util.*;
 
 @Service
@@ -66,23 +68,28 @@ public class SchoolRegisterService implements ISchoolRegisterService {
            return false;
         }else{
             //każda ocena w tablicy ma ten sam przedmiot
-            System.out.println();
-            System.out.println(JSON.size());
-            System.out.println();
+            if (!JSON.get(0).containsKey("subject_id")) return false;
             SchoolSubjects subject = subjectDao.getSubjectByID(Integer.parseInt(JSON.get(0).get("subject_id")));
+
+            if (subject==null) return false;
 
             for (Map<String,String> gradeJSON: JSON) {
                 Grade grade = new Grade();
-                grade.setGrade(Integer.parseInt(gradeJSON.get("grade")));
-                System.out.println(grade.getGrade());
-                grade.setDescription(gradeJSON.get("description"));
-                System.out.println(grade.getDescription());
-                grade.setSubject(subject);
-                System.out.println(grade.getSubject().getId());
 
+                if (!gradeJSON.containsKey("subject_id")) return false;
+                grade.setGrade(Integer.parseInt(gradeJSON.get("grade")));
+
+                if (!gradeJSON.containsKey("description")) return false;
+                grade.setDescription(gradeJSON.get("description"));
+
+                grade.setSubject(subject);
+
+
+                if (!gradeJSON.containsKey("pupil_id")) return false;
                 Pupil pupil = pupilDao.getPupilByID(Integer.parseInt(gradeJSON.get("pupil_id")));
+
+                if(pupil == null) return false;
                 grade.setPupil(pupil);
-                System.out.println(grade.getPupil().getId());
 
                 gradeDao.insertGrade(grade);
             }

@@ -52,7 +52,11 @@ public class PostServices implements IPostServices {
     @Override
     public boolean updatePost(PostModel model) {
         Post post = postDao.getByID(model.getPost_id());
-        if (post == null || model.getTitle().isEmpty() || model.getContent().isEmpty()) return false;
+
+        if (post == null || model.getTitle() == "" || model.getContent()==""
+                || model.getAuthor() == null || model.getDate() == null)
+            return false;
+
         post.setTitle(model.getTitle());
         post.setContent(model.getContent());
         postDao.updatePost(post);
@@ -61,6 +65,9 @@ public class PostServices implements IPostServices {
 
     @Override
     public boolean createPost(PostModel model) {
+        if(model.getTitle()=="" || model.getContent()=="") return false;
+        if (model.getAuthor()== null || model.getDate() == null) return false;
+
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
 
 

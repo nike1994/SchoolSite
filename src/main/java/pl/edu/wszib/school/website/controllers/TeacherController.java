@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import pl.edu.wszib.school.website.model.User;
 import pl.edu.wszib.school.website.model.View.ParentModel;
-import pl.edu.wszib.school.website.model.View.PupilModel;
 import pl.edu.wszib.school.website.model.View.TeacherModel;
 import pl.edu.wszib.school.website.services.IUserServices;
 import pl.edu.wszib.school.website.session.SessionObject;

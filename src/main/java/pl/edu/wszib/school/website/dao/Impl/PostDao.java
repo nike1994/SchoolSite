@@ -9,7 +9,6 @@ import org.springframework.stereotype.Repository;
 import pl.edu.wszib.school.website.dao.IPostDao;
 import pl.edu.wszib.school.website.model.Page;
 import pl.edu.wszib.school.website.model.Post;
-import pl.edu.wszib.school.website.model.SchoolSubjects;
 import pl.edu.wszib.school.website.model.User;
 
 import javax.persistence.NoResultException;

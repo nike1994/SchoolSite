@@ -1,21 +1,16 @@
 package pl.edu.wszib.school.website.controllers.REST;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import pl.edu.wszib.school.website.model.Page;
-import pl.edu.wszib.school.website.model.Post;
 import pl.edu.wszib.school.website.services.IPageServices;
 import pl.edu.wszib.school.website.services.IPostServices;
 import pl.edu.wszib.school.website.session.SessionObject;
 
 import javax.annotation.Resource;
 import java.util.LinkedHashMap;
-import java.util.List;
 
 @RestController
 @RequestMapping("/post")

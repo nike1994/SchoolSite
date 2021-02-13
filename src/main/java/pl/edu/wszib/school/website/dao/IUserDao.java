@@ -1,7 +1,5 @@
 package pl.edu.wszib.school.website.dao;
 
-import pl.edu.wszib.school.website.model.Parent;
-import pl.edu.wszib.school.website.model.SchoolClass;
 import pl.edu.wszib.school.website.model.User;
 
 import java.util.List;

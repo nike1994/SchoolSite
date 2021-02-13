@@ -10,7 +10,6 @@ import pl.edu.wszib.school.website.dao.IPupilDao;
 import pl.edu.wszib.school.website.model.Parent;
 import pl.edu.wszib.school.website.model.Pupil;
 import pl.edu.wszib.school.website.model.SchoolClass;
-import pl.edu.wszib.school.website.model.User;
 
 import javax.persistence.NoResultException;
 import java.util.List;

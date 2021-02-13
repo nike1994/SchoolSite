@@ -8,12 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import pl.edu.wszib.school.website.dao.ILoginDao;
 import pl.edu.wszib.school.website.model.Login;
-import pl.edu.wszib.school.website.model.Page;
-import pl.edu.wszib.school.website.model.SchoolSubjects;
 import pl.edu.wszib.school.website.model.User;
 
 import javax.persistence.NoResultException;
-import java.util.List;
 
 @Repository
 public class LoginDao implements ILoginDao {
