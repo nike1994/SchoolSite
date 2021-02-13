@@ -28,8 +28,10 @@ public class PageService implements IPageServices {
 
     @Override
     public boolean createPage(PageModel model) {
+        if(model.getTitle() == "") return false;
+
         Page check =pageDao.getByTitle(model.getTitle());
-        if (check !=null) return false;
+        if (check != null) return false;
 
         Page parent= null;
         if(model.getParent_id()!=0){
@@ -53,6 +55,8 @@ public class PageService implements IPageServices {
 
     @Override
     public boolean updatePage(PageModel model) {
+
+        if(model.getTitle() == "") return false;
 
         Page page = pageDao.getByID(model.getPage_id());
         if (page == null) return false;

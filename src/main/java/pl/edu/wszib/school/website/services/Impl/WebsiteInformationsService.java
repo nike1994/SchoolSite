@@ -92,7 +92,9 @@ public class WebsiteInformationsService implements IWebsiteInformationsService {
 
     @Override
     public void updatePages(){
-        this.allWbInfModel.setAllsites(getSites());
+        if (this.allWbInfModel != null){
+            this.allWbInfModel.setAllsites(getSites());
+        }
     }
 
     @Override
