@@ -1,5 +1,5 @@
 # SchoolSite
-##simple school website with school register
+simple school website with school register
 
 
 ## Technologies
