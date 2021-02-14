@@ -11,6 +11,7 @@ Project is created with:
 * TabulatorJS 4.9.3
 
 ## Features
+* After starting the application creates the database itself
 * Admin can create pages with posts
 * Admin can create accounts for pupils, parents and teachers
 * Admin can create class
