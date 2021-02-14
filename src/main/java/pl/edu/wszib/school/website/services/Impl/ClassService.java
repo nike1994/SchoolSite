@@ -32,20 +32,28 @@ public class ClassService implements IClassService {
 
     @Override
     public boolean createClass(ClassModel model) {
+        if (model.getName()==null || model.getName() =="" || model.getYear() == 0)
+            return false;
+
         SchoolClass check = classDao.getClassByNameAndYear(model.getName(), model.getYear());
         if (check != null) return false;
 
         SchoolClass clas = new SchoolClass();
         clas.setYear(model.getYear());
         clas.setName(model.getName());
+
         classDao.insertClass(clas);
         return true;
     }
 
     @Override
     public boolean updateClass(ClassModel model) {
+        if (model.getName()==null || model.getName() =="" || model.getYear() == 0)
+            return false;
+
         SchoolClass clas = classDao.getClassByID(model.getId());
         if (clas == null) return false;
+
         clas.setName(model.getName());
         clas.setYear(model.getYear());
         classDao.updateClass(clas);
